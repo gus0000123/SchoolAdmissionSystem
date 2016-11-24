@@ -1,4 +1,4 @@
-<div id="body-wrapper">
+<article id="body-wrapper">
 	<!-- Body content -->
 	<div id="body-content">
 		<jsp:include page="../../body/home/sections/header.jsp" />
@@ -17,4 +17,4 @@
 			</div>
 		</div>
 	</div>
-</div>
+</article>

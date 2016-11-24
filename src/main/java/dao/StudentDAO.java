@@ -1,12 +1,10 @@
 package dao;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import beans.Student;
-import util.Utilities;
 
 public class StudentDAO implements DAO<Student, Integer>
 {
