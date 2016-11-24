@@ -1,0 +1,59 @@
+@CHARSET "ISO-8859-1";
+
+form table {
+	width: 90%;
+	margin-bottom: 20px;
+}
+
+.name-column {
+	padding-top: 15px;
+	width: 35%;
+}
+
+.input-column {
+	padding-top: 15px;
+	width: 70%;
+}
+
+form table tr td,
+form table tr th {
+	padding: 5px;
+}
+
+form table tr th {
+	font-size: 140%;
+	text-align: left;
+	padding-bottom: 15px;
+	border-bottom: 1px solid rgba(100, 100, 100, 0.4);
+}
+
+td label {
+	position: relative;
+	display: block;
+	font-size: 90%;
+	text-align: right;
+}
+
+td input[type=text],
+td input[type=password] {
+	width: 50%;
+	min-width: 150px;
+}
+
+#cur-password-txt, #new-password-txt, #cfm-password-txt {
+	display: none;
+}
+
+#cur-password-btn, #new-password-btn, #cfm-password-btn {
+	border: none;
+	outline: none;
+	background: none;
+	font-size: 60%;
+	vertical-align: middle;
+	cursor: pointer;
+	color: rgb(100, 100, 100);
+}
+
+.error {
+	border-color: rgb(255, 0, 0);
+}
