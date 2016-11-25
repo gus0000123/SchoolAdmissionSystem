@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import beans.Person;
 import beans.Student;
 import beans.User;
+import dao.DAO;
 import dao.PersonDAO;
+import dao.StudentDAO;
 import dao.UserDAO;
 import hibernate.HibernateUtil;
 
@@ -84,17 +86,15 @@ public class ToolTransition extends HttpServlet
 		
 		request.setAttribute("tableHeader", tableColumn);
 		
-		try 
+		List<User> list = dao.getAll(); 
+		if (list == null)
 		{
-			List<User> list = dao.getAll();
-			request.setAttribute("list", list);
-			
-			return TOOL_URL;
-		}
-		catch (ClassNotFoundException | SQLException e)
-		{
-			e.printStackTrace();
 			return HOME_URL;
+		}
+		else
+		{
+			request.setAttribute("list", list);
+			return TOOL_URL;
 		}
 	}
 	
@@ -115,27 +115,23 @@ public class ToolTransition extends HttpServlet
 		
 		request.setAttribute("tableHeader", tableColumn);
 		
-		try
+		List<Person> list = dao.getAll(); 
+		if (list == null)
 		{
-			List<Person> list = dao.getAll();
-			
-			if (list == null) throw new SQLException("No connection");
-			
-			request.setAttribute("list", list);
-			
-			return TOOL_URL;
-		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
 			return HOME_URL;
+		}
+		else
+		{
+			request.setAttribute("list", list);
+			return TOOL_URL;
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	private String getStudentContext(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-				ArrayList<String> tableColumn = new ArrayList<>();
+		StudentDAO dao = StudentDAO.getInstance();
+		
+		ArrayList<String> tableColumn = new ArrayList<>();
 		tableColumn.add("Person ID");
 		tableColumn.add("Admission Status");
 		tableColumn.add("Major");
@@ -145,7 +141,7 @@ public class ToolTransition extends HttpServlet
 		
 		request.setAttribute("tableHeader", tableColumn);
 		
-		List<Student> list = HibernateUtil.loadAll(Student.class);
+		List<Student> list = dao.getAll();
 		if (list == null)
 		{
 			return HOME_URL;

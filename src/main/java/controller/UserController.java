@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import dao.*;
 import beans.User;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Servlet implementation class PersonController
@@ -29,28 +30,36 @@ public class UserController extends HttpServlet
     	HttpSession session = request.getSession();
     	
     	String url = "/index.jsp";
-    	/*
     	String user = request.getParameter("user");
     	String password = request.getParameter("password");
     	
     	UserDAO dao = UserDAO.getInstance();
-    	User u = null;
-    	try
+    	List<User> list = dao.getAll();
+    	
+    	boolean userMatch = false;
+    	boolean passwordMatch = false;
+    	
+    	// Check user and password
+    	for (User u : list)
     	{
-    		u = dao.getByPrimaryKey(user);
-	    	if (u != null)
-	    	{
-	    		if (u.getPassword().equals(password))
-	    		{*/
-	    			url = "/pages/layout/homeApp.jsp";
-	    			//session.setAttribute("user", u);
-	    			request.setAttribute("tab", "overview");
-	    /*		}
-	    	}
+		    if (u.getUser().equals(user))
+		    {
+		    	userMatch = true;
+		    	if (u.getPassword().equals(password))
+		    	{
+			    	url = "/pages/layout/homeApp.jsp";
+			    	session.setAttribute("user", u);
+			    	request.setAttribute("tab", "overview");
+			    	passwordMatch = true;
+		    	}
+		    	break;
+		    }
     	}
-    	catch (SQLException|ClassNotFoundException e)
-    	{ }
-    	*/
+    	
+    	// Sending error
+    	if (!userMatch) request.setAttribute("error", "user");
+    	else if (!passwordMatch) request.setAttribute("error", "password");
+    	
     	// Forward
     	getServletContext()
     		.getRequestDispatcher(url)

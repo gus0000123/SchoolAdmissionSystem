@@ -2,6 +2,7 @@ package hibernate;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -33,6 +34,7 @@ public class HibernateUtil
 		Session session = getSession();
 		session.beginTransaction();
 		session.save(o);
+		Hibernate.initialize(o);
 		session.getTransaction().commit();
 		session.close();
 	}

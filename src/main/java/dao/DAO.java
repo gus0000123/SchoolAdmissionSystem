@@ -1,6 +1,5 @@
 package dao;
 
-import java.sql.*;
 import java.util.List;
 
 /**
@@ -10,11 +9,11 @@ import java.util.List;
  * @param <T> Object Type
  * @param <U> ID Type
  */
-public interface DAO<T, U>
+public interface DAO<T>
 {
-	int insert(T o) throws SQLException, ClassNotFoundException;
-	int update(T o) throws SQLException, ClassNotFoundException;
-	int removeByPrimaryKey(U id) throws SQLException, ClassNotFoundException;
-	List<T> getAll() throws SQLException, ClassNotFoundException;
-	T getByPrimaryKey(U id) throws SQLException, ClassNotFoundException;
+	void insert(T o);
+	void update(T o);
+	void removeByPrimaryKey(int id);
+	List<T> getAll();
+	T getByPrimaryKey(int id);
 }

@@ -4,8 +4,8 @@
  */
 package hibernate;
 
-import beans.Person;
-import beans.Student;
+import beans.*;
+import dao.*;
 import enums.AdmissionStatus;
 
 import org.hibernate.SessionFactory;
@@ -19,18 +19,21 @@ public class TestHibernate {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         sessionFactory = HibernateUtil.getSessionFactory();
         Person p = new Person();
         p.setFirstName("admin");
         p.setLastName("admin");
-        HibernateUtil.insert(p);
+        PersonDAO.getInstance().insert(p);
         Student s = new Student();
         s.setAdmissionStatus(AdmissionStatus.PENDING);
         s.setCredit(10);
         s.setMajor("COMP");
-        HibernateUtil.insert(s);
-        Student s2 = (Student) p;
-        HibernateUtil.update(s2);
+        s.setPerson(p);
+        StudentDAO.getInstance().insert(s);
+        Employee e = new Employee();
+        e.setPerson(p);
+        EmployeeDAO.getInstance().insert(e);
     }
 }

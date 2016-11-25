@@ -20,7 +20,7 @@ public class Person
 	@Column(name="country")			private String country;
 	@Column(name="telephone")		private String telNo;
 	@Column(name="email")			private String email;
-	@Column(name="gender")			private String gender;
+	@Column(name="gender")			private char gender;
 	@Column(name="sin")				private String sin;
 	// department id
 	
@@ -34,11 +34,11 @@ public class Person
 		this.sin = sin;
 	}
 
-	public String getGender() {
+	public char getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(char gender) {
 		this.gender = gender;
 	}
 
@@ -125,16 +125,16 @@ public class Person
 	@Override
 	public String toString()
 	{
-		String address = streetAddress == null ? "-"
+		String address = streetAddress == null ? ""
 				: streetAddress + ", " + city + ", " + state + ", " + postal; 
-		return ID + ";" + 
-				firstName + ";" +
-				lastName + ";" +
-				address + ";" +
-				(country != null ? country : "-") + ";" +
-				(telNo != null ? telNo : "-") + ";" +
-				email + ";" +
-				(gender != null ? gender : "-") + ";" +
-				(sin != null ? sin : "-");
+		return ID + " ;" + 
+				firstName + " ;" +
+				lastName + " ;" +
+				address + " ;" +
+				country + " ;" +
+				telNo + " ;" +
+				email + " ;" +
+				gender + " ;" +
+				sin;
 	}
 }
