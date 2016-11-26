@@ -8,10 +8,12 @@ import javax.validation.constraints.NotNull;
 public class CourseMark
 {
 	@Id @GeneratedValue					private int id;
-	@OneToOne
-	@JoinColumn(name="course_work_id")	private CourseWork coursework;
-	@OneToOne
-	@JoinColumn(name="student_id") 		private Student student;
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="course_work_id")
+	@NotNull 							private CourseWork coursework;
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="student_id") 
+	@NotNull 							private Student student;
 	@NotNull							private int mark;
 	
 	public CourseMark() { }

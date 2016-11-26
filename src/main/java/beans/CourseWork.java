@@ -9,7 +9,8 @@ public class CourseWork
 {
 	@Id
 	@GeneratedValue						private int coursework_id;
-	@ManyToOne(cascade=CascadeType.ALL)	private Course course;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@NotNull 							private Course course;
 	@NotNull							private String coursework_name;
 	@NotNull							private String coursework_description;
 	@NotNull							private double contribution;
@@ -54,5 +55,13 @@ public class CourseWork
 
 	public void setCoursework_id(int coursework_id) {
 		this.coursework_id = coursework_id;
+	}
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 }

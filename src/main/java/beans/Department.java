@@ -12,7 +12,7 @@ public class Department
 {
 	@Id
 	@GeneratedValue							private int dept_id;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="dept_code")
 	@NotNull								private DepartmentCode dept_code;
 	@NotNull								private int budget;
@@ -27,7 +27,7 @@ public class Department
 		joinColumns={@JoinColumn(name="dept_id")},
 		inverseJoinColumns={@JoinColumn(name="employee_id")})
 											private Set<Employee> employees;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="dean_id")				private Employee dean;
 	
 	public Department() { }

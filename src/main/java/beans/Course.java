@@ -16,7 +16,7 @@ public class Course
 	@NotNull							private int course_number = 0;
 	@NotNull							private int section = 1;
 	@NotNull							private String course_name;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="dept_id")
 	@NotNull 							private Department department;
 	@ManyToOne(cascade=CascadeType.ALL)
@@ -42,6 +42,7 @@ public class Course
 		inverseJoinColumns={@JoinColumn(name="student_id")})
 										private Set<Student> students;
 
+	
 	public Course() { }
 	
 	public String getCourse_name() {

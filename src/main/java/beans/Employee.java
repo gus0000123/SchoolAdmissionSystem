@@ -19,7 +19,7 @@ public class Employee extends Person
 	@Column(name="rank")					private int rank = 5;
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="start_date")				private Date start_date = new Date();
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="person_id")			private Person person;
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="instructor")
 											private Set<Course> assigned_courses;

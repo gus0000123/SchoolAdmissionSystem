@@ -19,8 +19,11 @@ public class Student extends Person
 										private String minor;
 										private int credit = 0;
 	@Temporal(TemporalType.TIMESTAMP)	private Date start_date = new Date();
-	@OneToOne
+	@OneToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name="person_id")		private Person person;
+	@ManyToMany(cascade={CascadeType.ALL}, mappedBy="students")
+										private Set<Course> enrolled_courses;
+	
 	@ManyToMany(cascade={CascadeType.ALL})
 	@JoinTable(name="Student_Grades",
 		joinColumns={@JoinColumn(name="student_id")},
@@ -55,15 +58,6 @@ public class Student extends Person
 		}
 	}
 
-	public Set<StudentGrade> getMarks() {
-		if (marks == null) marks = new HashSet<StudentGrade>();
-		return marks;
-	}
-
-	public void setMarks(Set<StudentGrade> marks) {
-		this.marks = marks;
-	}
-	
 	@Override
 	public String toString()
 	{
@@ -73,5 +67,23 @@ public class Student extends Person
 				minor + " ;" +
 				credit + " ;" +
 				start_date.toString();
+	}
+	
+	public Set<StudentGrade> getMarks() {
+		if (marks == null) marks = new HashSet<StudentGrade>();
+		return marks;
+	}
+
+	public void setMarks(Set<StudentGrade> marks) {
+		this.marks = marks;
+	}
+
+	public Set<Course> getEnrolled_courses() {
+		if (enrolled_courses == null) enrolled_courses = new HashSet<>();
+		return enrolled_courses;
+	}
+
+	public void setEnrolled_courses(Set<Course> enrolled_courses) {
+		this.enrolled_courses = enrolled_courses;
 	}
 }

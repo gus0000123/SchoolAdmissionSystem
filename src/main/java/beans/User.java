@@ -4,14 +4,15 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="Users")
+@Table(name="Users"
+	, uniqueConstraints = @UniqueConstraint(columnNames = { "username" }))
 public class User
 {
 	@Id
 	@GeneratedValue								private int user_id;
-	@Column(name="username", unique=true)		private String username;
+	@Column(name="username")					private String username;
 	@NotNull									private String password;
-	@OneToOne
+	@OneToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name="person_id", unique=true)	private Person person;
 	@NotNull									private int authority = 1;
 	

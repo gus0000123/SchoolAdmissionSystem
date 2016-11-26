@@ -6,7 +6,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 @Entity
-@Table(name="StudentGrades")
+@Table(name="All_Student_Grades")
 public class StudentGrade
 {
 	@Id
@@ -20,7 +20,7 @@ public class StudentGrade
 		joinColumns={@JoinColumn(name="student_grade_id")},
 		inverseJoinColumns={@JoinColumn(name="mark_id")})
 												private Set<CourseMark> courseMarks;
-	@Temporal(TemporalType.TIMESTAMP)			private Date start_date;
+	@Temporal(TemporalType.TIMESTAMP)			private Date start_date = new Date();
 	// TODO: private Attendance attendance;
 	
 	public StudentGrade() { }

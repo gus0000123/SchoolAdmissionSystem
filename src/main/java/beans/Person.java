@@ -27,7 +27,7 @@ public class Person
 	@NotNull
 	@Column(name="gender")			private char gender;
 	@Column(name="sin")				private String sin;
-	@OneToOne
+	@OneToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name="dept_id") 	private Department department;
 	
 	public Person() { }
