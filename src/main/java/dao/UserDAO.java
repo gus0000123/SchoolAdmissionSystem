@@ -14,7 +14,7 @@ public class UserDAO implements DAO<User>
 	public void update(User o) { HibernateUtil.update(o); }
 
 	@Override
-	public void removeByPrimaryKey(int id) { HibernateUtil.delete(id); }
+	public void removeByPrimaryKey(int id) { HibernateUtil.deleteById(User.class, id); }
 	
 	@Override
 	@SuppressWarnings("unchecked")

@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Utilities
+public class ConverterUtil
 {
 	public static Date convertStringToDate(String in)
 	{
@@ -17,5 +17,17 @@ public class Utilities
 			e.printStackTrace();
 			return new Date();
 		}
+	}
+	
+	public static String fillLeft(String toFill, char filler, int length)
+	{
+		String result = toFill;
+		
+		while (result.length() < length)
+		{
+			result = filler + result;
+		}
+		
+		return result;
 	}
 }

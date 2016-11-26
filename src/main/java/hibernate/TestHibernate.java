@@ -7,6 +7,7 @@ package hibernate;
 import beans.*;
 import dao.*;
 import enums.AdmissionStatus;
+import util.BeanUtil;
 
 import org.hibernate.SessionFactory;
 
@@ -25,6 +26,8 @@ public class TestHibernate {
         Person p = new Person();
         p.setFirstName("admin");
         p.setLastName("admin");
+        p.setEmail("test");
+        p.setGender('F');
         PersonDAO.getInstance().insert(p);
         Student s = new Student();
         s.setAdmissionStatus(AdmissionStatus.PENDING);
@@ -35,5 +38,10 @@ public class TestHibernate {
         Employee e = new Employee();
         e.setPerson(p);
         EmployeeDAO.getInstance().insert(e);
+        User u = new User();
+        u.setUser(BeanUtil.generateUserName(p));
+        u.setPassword("pass");
+        u.setPerson(p);
+        UserDAO.getInstance().insert(u);
     }
 }

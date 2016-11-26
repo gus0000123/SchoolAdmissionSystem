@@ -13,6 +13,12 @@
         <property name="show_sql">true</property> 
         <mapping class="beans.Person" />
         <mapping class="beans.Student" />
+        <mapping class="beans.StudentGrade" />
         <mapping class="beans.Employee" />
+        <mapping class="beans.User" />
+        <mapping class="beans.Department" />
+        <mapping class="beans.Course" />
+        <mapping class="beans.CourseMark" />
+        <mapping class="beans.CourseWork" />
     </session-factory>
 </hibernate-configuration>

@@ -15,7 +15,7 @@ public class EmployeeDAO implements DAO<Employee>
 	public void update(Employee o) { HibernateUtil.update(o); }
 
 	@Override
-	public void removeByPrimaryKey(int id) { HibernateUtil.delete(id); }
+	public void removeByPrimaryKey(int id) { HibernateUtil.deleteById(Employee.class, id); }
 
 	@Override
 	@SuppressWarnings("unchecked")

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 import dao.*;
 import beans.User;
-import java.sql.SQLException;
 import java.util.List;
 
 /**

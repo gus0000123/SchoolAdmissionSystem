@@ -1,6 +1,7 @@
 package beans;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Person")
@@ -11,7 +12,9 @@ public class Person
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int ID;
 	
+	@NotNull
 	@Column(name="first_name") 		private String firstName;
+	@NotNull
 	@Column(name="last_name") 		private String lastName;
 	@Column(name="street_address") 	private String streetAddress;
 	@Column(name="city")			private String city;
@@ -19,10 +22,13 @@ public class Person
 	@Column(name="postal")			private String postal;
 	@Column(name="country")			private String country;
 	@Column(name="telephone")		private String telNo;
+	@NotNull
 	@Column(name="email")			private String email;
+	@NotNull
 	@Column(name="gender")			private char gender;
 	@Column(name="sin")				private String sin;
-	// department id
+	@OneToOne
+	@JoinColumn(name="dept_id") 	private Department department;
 	
 	public Person() { }
 
@@ -136,5 +142,13 @@ public class Person
 				email + " ;" +
 				gender + " ;" +
 				sin;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 }

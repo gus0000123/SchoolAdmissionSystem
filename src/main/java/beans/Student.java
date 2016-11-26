@@ -1,8 +1,12 @@
 package beans;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import org.apache.commons.beanutils.*;
 
 import enums.AdmissionStatus;
 
@@ -10,14 +14,18 @@ import enums.AdmissionStatus;
 @Table(name="Students")
 public class Student extends Person
 {
-	@Column(name="admission_status") 	private AdmissionStatus admission_status = AdmissionStatus.PENDING;
-	@Column(name="major")				private String major;
-	@Column(name="minor")				private String minor;
-	@Column(name="credit")				private int credit;
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="start_date")			private Date start_date = new Date();
+	@NotNull							private AdmissionStatus admission_status = AdmissionStatus.PENDING;
+	@NotNull							private String major;
+										private String minor;
+										private int credit = 0;
+	@Temporal(TemporalType.TIMESTAMP)	private Date start_date = new Date();
 	@OneToOne
 	@JoinColumn(name="person_id")		private Person person;
+	@ManyToMany(cascade={CascadeType.ALL})
+	@JoinTable(name="Student_Grades",
+		joinColumns={@JoinColumn(name="student_id")},
+		inverseJoinColumns={@JoinColumn(name="mark_id")})
+										private List<StudentGrade> marks;
 	
 	public Student() { }
 	
@@ -34,7 +42,19 @@ public class Student extends Person
 	public void setMinor(String in) { this.minor = in; }
 	public void setCredit(int in) { this.credit = in; }
 	public void setStartDate(Date in) { this.start_date = in; }
-	public void setPerson(Person in) { this.person = in; }
+	public void setPerson(Person in)
+	{
+		try
+		{
+			this.person = in;
+			BeanUtils.copyProperties(this, person);
+		}
+		catch (IllegalAccessException|InvocationTargetException e)
+		{
+			e.printStackTrace();
+			this.person = null;
+		}
+	}
 	
 	@Override
 	public String toString()

@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import beans.Person;
 import beans.Student;
 import beans.User;
-import dao.DAO;
 import dao.PersonDAO;
 import dao.StudentDAO;
 import dao.UserDAO;
-import hibernate.HibernateUtil;
 
 /**
  * Servlet implementation class PageTransition

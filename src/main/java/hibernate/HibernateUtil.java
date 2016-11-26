@@ -48,7 +48,7 @@ public class HibernateUtil
 		session.close();
 	}
 	
-	public static void delete(Object o)
+	private static void delete(Object o)
 	{
 		Session session = getSession();
 		session.beginTransaction();
