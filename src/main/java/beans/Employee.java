@@ -1,7 +1,10 @@
 package beans;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -12,12 +15,14 @@ import org.apache.commons.beanutils.BeanUtils;
 public class Employee extends Person
 {
 	@NotNull
-	@Column(name="salary") 			private double salary;
-	@Column(name="rank")			private int rank = 5;
+	@Column(name="salary") 					private double salary;
+	@Column(name="rank")					private int rank = 5;
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="start_date")		private Date start_date = new Date();
+	@Column(name="start_date")				private Date start_date = new Date();
 	@OneToOne
-	@JoinColumn(name="person_id")	private Person person;
+	@JoinColumn(name="person_id")			private Person person;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="instructor")
+											private List<Course> assigned_courses;
 	// TODO: Add pay cheque
 	
 	public Employee() { }
@@ -51,5 +56,14 @@ public class Employee extends Person
 				salary + " ;" +
 				rank + " ;" +
 				start_date.toString();
+	}
+
+	public List<Course> getAssigned_courses() {
+		if (assigned_courses == null) assigned_courses = new ArrayList<Course>();
+		return assigned_courses;
+	}
+
+	public void setAssigned_courses(List<Course> assigned_courses) {
+		this.assigned_courses = assigned_courses;
 	}
 }

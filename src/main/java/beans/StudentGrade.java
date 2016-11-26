@@ -1,5 +1,6 @@
 package beans;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
@@ -37,6 +38,7 @@ public class StudentGrade
 		this.student = student;
 	}
 	public List<CourseMark> getCourseMarks() {
+		if (courseMarks == null) courseMarks = new ArrayList<CourseMark>();
 		return courseMarks;
 	}
 	public void setCourseMarks(List<CourseMark> courseMarks) {

@@ -7,7 +7,6 @@ import hibernate.HibernateUtil;
 
 public class CourseDAO implements DAO<Course>
 {
-
 	@Override
 	public void insert(Course o) { HibernateUtil.insert(o); }
 
