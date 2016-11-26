@@ -34,7 +34,6 @@ public class HibernateUtil
 		Session session = getSession();
 		session.beginTransaction();
 		session.save(o);
-		Hibernate.initialize(o);
 		session.getTransaction().commit();
 		session.close();
 	}
@@ -70,6 +69,7 @@ public class HibernateUtil
 		session.beginTransaction();
 		
 		Object o = session.load(c, id);
+		Hibernate.initialize(o);
 		
 		session.close();
 		

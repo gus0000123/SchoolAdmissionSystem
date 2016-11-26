@@ -1,7 +1,7 @@
 package beans;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,7 +15,7 @@ public class StudentAdmissionStatus
 	@NotNull							private String status;
 	@NotNull							private String description;
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="admission_status")
-	@Column(name="student_id")			private List<Student> student;
+	@Column(name="student_id")			private Set<Student> student;
 	
 	public StudentAdmissionStatus() { }
 
@@ -43,12 +43,12 @@ public class StudentAdmissionStatus
 		this.description = description;
 	}
 
-	public List<Student> getStudent() {
-		if (student == null) student = new ArrayList<Student>();
+	public Set<Student> getStudent() {
+		if (student == null) student = new HashSet<Student>();
 		return student;
 	}
 
-	public void setStudent(List<Student> student) {
+	public void setStudent(Set<Student> student) {
 		this.student = student;
 	}
 	

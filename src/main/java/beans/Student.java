@@ -1,9 +1,9 @@
 package beans;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -25,7 +25,7 @@ public class Student extends Person
 	@JoinTable(name="Student_Grades",
 		joinColumns={@JoinColumn(name="student_id")},
 		inverseJoinColumns={@JoinColumn(name="mark_id")})
-										private List<StudentGrade> marks;
+										private Set<StudentGrade> marks;
 	
 	public Student() { }
 	
@@ -55,12 +55,12 @@ public class Student extends Person
 		}
 	}
 
-	public List<StudentGrade> getMarks() {
-		if (marks == null) marks = new ArrayList<StudentGrade>();
+	public Set<StudentGrade> getMarks() {
+		if (marks == null) marks = new HashSet<StudentGrade>();
 		return marks;
 	}
 
-	public void setMarks(List<StudentGrade> marks) {
+	public void setMarks(Set<StudentGrade> marks) {
 		this.marks = marks;
 	}
 	

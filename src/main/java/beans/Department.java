@@ -1,8 +1,8 @@
 package beans;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -21,12 +21,12 @@ public class Department
 	@JoinTable(name="Departments_Students",
 		joinColumns={@JoinColumn(name="dept_id")},
 		inverseJoinColumns={@JoinColumn(name="student_id")})
-											private List<Student> students;
+											private Set<Student> students;
 	@ManyToMany(cascade={CascadeType.ALL})
 	@JoinTable(name="Departments_Employees",
 		joinColumns={@JoinColumn(name="dept_id")},
 		inverseJoinColumns={@JoinColumn(name="employee_id")})
-											private List<Employee> employees;
+											private Set<Employee> employees;
 	@OneToOne
 	@JoinColumn(name="dean_id")				private Employee dean;
 	
@@ -56,11 +56,11 @@ public class Department
 	public void setFounding_date(Date founding_date) {
 		this.founding_date = founding_date;
 	}
-	public List<Student> getStudents() {
-		if (students == null) students = new ArrayList<Student>();
+	public Set<Student> getStudents() {
+		if (students == null) students = new HashSet<Student>();
 		return students;
 	}
-	public void setStudents(List<Student> students) {
+	public void setStudents(Set<Student> students) {
 		this.students = students;
 	}
 	public Employee getDean() {
@@ -69,11 +69,11 @@ public class Department
 	public void setDean(Employee dean) {
 		this.dean = dean;
 	}
-	public List<Employee> getEmployees() {
-		if (employees == null) employees = new ArrayList<Employee>();
+	public Set<Employee> getEmployees() {
+		if (employees == null) employees = new HashSet<Employee>();
 		return employees;
 	}
-	public void setEmployees(List<Employee> employees) {
+	public void setEmployees(Set<Employee> employees) {
 		this.employees = employees;
 	}
 }

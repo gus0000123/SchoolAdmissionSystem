@@ -1,7 +1,7 @@
 package beans;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -30,17 +30,17 @@ public class Course
 	@JoinTable(name="Course_Pre_Requisite",
 		joinColumns={@JoinColumn(name="course_id")},
 		inverseJoinColumns={@JoinColumn(name="pre_req_id")})
-										private List<Course> prerequisite;
+										private Set<Course> prerequisite;
 	@ManyToMany(cascade={CascadeType.ALL})
 	@JoinTable(name="Course_TA",
 		joinColumns={@JoinColumn(name="course_id")},
 		inverseJoinColumns={@JoinColumn(name="employee_id")})
-										private List<Employee> ta;
+										private Set<Employee> ta;
 	@ManyToMany(cascade={CascadeType.ALL})
 	@JoinTable(name="Enrolled_Student",
 		joinColumns={@JoinColumn(name="course_id")},
 		inverseJoinColumns={@JoinColumn(name="student_id")})
-										private List<Student> students;
+										private Set<Student> students;
 
 	public Course() { }
 	
@@ -63,11 +63,11 @@ public class Course
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
-	public List<Course> getPrerequisite() {
-		if (prerequisite == null) prerequisite = new ArrayList<Course>();
+	public Set<Course> getPrerequisite() {
+		if (prerequisite == null) prerequisite = new HashSet<Course>();
 		return prerequisite;
 	}
-	public void setPrerequisite(List<Course> prerequisite) {
+	public void setPrerequisite(Set<Course> prerequisite) {
 		this.prerequisite = prerequisite;
 	}
 	public Employee getInstructor() {
@@ -76,11 +76,11 @@ public class Course
 	public void setInstructor(Employee instructor) {
 		this.instructor = instructor;
 	}
-	public List<Employee> getTa() {
-		if (ta == null) ta = new ArrayList<Employee>();
+	public Set<Employee> getTa() {
+		if (ta == null) ta = new HashSet<Employee>();
 		return ta;
 	}
-	public void setTa(List<Employee> ta) {
+	public void setTa(Set<Employee> ta) {
 		this.ta = ta;
 	}
 	public int getCredit() {
@@ -128,12 +128,12 @@ public class Course
 		this.department = department;
 	}
 
-	public List<Student> getStudents() {
-		if (students == null) students = new ArrayList<Student>();
+	public Set<Student> getStudents() {
+		if (students == null) students = new HashSet<Student>();
 		return students;
 	}
 
-	public void setStudents(List<Student> students) {
+	public void setStudents(Set<Student> students) {
 		this.students = students;
 	}
 }

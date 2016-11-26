@@ -1,9 +1,9 @@
 package beans;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -22,7 +22,7 @@ public class Employee extends Person
 	@OneToOne
 	@JoinColumn(name="person_id")			private Person person;
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="instructor")
-											private List<Course> assigned_courses;
+											private Set<Course> assigned_courses;
 	// TODO: Add pay cheque
 	
 	public Employee() { }
@@ -58,12 +58,12 @@ public class Employee extends Person
 				start_date.toString();
 	}
 
-	public List<Course> getAssigned_courses() {
-		if (assigned_courses == null) assigned_courses = new ArrayList<Course>();
+	public Set<Course> getAssigned_courses() {
+		if (assigned_courses == null) assigned_courses = new HashSet<Course>();
 		return assigned_courses;
 	}
 
-	public void setAssigned_courses(List<Course> assigned_courses) {
+	public void setAssigned_courses(Set<Course> assigned_courses) {
 		this.assigned_courses = assigned_courses;
 	}
 }
