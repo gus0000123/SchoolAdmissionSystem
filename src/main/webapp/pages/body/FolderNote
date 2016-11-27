@@ -1,0 +1,66 @@
+# admin
+- Change data on any available table manually
+
+# course
+Students and instructors assigned to the course can access the page
+- Post/Reply to a discussion thread
+- List marks
+- List course detail
+- List course material
+- List/Submit assignment
+
+# department
+Only admin and dean are able to access this page, and employee with sufficient permission
+- List/Modify all students in the department
+- List/Modify all employees in the department
+- List/Modify all payments and balance within the department (admin/dean only)
+- Approve/Disapprove request from employee in department
+
+# employee
+All employees have access to this page
+- List all pay stubs
+- List employment detail/term
+- List department detail
+- List/Request vacation
+- List/Modify schedule
+
+# home
+Everyone has access to this page
+- List messages, all schedules, and important messages
+- List/Modify personal information
+- List all history that has been done on this account
+
+# hr
+Only admin and HR permission can access this page.
+- List/Modify request to any person
+- Submit approval of application
+- Submit pay stubs to employees
+- Submit approval of vacation request
+
+# instructor
+Only admin and instructor of the course can access this page
+- List/Modify course that is assigned to
+- List/Modify course work/mark for assigned course
+- Submit student grade for assigned course
+- Submit request within course scope
+- Manage resources
+
+# library
+Everyone has access to this page
+- (Employee with permission) add/remove books and manually manage resources in library
+- Request shelf resources
+- Browse resources
+
+# login
+Everyone has access to this page (portal page)
+- log in to the system
+- register to system (automatically create person and account associating to it)
+
+# student
+Only admin (for testing) and student can access this page
+- Register to courses
+- View current courses
+- Request in student scope (apply graduation, financial support)
+- View unofficial transcript
+- View account balance
+- Submit payment

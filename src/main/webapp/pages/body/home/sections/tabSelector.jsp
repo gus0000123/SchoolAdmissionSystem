@@ -17,14 +17,6 @@
 		</c:otherwise>
 	</c:choose>
 	<c:choose>
-		<c:when test="${ tab eq 'status' }">
-			<button class="active">Application Status</button>
-		</c:when>
-		<c:otherwise>
-			<button onclick="goToPage('status')">Application Status</button>
-		</c:otherwise>
-	</c:choose>
-	<c:choose>
 		<c:when test="${ tab eq 'history' }">
 			<button class="active">History</button>
 		</c:when>

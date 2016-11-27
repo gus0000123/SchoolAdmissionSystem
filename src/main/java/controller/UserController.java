@@ -8,8 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.*;
-import beans.User;
+import bean.data.User;
+import dao.data.*;
+
 import java.util.List;
 
 /**

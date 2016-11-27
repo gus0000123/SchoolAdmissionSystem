@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.Person;
-import beans.Student;
-import beans.User;
-import dao.PersonDAO;
-import dao.StudentDAO;
-import dao.UserDAO;
+import bean.data.Person;
+import bean.data.Student;
+import bean.data.User;
+import dao.data.StudentDAO;
+import dao.data.UserDAO;
+import dao.messenger.PersonDAO;
 
 /**
  * Servlet implementation class PageTransition

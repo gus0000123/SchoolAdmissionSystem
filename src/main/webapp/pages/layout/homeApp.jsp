@@ -2,12 +2,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/main.css">
-		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/importTool.css">
-		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/global/sidebar.css">
-		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/global/header.css">
-		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/global/body.css">
-		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/personal.css">
+		<jsp:include page="../../pages/global/css_link.jsp" />
 		<c:choose>
 			<c:when test="${ tab eq 'overview' }">
 				<title>Overview</title>
@@ -29,14 +24,7 @@
 							<table class="table-no-border fill-page">
 								<tbody>
 									<tr><td class="web-body" style="height: 1%;"><jsp:include page="../../pages/global/header.jsp" /></td></tr>
-									<c:choose>
-										<c:when test="${ tab eq 'overview' }">
-											<tr><td class="web-body"><jsp:include page="../../pages/body/home/overview.jsp" /></td></tr>
-										</c:when>
-										<c:when test="${ tab eq 'info' }">
-											<tr><td class="web-body"><jsp:include page="../../pages/body/home/personalInfo.jsp" /></td></tr>
-										</c:when>
-									</c:choose>
+									<tr><td class="web-body"><jsp:include page="../body/home/layout.jsp" /></td></tr>
 								</tbody>
 							</table>
 						</td>

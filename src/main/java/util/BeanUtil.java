@@ -2,10 +2,10 @@ package util;
 
 import java.util.List;
 
-import beans.Course;
-import beans.Person;
-import beans.User;
-import dao.UserDAO;
+import bean.data.Course;
+import bean.data.Person;
+import bean.data.User;
+import dao.data.UserDAO;
 
 public class BeanUtil
 {

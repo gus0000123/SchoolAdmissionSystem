@@ -11,16 +11,20 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.hbm2ddl.auto">create</property>
         <property name="show_sql">true</property>
-        <mapping class="beans.Employee" />
-        <mapping class="beans.Person" />
-        <mapping class="beans.DepartmentCode" />
-        <mapping class="beans.Department" /> 
-        <mapping class="beans.Course" />
-        <mapping class="beans.CourseMark" />
-        <mapping class="beans.CourseWork" />
-        <mapping class="beans.StudentAdmissionStatus" />
-        <mapping class="beans.StudentGrade" />
-        <mapping class="beans.Student" />
-        <mapping class="beans.User" />
+        <mapping class="beans.data.Employee" />
+        <mapping class="beans.data.Person" />
+        <mapping class="beans.data.DepartmentCode" />
+        <mapping class="beans.data.Department" /> 
+        <mapping class="beans.data.Course" />
+        <mapping class="beans.data.CourseMark" />
+        <mapping class="beans.data.CourseWork" />
+        <mapping class="beans.data.StudentAdmissionStatus" />
+        <mapping class="beans.data.StudentGrade" />
+        <mapping class="beans.data.Student" />
+        <mapping class="beans.data.User" />
+        <mapping class="beans.messenger.Message" />
+        <mapping class="beans.messenger.SystemGroup" />
+        <mapping class="beans.messenger.Announcement" />
+        <mapping class="beans.messenger.Personal" />
     </session-factory>
 </hibernate-configuration>
