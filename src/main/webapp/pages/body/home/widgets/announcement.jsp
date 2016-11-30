@@ -1,6 +1,6 @@
 <article id="date-article">
 	<div class="article-header">
-		UPCOMING IMPORTANT DATE
+		ANNOUNCEMENT
 	</div>
 	<div class="article-body">
 		<div class="activity-row orange">

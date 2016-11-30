@@ -40,7 +40,7 @@ public class Person
 	@Column(name="sin")	
 	private String sin;
 	
-	@OneToOne
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="dept_id")
 	private Department department;
 	

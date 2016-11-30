@@ -1,8 +1,9 @@
 package hibernate;
 
 import bean.data.*;
+import bean.messenger.Personal;
 import dao.data.*;
-import dao.messenger.PersonDAO;
+import dao.messenger.PersonalDAO;
 import util.BeanUtil;
 import util.HibernateUtil;
 
@@ -112,5 +113,50 @@ public class HibernateInsertScript
         sg.setStudent(s);
         StudentGradeDAO.getInstance().insert(sg);
         sg = StudentGradeDAO.getInstance().getByPrimaryKey(1);
+        
+        // Create second person and user to test messages
+        Person p2 = new Person();
+        p2.setFirstName("sub_admin");
+        p2.setLastName("sub_admin");
+        p2.setEmail("test");
+        p2.setGender('M');
+        p2.setDepartment(d);
+        PersonDAO.getInstance().insert(p2);
+        p2 = (Person) HibernateUtil.getNRowByColumn(Person.class, "ID", 1, true).get(0);
+        
+        User u2 = new User();
+        u2.setUser(BeanUtil.generateUserName(p2));
+        u2.setPassword("test");
+        u2.setPerson(p2);
+        UserDAO.getInstance().insert(u2);
+        u2 = (User) HibernateUtil.getNRowByColumn(User.class, "user_id", 1, true).get(0);
+        
+        // create few messages
+        Personal pm1 = new Personal();
+        pm1.setHeadline("Test Important 1");
+        pm1.setImportant(true);
+        pm1.setMessage("This is test message for important message");
+        pm1.setReceiver(p);
+        pm1.setSender(p);
+        PersonalDAO.getInstance().insert(pm1);
+        pm1 = (Personal) HibernateUtil.getNRowByColumn(Personal.class, "id", 1, true).get(0);
+        
+        Personal pm2 = new Personal();
+        pm2.setHeadline("Test normal 1");
+        pm2.setImportant(false);
+        pm2.setMessage("This is test message for normal message 1");
+        pm2.setReceiver(p);
+        pm2.setSender(p2);
+        PersonalDAO.getInstance().insert(pm2);
+        pm2 = (Personal) HibernateUtil.getNRowByColumn(Personal.class, "id", 1, true).get(0);
+        
+        Personal pm3 = new Personal();
+        pm3.setHeadline("Test normal 2");
+        pm3.setImportant(false);
+        pm3.setMessage("This is test message for normal message 2");
+        pm3.setReceiver(p);
+        pm3.setSender(p2);
+        PersonalDAO.getInstance().insert(pm3);
+        pm3 = (Personal) HibernateUtil.getNRowByColumn(Personal.class, "id", 1, true).get(0);
 	}
 }

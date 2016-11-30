@@ -1,8 +1,5 @@
 package bean.messenger;
 
-import java.util.Set;
-import java.util.HashSet;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -12,17 +9,28 @@ import bean.data.Person;
 @Table(name="Personal_Messages")
 public class Personal extends Message
 {
-	@OneToMany(cascade={CascadeType.ALL})
-	@NotNull			private Set<Person> recipients;
+	@ManyToOne(cascade={CascadeType.ALL})
+	@JoinColumn(name="receiver_id")
+	@NotNull
+	private Person receiver;
+	@NotNull
+	private boolean important = false;
 	
 	public Personal() { }
 
-	public Set<Person> getRecipients() {
-		if (recipients == null) recipients = new HashSet<>();
-		return recipients;
+	public Person getReceiver() {
+		return receiver;
 	}
 
-	public void setRecipients(Set<Person> recipients) {
-		this.recipients = recipients;
+	public void setReceiver(Person receiver) {
+		this.receiver = receiver;
+	}
+
+	public boolean isImportant() {
+		return important;
+	}
+
+	public void setImportant(boolean important) {
+		this.important = important;
 	}
 }

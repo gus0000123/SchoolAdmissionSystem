@@ -18,7 +18,10 @@
 							<img src="${pageContext.servletContext.contextPath}/images/help-icon.png">
 						</div>
 						<div id="signout-btn" class="header-btn">
-							<img src="${pageContext.servletContext.contextPath}/images/signout-icon.png">
+							<form id="signout" action="Signout" method="post">
+								<img src="${pageContext.servletContext.contextPath}/images/signout-icon.png"
+									onclick="document.getElementById('signout').submit()">
+							</form>
 						</div>
 					</div>
 				</td>

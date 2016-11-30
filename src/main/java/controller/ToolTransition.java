@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import bean.data.Person;
 import bean.data.Student;
 import bean.data.User;
+import dao.data.PersonDAO;
 import dao.data.StudentDAO;
 import dao.data.UserDAO;
-import dao.messenger.PersonDAO;
 
 /**
  * Servlet implementation class PageTransition

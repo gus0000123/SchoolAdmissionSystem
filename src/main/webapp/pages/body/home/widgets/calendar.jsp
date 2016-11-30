@@ -1,4 +1,4 @@
-<article id="calendar-article" class="important">
+<article id="calendar-article">
 	<div class="article-header">
 		CALENDAR
 	</div>

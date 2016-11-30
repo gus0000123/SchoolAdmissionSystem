@@ -18,7 +18,7 @@ public class Department
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date founding_date = new Date();
 	
-	@OneToOne
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="dept_code")
 	@NotNull
 	private DepartmentCode dept_code;

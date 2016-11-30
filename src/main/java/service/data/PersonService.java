@@ -3,7 +3,7 @@ package service.data;
 import java.util.List;
 
 import bean.data.Person;
-import dao.messenger.PersonDAO;
+import dao.data.PersonDAO;
 import template.Service;
 
 public class PersonService implements Service<Person>

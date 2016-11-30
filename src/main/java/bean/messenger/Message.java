@@ -13,20 +13,26 @@ import bean.data.Person;
 public class Message
 {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)		private int id;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int message_id;
 	@ManyToOne
-	@NotNull											private Person sender;
-	@NotNull											private Date creation_time = new Date();
-	@NotNull											private String message;
+	@NotNull
+	private Person sender;
+	@NotNull
+	private Date creation_time = new Date();
+	@NotNull
+	private String headline;
+	@NotNull
+	private String message;
 	
 	public Message() { }
 
 	public int getId() {
-		return id;
+		return message_id;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.message_id = id;
 	}
 
 	public Person getSender() {
@@ -51,5 +57,13 @@ public class Message
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public String getHeadline() {
+		return headline;
+	}
+
+	public void setHeadline(String headline) {
+		this.headline = headline;
 	}
 }

@@ -12,13 +12,15 @@ import bean.data.Person;
 		, uniqueConstraints=@UniqueConstraint(columnNames="name"))
 public class SystemGroup
 {
-	@Id @GeneratedValue						private int sys_group_id;
-	@NotNull								private String name;
+	@Id @GeneratedValue
+	private int sys_group_id;
+	@NotNull
+	private String name;
 	@ManyToMany(cascade={CascadeType.ALL})
 	@JoinTable(name="as_person_system_group",
 		joinColumns={@JoinColumn(name="sys_group_id")},
 		inverseJoinColumns={@JoinColumn(name="ID")})
-											private Set<Person> recipients;
+	private Set<Person> recipients;
 	
 	public SystemGroup() { }
 

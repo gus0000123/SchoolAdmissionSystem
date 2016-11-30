@@ -1,4 +1,4 @@
-package dao.data;
+package dao.messenger;
 
 import java.util.List;
 

@@ -8,7 +8,8 @@ import javax.validation.constraints.NotNull;
 public class Announcement extends Message
 {
 	@ManyToOne(cascade={CascadeType.ALL})
-	@NotNull					private SystemGroup system_group;
+	@NotNull
+	private SystemGroup system_group;
 
 	public Announcement() { }
 	

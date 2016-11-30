@@ -91,7 +91,7 @@ public class HibernateUtil
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static Object getNRowByColumn(Class c, String columnName, int n, boolean fromLatest)
+	public static List<Object> getNRowByColumn(Class c, String columnName, int n, boolean fromLatest)
 	{
 		Session session = getSession();
 		session.beginTransaction();
@@ -103,8 +103,23 @@ public class HibernateUtil
 				
 		List<Object> last = session.createQuery(hql).list();
 		
-		if (last != null) return last.get(0);
+		session.close();
+		
+		if (last != null) return last;
 		else return null;
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static List<Object> getEqualIntCondition(Class c, String columnName, int value)
+	{
+		Session session = getSession();
+		session.beginTransaction();
+		
+		String hql = "FROM " + c.getName() + " WHERE " + columnName + " = " + value;
+		List<Object> list = session.createQuery(hql).list();
+		
+		session.close();
+		return list;
 	}
 	
 	private HibernateUtil() { }

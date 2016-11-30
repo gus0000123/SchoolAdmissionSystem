@@ -17,7 +17,7 @@ public class User
 	private String password;
 	@NotNull
 	private int authority = 1;
-	@OneToOne
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="person_id")
 	private Person person;
 	

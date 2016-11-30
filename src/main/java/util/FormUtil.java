@@ -1,47 +1,22 @@
 package util;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.ArrayList;
 
 import bean.data.Person;
-import bean.data.User;
-import dao.data.UserDAO;
-import dao.messenger.PersonDAO;
+import bean.messenger.Personal;
 
 public class FormUtil
 {
-	// TODO: Move this method to user service
-	public static void insertUser(HttpServletRequest request)
+	public static List<Personal> getMessageFor(Person p)
 	{
-		String first_name = request.getParameter("first_name");
-		String middle_name = request.getParameter("middle_name");
-		String last_name = request.getParameter("last_name");
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String cpassword = request.getParameter("cpassword");
-		
-		if (password.equals(cpassword))
-		{
-			Person p = new Person();
-			p.setFirstName(first_name);
-			if (middle_name != null) p.setMiddleName(middle_name);
-			p.setLastName(last_name);
-			p.setEmail(email);
-			
-			PersonDAO.getInstance().insert(p);
-			
-			// Get last person created
-			p = (Person) HibernateUtil.getNRowByColumn(Person.class, "ID", 1, true);
-			
-			User user = new User();
-			user.setUser(BeanUtil.generateUserName(p));
-			user.setPassword(password);
-			user.setPerson(p);
-			
-			UserDAO.getInstance().insert(user);
+		List<Object> obj = HibernateUtil.getEqualIntCondition(Personal.class, "receiver_id", p.getID());
+		List<Personal> list = new ArrayList<>();
+		for (Object o : obj)
+		{ 
+			list.add((Personal) o);
 		}
-		else
-		{
-			request.setAttribute("error", "password");
-		}
+			
+		return list;
 	}
 }

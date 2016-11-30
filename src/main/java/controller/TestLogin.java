@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import bean.data.Person;
 import bean.data.User;
+import dao.data.PersonDAO;
 import dao.data.UserDAO;
-import dao.messenger.PersonDAO;
 import util.BeanUtil;
 import util.HibernateUtil;
 
@@ -84,7 +84,8 @@ public class TestLogin extends HttpServlet
 				found_user = true;
 				if (u.getPassword().equals(password))
 				{
-					request.setAttribute("logged_user", u);
+					// Attach user to session
+					request.getSession().setAttribute("user", u);
 					url = "/TestTab?tab=overview";
 				}
 				else
@@ -127,7 +128,7 @@ public class TestLogin extends HttpServlet
 			PersonDAO.getInstance().insert(p);
 			
 			// Reload person with id
-			p = (Person) HibernateUtil.getNRowByColumn(Person.class, "ID", 1, true);
+			p = (Person) HibernateUtil.getNRowByColumn(Person.class, "ID", 1, true).get(0);
 			
 			// Create user
 			User u = new User();

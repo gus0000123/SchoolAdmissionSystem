@@ -1,9 +1,6 @@
 Front end:
 
 Current Task (design and implementation except servlet):
-- Fine tune JSP's login
-- Connect user registration page with temporary servlet
-- Create Person and user at the same time when registering
 - Finish JSP's home
 - Integrate JSP's home widget with database (servlet's attribute)
 - Finish JSP's admin 
