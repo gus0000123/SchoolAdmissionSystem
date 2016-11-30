@@ -35,7 +35,6 @@ public class Person
 	@NotNull
 	@Column(name="email")
 	private String email;
-	@NotNull
 	@Column(name="gender")
 	private char gender;
 	@Column(name="sin")	

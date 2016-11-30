@@ -22,8 +22,7 @@ public class CourseWork
 	private int max_mark;
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date creation_date;
-	@NotNull
+	private Date creation_date = new Date();
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date deadline;
 	

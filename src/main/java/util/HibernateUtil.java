@@ -90,5 +90,22 @@ public class HibernateUtil
 		return results;
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static Object getNRowByColumn(Class c, String columnName, int n, boolean fromLatest)
+	{
+		Session session = getSession();
+		session.beginTransaction();
+		
+		String hql = "FROM " + c.getName() + " ORDER BY " + columnName;
+		if (fromLatest) hql += " DESC";
+		else hql += " ASC";
+		hql += " LIMIT " + n;
+				
+		List<Object> last = session.createQuery(hql).list();
+		
+		if (last != null) return last.get(0);
+		else return null;
+	}
+	
 	private HibernateUtil() { }
 }

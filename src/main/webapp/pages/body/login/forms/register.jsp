@@ -1,5 +1,5 @@
 <div>
-	<form id="register-form" action="register" method="post">
+	<form id="register-form" action="TestLogin" method="post">
 		<table id="register-table" class="middle-table">
 			<thead>
 				<tr>
@@ -11,38 +11,37 @@
 			<tbody>
 				<tr>
 					<td>
-						<span id="register-user-error" class="error-text">Please input correct information.</span>
-						<input id="register-user" type="text" placeholder="Username" name="user">
+						<span id="register-first-name-error" class="error-text">Please input correct information.</span>
+						<input id="register-first-name" type="text" placeholder="First name" name="first_name" required>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<span id="register-first-name-error" class="error-text">Please input correct information.</span>
-						<input id="register-first-name" type="text" placeholder="First name" name="firstName">
+						<input id="register-middle-name" type="text" placeholder="Middle name" name="middle_name" required>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<span id="register-last-name-error" class="error-text">Please input correct information.</span>
-						<input id="register-last-name" type="text" placeholder="Last name" name="lastName">
+						<input id="register-last-name" type="text" placeholder="Last name" name="last_name" required>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<span id="register-email-error" class="error-text">Please input correct information.</span>
-						<input id="register-email" type="email" placeholder="E-mail address" name="email">
+						<input id="register-email" type="email" placeholder="E-mail address" name="email" required>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<span id="register-password-error" class="error-text">Please input correct information.</span>
-						<input id="register-password" type="password" placeholder="Password" name="password">
+						<input id="register-password" type="password" placeholder="Password" name="password" required>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<span id="register-confirm-password-error" class="error-text">Please put matching password.</span>
-						<input id="register-confirm-password" type="password" placeholder="Confirm password" name="confirm-password">
+						<input id="register-confirm-password" type="password" placeholder="Confirm password" name="cpassword" required>
 					</td>
 				</tr>
 				<tr>
@@ -52,6 +51,7 @@
 				</tr>
 				<tr>
 					<td>
+						<input type="hidden" name="action" value="register" />
 						<input id="register-submit" type="submit" value="Register" onclick="register(event)">
 					</td>
 				</tr>

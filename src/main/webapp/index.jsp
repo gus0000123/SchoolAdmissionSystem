@@ -22,5 +22,24 @@
 		<script type="text/javascript" src="scripts/jquery-3.1.0.min.js"></script>
 		<script type="text/javascript" src="scripts/main.js"></script>
 		<script type="text/javascript" src="scripts/login-validation.js"></script>
+		
+		<!-- switching page -->
+		<c:choose>
+			<c:when test="${ page eq 'login' }">
+				<!-- Do nothing -->
+			</c:when>
+			<c:when test="${ page eq 'register' }">
+				<!-- call javascript -->
+				<script type="text/javascript">
+					$(document).ready( function(){ switchToRegister(); });
+				</script>
+			</c:when>
+			<c:when test="${ page eq 'confirmation' }">
+				<!-- call javascript -->
+				<script type="text/javascript">
+					$(document).ready( function(){ countdownConfirmation(); });
+				</script>
+			</c:when>
+		</c:choose>
 	</body>
 </html>

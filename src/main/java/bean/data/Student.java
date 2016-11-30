@@ -28,7 +28,7 @@ public class Student extends Person
 	@JoinColumn(name="person_id")
 	private Person person;
 	
-	@ManyToMany(cascade={CascadeType.ALL}, mappedBy="students")
+	@ManyToMany(cascade={CascadeType.ALL})
 	@JoinTable(name="as_student_enrolled_courses",
 		joinColumns={@JoinColumn(name="student_id")},
 		inverseJoinColumns={@JoinColumn(name="course_id")})

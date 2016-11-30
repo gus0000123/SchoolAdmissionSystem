@@ -3,6 +3,17 @@ var registerTable = $('#register-table');
 var loginFieldName = ['#login-user', '#login-password'];
 var registerFieldName = ['#register-user', '#register-first-name', '#register-last-name', '#register-email', '#register-password', '#register-confirm-password'];
 
+function closeConfirmation() {
+	$('#black-div .confirmation-wrapper').css('display', 'none');
+	countdownLoading(2);
+}
+
+function countdownConfirmation() {
+	showLoading();
+	$('#black-div .loading-wrapper').css('display', 'none');
+	$('#black-div .confirmation-wrapper').css('display', 'block');
+}
+
 function switchToLogin() {
 	loginTable.css("display", "block");
 	registerTable.css("display", "none");
@@ -40,15 +51,13 @@ function signin(e) {
 	// Send data to server
 	if (counter == 2) {
 		countdownLoading(0);
-		setTimeout(function () { $('#login-form').submit() }, 5000);
+		setTimeout(function () { $('#login-form').submit() }, 1000);
 	} else {
-		countdownLoading(2);
+		countdownLoading(1);
 	}
 }
 
-function switchToRegister() {
-	countdownLoading(2);
-	
+function switchToRegister() {	
 	loginTable.css("display", "none");
 	registerTable.css("display", "block");
 	
@@ -77,8 +86,9 @@ function register(e) {
 	// Need to send data to servlet
 	if (counter == registerFieldName.length) {
 		// Need popup for success and fail
-		countdownConfirmation(2);
+		countdownLoading(0);
+		setTimeout(function () { $('#register-form').submit() }, 1000);
 	} else {
-		countdownLoading(2);
+		countdownLoading(1);
 	}
 }
