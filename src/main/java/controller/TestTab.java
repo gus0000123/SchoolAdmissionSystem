@@ -41,7 +41,16 @@ public class TestTab extends HttpServlet
 		
 		User u = (User) request.getSession().getAttribute("user");
 		
-		if (tab.equals("overview") && u != null && u.getPerson() != null)
+		// Session ended
+		if (u == null)
+		{
+			url = "/";
+			this.getServletContext().getRequestDispatcher(url).forward(request, response);
+			return;
+		}
+		
+		// Session does not end and user is still around
+		if (tab.equals("overview") && u.getPerson() != null)
 		{
 			Person p = u.getPerson();
 			List<Object> obj = HibernateUtil.getEqualIntCondition(Personal.class, "receiver_id", p.getID());
