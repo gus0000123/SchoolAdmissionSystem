@@ -1,14 +1,11 @@
 package bean.data;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
-import org.apache.commons.beanutils.BeanUtils;
 
 @Entity
 @Table(name="Employees")
@@ -41,19 +38,7 @@ public class Employee extends Person
 	public void setStart_date(Date start_date) { this.start_date = start_date; }
 	public void setRank(int rank) { this.rank = rank; }
 	public void setSalary(double salary) { this.salary = salary; }
-	public void setPerson(Person in)
-	{
-		try
-		{
-			this.person = in;
-			BeanUtils.copyProperties(this, person);
-		}
-		catch (IllegalAccessException|InvocationTargetException e)
-		{
-			e.printStackTrace();
-			this.person = null;
-		}
-	}
+	public void setPerson(Person in) { this.person = in; }
 	
 	@Override
 	public String toString()

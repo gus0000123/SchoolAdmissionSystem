@@ -36,7 +36,12 @@ td label {
 
 td input[type=text],
 td input[type=password] {
-	width: 50%;
+	width: 80%;
+	min-width: 150px;
+}
+
+td select {
+	width: 81%;
 	min-width: 150px;
 }
 

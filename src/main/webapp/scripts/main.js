@@ -17,6 +17,17 @@ function countdownLoading(time) {
 	}
 }
 
+function closeConfirmation() {
+	$('#black-div .confirmation-wrapper').css('display', 'none');
+	countdownLoading(2);
+}
+
+function countdownConfirmation() {
+	showLoading();
+	$('#black-div .loading-wrapper').css('display', 'none');
+	$('#black-div .confirmation-wrapper').css('display', 'block');
+}
+
 function toggleFilter(e) {
 	e.preventDefault();
 	

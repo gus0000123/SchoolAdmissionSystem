@@ -3,17 +3,6 @@ var registerTable = $('#register-table');
 var loginFieldName = ['#login-user', '#login-password'];
 var registerFieldName = ['#register-user', '#register-first-name', '#register-last-name', '#register-email', '#register-password', '#register-confirm-password'];
 
-function closeConfirmation() {
-	$('#black-div .confirmation-wrapper').css('display', 'none');
-	countdownLoading(2);
-}
-
-function countdownConfirmation() {
-	showLoading();
-	$('#black-div .loading-wrapper').css('display', 'none');
-	$('#black-div .confirmation-wrapper').css('display', 'block');
-}
-
 function switchToLogin() {
 	loginTable.css("display", "block");
 	registerTable.css("display", "none");

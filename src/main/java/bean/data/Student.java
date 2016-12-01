@@ -1,13 +1,11 @@
 package bean.data;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import org.apache.commons.beanutils.*;
 
 @Entity
 @Table(name="Students")
@@ -54,19 +52,7 @@ public class Student extends Person
 	public void setMinor(String in) { this.minor = in; }
 	public void setCredit(int in) { this.credit = in; }
 	public void setStartDate(Date in) { this.start_date = in; }
-	public void setPerson(Person in)
-	{
-		try
-		{
-			this.person = in;
-			BeanUtils.copyProperties(this, person);
-		}
-		catch (IllegalAccessException|InvocationTargetException e)
-		{
-			e.printStackTrace();
-			this.person = null;
-		}
-	}
+	public void setPerson(Person in) { this.person = in; }
 
 	@Override
 	public String toString()

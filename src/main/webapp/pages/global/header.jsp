@@ -20,7 +20,7 @@
 						<div id="signout-btn" class="header-btn">
 							<form id="signout" action="Signout" method="post">
 								<img src="${pageContext.servletContext.contextPath}/images/signout-icon.png"
-									onclick="document.getElementById('signout').submit()">
+									onclick="document.getElementById('signout').submit(); countdownLoading(0);">
 							</form>
 						</div>
 					</div>

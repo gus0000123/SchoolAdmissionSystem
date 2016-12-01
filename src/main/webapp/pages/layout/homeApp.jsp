@@ -13,6 +13,7 @@
 		</c:choose>
 	</head>
 	<body>
+		<script type="text/javascript" src="${pageContext.servletContext.contextPath}/scripts/jquery-3.1.0.min.js"></script>
 		<div id="page-wrapper">
 			<table class="table-no-border fill-page">
 				<tbody>
@@ -32,7 +33,8 @@
 				</tbody>
 			</table>
 		</div>
-		<script type="text/javascript" src="${pageContext.servletContext.contextPath}/scripts/jquery-3.1.0.min.js"></script>
+		<jsp:include page="../../pages/global/loadingScreen.jsp" />
+		
 		<script type="text/javascript" src="${pageContext.servletContext.contextPath}/scripts/main.js"></script>
 		<script type="text/javascript" src="${pageContext.servletContext.contextPath}/scripts/personal-validation.js"></script>
 	</body>

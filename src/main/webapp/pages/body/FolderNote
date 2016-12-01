@@ -56,6 +56,14 @@ Everyone has access to this page (portal page)
 - log in to the system
 - register to system (automatically create person and account associating to it)
 
+# TODO: messages
+Everyone has access to this page, only admin or employee with sufficient authority has access to announcement sub page
+- Create personal message
+- Delete personal message
+- List/View received personal message
+- List/View sent personal message
+- Create announcement (Admin)
+
 # TODO: student
 Only admin (for testing) and student can access this page
 - Register to courses

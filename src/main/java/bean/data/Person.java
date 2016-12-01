@@ -36,7 +36,7 @@ public class Person
 	@Column(name="email")
 	private String email;
 	@Column(name="gender")
-	private char gender;
+	private char gender = 'M';
 	@Column(name="sin")	
 	private String sin;
 	

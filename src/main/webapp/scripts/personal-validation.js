@@ -1,19 +1,16 @@
 var first_run = true;
 
 var infoFormValue = new Array(0);
-var infoFieldName = [ '#firstname', '#lastname', '#apartment', '#address', '#city', '#province', '#country', '#postal', '#home_no', '#work_no', '#mobile_no' ];
+var infoFieldName = [ '#firstname', '#lastname' ,'#middlename', '#apartment', '#address', '#city', '#province', '#country', '#postal', '#telephone', '#gender', '#sin' ];
 
 // For loop
 var i = 0;
 
 /*******************************************INFO FORM*****************************************************/
 
-$(document).ready(function() {
-	for (i = 0; i < infoFieldName.length; i++) {
-		$(infoFieldName[i]).click(function(e) {
-			removeError($('#' + e.target.name));
-		});
-	}
+$(document).ready(function()
+{
+	recordForm();
 });
 
 function addError(obj) {
@@ -26,14 +23,24 @@ function removeError(obj) {
 	obj.prop('placeholder', '');
 }
 
-function recordForm() {
+function recordForm()
+{
 	infoFormValue = [];
-	for (i = 0; i < infoFieldName.length; i++) {
-		infoFormValue.push($(infoFieldName[i]).val());
+	for (i = 0; i < infoFieldName.length; i++)
+	{
+		if (infoFieldName[i] != '#country' && infoFieldName[i] != '#gender')
+		{
+			infoFormValue.push($(infoFieldName[i]).val());
+		}
+		else
+		{
+			infoFormValue.push($(infoFieldName[i]).find(':selected').val());
+		}
 	}
 }
 
-function resetForm() {
+function resetForm()
+{
 	if (infoFormValue.length == infoFieldName.length) {
 		for (i = 0; i < infoFieldName.length; i++) {
 			$(infoFieldName[i]).val(infoFormValue[i]);
@@ -41,52 +48,17 @@ function resetForm() {
 	}
 }
 
-function unlockInput(e, id) {
-	e.preventDefault();
-	
-	if (first_run) {
-		first_run = false;
-		recordForm();
-	}
-	$(id).prop('disabled', false);
-}
-
-function lockAll() {
-	for (i = 0; i < infoFieldName.length; i++) {
-		$(infoFieldName[i]).prop('disabled', true);
-		removeError($(infoFieldName[i]));
+function submitInfo(e)
+{
+	if ($(infoFieldName[0]).val().length > 0
+			&& $(infoFieldName[1]).val().length > 0)
+	{
+		countdownLoading(0);
 	}
 }
 
-function submitInfo(e) {
-	e.preventDefault();
-	
-	if (!first_run) {
-		// For now, if any field is not empty, it will pass, else fail
-		var counter = 0;
-		for (i = 0; i < infoFieldName.length; i++) {
-			if ($(infoFieldName[i]).val() != '') {
-				removeError($(infoFieldName[i]));
-				counter++;
-			} else {
-				addError($(infoFieldName[i]));
-			}
-		}
-	
-		if (counter >= infoFieldName.length - 3) {
-			countdownConfirmation(2);
-			lockAll();
-			recordForm();
-		} else {
-			countdownLoading(2);
-		}
-	}
-}
-
-function lockResetForm(e) {
-	e.preventDefault();
-	first_run = true;
-	lockAll();
+function lockResetForm(e)
+{
 	resetForm();
 }
 
@@ -107,34 +79,6 @@ $(document).ready(function() {
 		});
 	}
 });
-
-function showHideText(id, e) {
-	e.preventDefault();
-	
-	var passwordField = $(id);
-	var textField = $(id + '-txt');
-	var btn = $(id + '-btn');
-	
-	if (passwordField.css('display') == 'none') {
-		// Copy value
-		passwordField.val(textField.val());
-		textField.val('');
-		
-		// Change display
-		passwordField.css('display', 'inline');
-		textField.css('display', 'none');
-		btn.html('Show password');
-	} else {
-		// Copy value
-		textField.val(passwordField.val());
-		passwordField.val('');
-		
-		// Change display
-		passwordField.css('display', 'none');
-		textField.css('display', 'inline');
-		btn.html('Hide password');
-	}
-}
 
 function resetAllPasswords() {
 	for (i = 0; i < passwordForm.length; i++) {

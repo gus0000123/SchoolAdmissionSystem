@@ -37,16 +37,18 @@ public class TestTab extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		String url = "/pages/layout/homeApp.jsp";
+		String tab = request.getParameter("tab");
 		
 		User u = (User) request.getSession().getAttribute("user");
-		if (u.getPerson() != null)
+		
+		if (tab.equals("overview") && u != null && u.getPerson() != null)
 		{
 			Person p = u.getPerson();
 			List<Object> obj = HibernateUtil.getEqualIntCondition(Personal.class, "receiver_id", p.getID());
 			List<Personal> nonImportant = new ArrayList<>();
 			List<Personal> important = new ArrayList<>();
 			
-			int limit = 3;
+			int limit = 3;			// Limit to show on each section, otherwise the page will be flooded
 			boolean non_max = false;
 			boolean imp_max = false;
 			int non_counter = 0;
@@ -55,27 +57,16 @@ public class TestTab extends HttpServlet
 			for (Object o : obj)
 			{
 				Personal pm = (Personal) o;
+				// Check which list to put into
 				if (pm.isImportant())
 				{
-					if (imp_counter < limit)
-					{
-						important.add(pm);
-					}
-					else
-					{
-						imp_max = true;
-					}
+					if (imp_counter < limit) important.add(pm);
+					else imp_max = true;
 				}
 				else
 				{
-					if (non_counter < limit)
-					{
-						nonImportant.add(pm);
-					}
-					else
-					{
-						non_max = true;
-					}
+					if (non_counter < limit) nonImportant.add(pm);
+					else non_max = true;
 				}
 				
 				if (imp_max && non_max) break;

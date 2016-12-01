@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <form method="post">
 	<table>
 		<thead>
@@ -9,34 +10,16 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td class="name-column">
-					<label for="cur-email">
-						Current e-mail address:
-					</label>
-				</td>
-				<td class="input-column">
-					<input id="cur-email" name="curEmail" type="text">
-				</td>
+				<td class="name-column"><label for="cur-email">Current e-mail address:</label></td>
+				<td class="input-column"><input id="cur-email" name="curEmail" type="text" value="${ user.person.email }" required disabled /></td>
 			</tr>
 			<tr>
-				<td>
-					<label for="new-email">
-						New e-mail address:
-					</label>
-				</td>
-				<td>
-					<input id="new-email" name="newEmail" type="text">
-				</td>
+				<td><label for="new-email">New e-mail address:</label></td>
+				<td><input id="new-email" name="newEmail" type="text" required /></td>
 			</tr>
 			<tr>
-				<td>
-					<label for="cfm-email">
-						Confirm e-mail address:
-					</label>
-				</td>
-				<td>
-					<input id="cfm-email" name="cfmEmail" type="text">
-				</td>
+				<td><label for="cfm-email">Confirm e-mail address:</label></td>
+				<td><input id="cfm-email" name="cfmEmail" type="text" required /></td>
 			</tr>
 		</tbody>
 		<tfoot>
