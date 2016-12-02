@@ -5,11 +5,9 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Person")
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public class Person
 {
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private int ID;
 	
 	@NotNull

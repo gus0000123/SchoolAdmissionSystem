@@ -9,12 +9,15 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="Students")
-public class Student extends Person
+public class Student
 {
+	@Id
+	private int id;
 	@NotNull
 	private String major;
 	private String minor;
 	private int credit = 0;
+	private int year = 0;
 	@Temporal(TemporalType.DATE)
 	private Date start_date = new Date();
 	
@@ -22,6 +25,7 @@ public class Student extends Person
 	@NotNull
 	private StudentAdmissionStatus admission_status;
 	
+	@NotNull
 	@OneToOne
 	@JoinColumn(name="person_id")
 	private Person person;
@@ -52,7 +56,10 @@ public class Student extends Person
 	public void setMinor(String in) { this.minor = in; }
 	public void setCredit(int in) { this.credit = in; }
 	public void setStartDate(Date in) { this.start_date = in; }
-	public void setPerson(Person in) { this.person = in; }
+	public void setPerson(Person in) {
+		this.person = in;
+		this.id = this.person.getID();
+	}
 
 	@Override
 	public String toString()
@@ -81,5 +88,21 @@ public class Student extends Person
 
 	public void setEnrolled_courses(Set<Course> enrolled_courses) {
 		this.enrolled_courses = enrolled_courses;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
 	}
 }

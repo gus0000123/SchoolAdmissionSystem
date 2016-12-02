@@ -51,13 +51,13 @@ public class HibernateInsertScript
         s.setMajor("COMP");
         s.setPerson(p);
         StudentDAO.getInstance().insert(s);
-        s = StudentDAO.getInstance().getByPrimaryKey(2);
+        s = StudentDAO.getInstance().getByPrimaryKey(s.getId());
         
         // Employee
         Employee e = new Employee();
         e.setPerson(p);
         EmployeeDAO.getInstance().insert(e);
-        e = EmployeeDAO.getInstance().getByPrimaryKey(3);
+        e = EmployeeDAO.getInstance().getByPrimaryKey(e.getId());
         
         // Update department
         d.setDean(e);
@@ -87,7 +87,7 @@ public class HibernateInsertScript
         // Update assigned course
         e.getAssigned_courses().add(c);
         EmployeeDAO.getInstance().update(e);
-        e = EmployeeDAO.getInstance().getByPrimaryKey(3);
+        e = EmployeeDAO.getInstance().getByPrimaryKey(e.getId());
         
         // Course Work
         CourseWork cw = new CourseWork();
@@ -121,6 +121,7 @@ public class HibernateInsertScript
         p2.setEmail("test");
         p2.setGender('M');
         p2.setDepartment(d);
+        p2.setID(2);
         PersonDAO.getInstance().insert(p2);
         p2 = (Person) HibernateUtil.getNRowByColumn(Person.class, "ID", 1, true).get(0);
         

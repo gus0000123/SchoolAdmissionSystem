@@ -24,6 +24,16 @@ public class MessageDAO implements DAO<Message>
 	@Override
 	public Message getByPrimaryKey(int id) { return (Message) HibernateUtil.load(Message.class, id); }
 
+	@Override
+	public Message getLastInsert()
+	{
+		List<Object> result = HibernateUtil.getNRowByColumn(Message.class, "message_id", 1, true);
+		if (result != null && result.size() > 0)
+			return (Message) result.get(0);
+		else
+			return null;
+	}
+	
 	// Singleton
 	private static MessageDAO instance;
 	

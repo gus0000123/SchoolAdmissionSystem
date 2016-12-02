@@ -24,6 +24,16 @@ public class ScheduleDAO implements DAO<Schedule>
 	@Override
 	public Schedule getByPrimaryKey(int id) { return (Schedule) HibernateUtil.load(Schedule.class, id); }
 
+	@Override
+	public Schedule getLastInsert()
+	{
+		List<Object> result = HibernateUtil.getNRowByColumn(Schedule.class, "id", 1, true);
+		if (result != null && result.size() > 0)
+			return (Schedule) result.get(0);
+		else
+			return null;
+	}
+	
 	// Singleton
 	private static ScheduleDAO instance;
 	

@@ -38,4 +38,12 @@ public class User
 	{
 		return person.toString() + " ;" + username + " ;" + password + " ;" + authority;
 	}
+
+	public int getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
 }

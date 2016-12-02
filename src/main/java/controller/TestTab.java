@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import bean.data.Person;
 import bean.data.User;
 import bean.messenger.Personal;
-import util.HibernateUtil;
+import service.messenger.PersonalService;
 
 /**
  * Servlet implementation class TestParamServlet
@@ -53,7 +53,7 @@ public class TestTab extends HttpServlet
 		if (tab.equals("overview") && u.getPerson() != null)
 		{
 			Person p = u.getPerson();
-			List<Object> obj = HibernateUtil.getEqualIntCondition(Personal.class, "receiver_id", p.getID());
+			List<Personal> obj = PersonalService.getInstance().getAllFromReceiverId(p.getID()); 
 			List<Personal> nonImportant = new ArrayList<>();
 			List<Personal> important = new ArrayList<>();
 			
@@ -63,9 +63,9 @@ public class TestTab extends HttpServlet
 			int non_counter = 0;
 			int imp_counter = 0;
 			
-			for (Object o : obj)
+			for (Personal o : obj)
 			{
-				Personal pm = (Personal) o;
+				Personal pm = o;
 				// Check which list to put into
 				if (pm.isImportant())
 				{

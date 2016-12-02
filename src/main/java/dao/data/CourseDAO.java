@@ -24,6 +24,16 @@ public class CourseDAO implements DAO<Course>
 	@Override
 	public Course getByPrimaryKey(int id) { return (Course) HibernateUtil.load(Course.class, id); }
 
+	@Override
+	public Course getLastInsert()
+	{
+		List<Object> result = HibernateUtil.getNRowByColumn(Course.class, "id", 1, true);
+		if (result != null && result.size() > 0)
+			return (Course) result.get(0);
+		else
+			return null;
+	}
+	
 	// Singleton
 	private static CourseDAO instance;
 	

@@ -9,8 +9,11 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="Employees")
-public class Employee extends Person
+public class Employee
 {
+	@Id
+	private int id;
+	
 	@NotNull
 	@Column(name="salary")
 	private double salary;
@@ -20,6 +23,7 @@ public class Employee extends Person
 	@Column(name="start_date")
 	private Date start_date = new Date();
 	
+	@NotNull
 	@OneToOne
 	@JoinColumn(name="person_id")
 	private Person person;
@@ -38,7 +42,10 @@ public class Employee extends Person
 	public void setStart_date(Date start_date) { this.start_date = start_date; }
 	public void setRank(int rank) { this.rank = rank; }
 	public void setSalary(double salary) { this.salary = salary; }
-	public void setPerson(Person in) { this.person = in; }
+	public void setPerson(Person in) {
+		this.person = in;
+		this.id = in.getID();
+	}
 	
 	@Override
 	public String toString()
@@ -56,5 +63,13 @@ public class Employee extends Person
 
 	public void setAssigned_courses(Set<Course> assigned_courses) {
 		this.assigned_courses = assigned_courses;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

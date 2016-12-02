@@ -24,6 +24,16 @@ public class StudentAdmissionStatusDAO implements DAO<StudentAdmissionStatus> {
 	@Override
 	public StudentAdmissionStatus getByPrimaryKey(int id) { return (StudentAdmissionStatus) HibernateUtil.load(StudentAdmissionStatus.class, id); }
 	
+	@Override
+	public StudentAdmissionStatus getLastInsert()
+	{
+		List<Object> result = HibernateUtil.getNRowByColumn(StudentAdmissionStatus.class, "id", 1, true);
+		if (result != null && result.size() > 0)
+			return (StudentAdmissionStatus) result.get(0);
+		else
+			return null;
+	}
+	
 	// Single ton
 	private static StudentAdmissionStatusDAO instance;
 	

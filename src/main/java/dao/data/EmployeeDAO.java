@@ -25,6 +25,16 @@ public class EmployeeDAO implements DAO<Employee>
 	@Override
 	public Employee getByPrimaryKey(int id) { return (Employee) HibernateUtil.load(Employee.class, id); }
 
+	@Override
+	public Employee getLastInsert()
+	{
+		List<Object> result = HibernateUtil.getNRowByColumn(Employee.class, "id", 1, true);
+		if (result != null && result.size() > 0)
+			return (Employee) result.get(0);
+		else
+			return null;
+	}
+	
 	// Singleton
 	private static EmployeeDAO instance;
 	

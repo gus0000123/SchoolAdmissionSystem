@@ -25,6 +25,16 @@ public class SystemGroupDAO implements DAO<SystemGroup>
 	@Override
 	public SystemGroup getByPrimaryKey(int id) { return (SystemGroup) HibernateUtil.load(SystemGroup.class, id); }
 
+	@Override
+	public SystemGroup getLastInsert()
+	{
+		List<Object> result = HibernateUtil.getNRowByColumn(SystemGroup.class, "sys_group_id", 1, true);
+		if (result != null && result.size() > 0)
+			return (SystemGroup) result.get(0);
+		else
+			return null;
+	}
+	
 	// Singleton
 	private static SystemGroupDAO instance;
 	

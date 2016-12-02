@@ -17,8 +17,8 @@
 		</c:otherwise>
 	</c:choose>
 	<c:choose>
-		<c:when test="${ tab eq 'history' }">
-			<button class="active">History</button>
+		<c:when test="${ tab eq 'message' }">
+			<button class="active">Messages</button>
 		</c:when>
 		<c:otherwise>
 			<button onclick="goToPage('history')">History</button>

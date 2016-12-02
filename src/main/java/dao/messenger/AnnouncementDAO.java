@@ -25,6 +25,16 @@ public class AnnouncementDAO implements DAO<Announcement>
 	@Override
 	public Announcement getByPrimaryKey(int id) { return (Announcement) HibernateUtil.load(Announcement.class, id); }
 	
+	@Override
+	public Announcement getLastInsert()
+	{
+		List<Object> result = HibernateUtil.getNRowByColumn(Announcement.class, "message_id", 1, true);
+		if (result != null && result.size() > 0)
+			return (Announcement) result.get(0);
+		else
+			return null;
+	}
+	
 	// Singleton
 	private static AnnouncementDAO instance;
 	

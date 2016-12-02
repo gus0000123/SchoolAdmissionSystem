@@ -24,6 +24,16 @@ public class CourseMarkDAO implements DAO<CourseMark>
 	@Override
 	public CourseMark getByPrimaryKey(int id) { return (CourseMark) HibernateUtil.load(CourseMark.class, id); }
 
+	@Override
+	public CourseMark getLastInsert()
+	{
+		List<Object> result = HibernateUtil.getNRowByColumn(CourseMark.class, "id", 1, true);
+		if (result != null && result.size() > 0)
+			return (CourseMark) result.get(0);
+		else
+			return null;
+	}
+	
 	// Singleton
 	private static CourseMarkDAO instance;
 	

@@ -9,5 +9,6 @@ public interface Service<T>
 	void delete(T o);
 	void deleteById(int id);
 	T getById(int id);
+	T getLastInsert();
 	List<T> getAll();
 }

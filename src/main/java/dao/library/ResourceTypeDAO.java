@@ -24,6 +24,16 @@ public class ResourceTypeDAO implements DAO<ResourceType>
 	@Override
 	public ResourceType getByPrimaryKey(int id) { return (ResourceType) HibernateUtil.load(ResourceType.class, id); }
 
+	@Override
+	public ResourceType getLastInsert()
+	{
+		List<Object> result = HibernateUtil.getNRowByColumn(ResourceType.class, "id", 1, true);
+		if (result != null && result.size() > 0)
+			return (ResourceType) result.get(0);
+		else
+			return null;
+	}
+	
 	// Singleton
 	private static ResourceTypeDAO instance;
 	

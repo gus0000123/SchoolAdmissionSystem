@@ -24,6 +24,16 @@ public class DepartmentDAO implements DAO<Department>
 	@Override
 	public Department getByPrimaryKey(int id) { return (Department) HibernateUtil.load(Department.class, id); }
 
+	@Override
+	public Department getLastInsert()
+	{
+		List<Object> result = HibernateUtil.getNRowByColumn(Department.class, "dept_id", 1, true);
+		if (result != null && result.size() > 0)
+			return (Department) result.get(0);
+		else
+			return null;
+	}
+	
 	// Singleton
 	private static DepartmentDAO instance;
 	

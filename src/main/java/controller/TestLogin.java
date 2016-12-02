@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import bean.data.Person;
 import bean.data.User;
-import dao.data.PersonDAO;
-import dao.data.UserDAO;
+import service.data.PersonService;
+import service.data.UserService;
 import util.BeanUtil;
 import util.HibernateUtil;
 
@@ -73,7 +73,7 @@ public class TestLogin extends HttpServlet
 		String user = request.getParameter("user");
 		String password = request.getParameter("password");
 		
-		List<User> list = UserDAO.getInstance().getAll();
+		List<User> list = UserService.getInstance().getAll();
 		boolean found_user = false;
 		
 		// Find user
@@ -125,7 +125,7 @@ public class TestLogin extends HttpServlet
 			p.setLastName(last_name);
 			p.setEmail(email);
 			
-			PersonDAO.getInstance().insert(p);
+			PersonService.getInstance().insert(p);
 			
 			// Reload person with id
 			p = (Person) HibernateUtil.getNRowByColumn(Person.class, "ID", 1, true).get(0);
@@ -136,7 +136,7 @@ public class TestLogin extends HttpServlet
 			u.setPassword(password);
 			u.setUser(BeanUtil.generateUserName(p));
 			
-			UserDAO.getInstance().insert(u);
+			UserService.getInstance().insert(u);
 			
 			request.setAttribute("page", "confirmation");
 		}
