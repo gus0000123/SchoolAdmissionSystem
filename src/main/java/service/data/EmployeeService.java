@@ -28,9 +28,6 @@ public class EmployeeService implements Service<Employee>
 	@Override
 	public List<Employee> getAll() { return dao.getAll(); }
 	
-	@Override
-	public Employee getLastInsert() { return dao.getLastInsert(); }
-	
 	// Singleton
 	private static EmployeeService instance;
 	public EmployeeService() { this.dao = EmployeeDAO.getInstance(); }

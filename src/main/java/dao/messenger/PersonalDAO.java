@@ -1,6 +1,5 @@
 package dao.messenger;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import bean.messenger.Personal;
@@ -25,29 +24,14 @@ public class PersonalDAO implements DAO<Personal>
 
 	@Override
 	public Personal getByPrimaryKey(int id) { return (Personal) HibernateUtil.load(Personal.class, id);	}
-
-	@Override
-	public Personal getLastInsert()
-	{
-		List<Object> result = HibernateUtil.getNRowOrderByColumn(Personal.class, "message_id", 1, true);
-		if (result != null && result.size() > 0)
-			return (Personal) result.get(0);
-		else
-			return null;
-	}
 	
 	public List<Personal> getAllByReceiverId(int id)
 	{
-		List<Object> list = HibernateUtil.getEqualIntCondition(Personal.class, "receiver_id", id);
-		List<Personal> result = new ArrayList<>();
-		if (list != null)
-		{
-			for (Object o : list)
-			{
-				result.add((Personal) o);
-			}
-		}
-		return result;
+		return HibernateUtil.getCondition(HibernateUtil.CONDITION_EQUAL, 0, Personal.class, "receiver_id", new Integer(id));
+	}
+	public List<Personal> getAllBySenderId(int id)
+	{
+		return HibernateUtil.getCondition(HibernateUtil.CONDITION_EQUAL, 0, Personal.class, "sender_ID", new Integer(id));
 	}
 	
 	// Singleton

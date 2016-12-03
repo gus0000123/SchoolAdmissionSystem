@@ -28,9 +28,6 @@ public class StudentAdmissionStatusService implements Service<StudentAdmissionSt
 	@Override
 	public List<StudentAdmissionStatus> getAll() { return dao.getAll(); }
 	
-	@Override
-	public StudentAdmissionStatus getLastInsert() { return dao.getLastInsert(); }
-	
 	// Singleton
 	private static StudentAdmissionStatusService instance;
 	public StudentAdmissionStatusService() { this.dao = StudentAdmissionStatusDAO.getInstance(); }

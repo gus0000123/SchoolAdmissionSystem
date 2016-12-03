@@ -28,9 +28,6 @@ public class UserService implements Service<User>
 	@Override
 	public List<User> getAll() { return dao.getAll(); }
 	
-	@Override
-	public User getLastInsert() { return dao.getLastInsert(); }
-	
 	// Singleton
 	private static UserService instance;
 	public UserService() { this.dao = UserDAO.getInstance(); }

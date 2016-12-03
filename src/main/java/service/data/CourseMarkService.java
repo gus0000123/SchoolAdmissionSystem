@@ -28,9 +28,6 @@ public class CourseMarkService implements Service<CourseMark>
 	@Override
 	public List<CourseMark> getAll() { return dao.getAll(); }
 	
-	@Override
-	public CourseMark getLastInsert() {	return dao.getLastInsert();	}
-	
 	// Singleton
 	private static CourseMarkService instance;
 	public CourseMarkService() { this.dao = CourseMarkDAO.getInstance(); }

@@ -28,9 +28,6 @@ public class MessageService implements Service<Message>
 	@Override
 	public List<Message> getAll() { return dao.getAll(); }
 	
-	@Override
-	public Message getLastInsert() { return dao.getLastInsert(); }
-	
 	// Singleton
 	private static MessageService instance;
 	public MessageService() { this.dao = MessageDAO.getInstance(); }

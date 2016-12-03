@@ -42,3 +42,12 @@ function toggleFilter(e) {
 		$('#filter-toggle').html('Advanced Filter');
 	}
 }
+
+function launchForm(e, formName) {
+	e.preventDefault();
+	
+	showLoading();
+	setTimeout(function() {
+		$('#' + formName).submit();
+	}, 1000);
+}

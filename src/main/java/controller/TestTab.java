@@ -54,71 +54,11 @@ public class TestTab extends HttpServlet
 		// Session does not end and user is still around
 		if (tab.equals("overview") && u.getPerson() != null)
 		{
-			Person p = u.getPerson();
-			List<Personal> obj = PersonalService.getInstance().getAllFromReceiverId(p.getID()); 
-			List<Personal> nonImportant = new ArrayList<>();
-			List<Personal> important = new ArrayList<>();
-			
-			// Sort
-			Collections.sort(obj, new Comparator<Personal>()
-			{
-				@Override
-				public int compare(Personal p1, Personal p2)
-				{
-					return p2.getCreation_time().compareTo(p1.getCreation_time());
-				}
-			});
-			
-			int limit = 3;			// Limit to show on each section, otherwise the page will be flooded
-			boolean non_max = false;
-			boolean imp_max = false;
-			int non_counter = 0;
-			int imp_counter = 0;
-			
-			for (Personal o : obj)
-			{
-				Personal pm = o;
-				// Check which list to put into
-				if (pm.isImportant())
-				{
-					if (imp_counter < limit) important.add(pm);
-					else imp_max = true;
-				}
-				else
-				{
-					if (non_counter < limit) nonImportant.add(pm);
-					else non_max = true;
-				}
-				
-				if (imp_max && non_max) break;
-			}
-			
-			request.setAttribute("important_messages", important);
-			request.setAttribute("messages", nonImportant);
+			getOverviewContext(request, u);
 		}
 		else if (tab.equals("messages") && u.getPerson() != null)
 		{
-			Person p = u.getPerson();
-			List<Personal> list = PersonalService.getInstance().getAllFromReceiverId(p.getID());
-			
-			if (list != null)
-			{
-				// Sort
-				Collections.sort(list, new Comparator<Personal>()
-				{
-					@Override
-					public int compare(Personal p1, Personal p2)
-					{
-						return p2.getCreation_time().compareTo(p1.getCreation_time());
-					}
-				});
-			}
-			else
-			{
-				list = new ArrayList<>();
-			}
-			
-			request.setAttribute("all_messages", list);
+			getMessageContext(request, u);
 		}
 		
 		request.setAttribute("tab", request.getParameter("tab"));
@@ -133,4 +73,94 @@ public class TestTab extends HttpServlet
 		doGet(request, response);
 	}
 
+	private void getOverviewContext(HttpServletRequest request, User u)
+	{
+		Person p = u.getPerson();
+		List<Personal> obj = PersonalService.getInstance().getAllFromReceiverId(p.getID()); 
+		List<Personal> nonImportant = new ArrayList<>();
+		List<Personal> important = new ArrayList<>();
+		
+		// Sort
+		Collections.sort(obj, new Comparator<Personal>()
+		{
+			@Override
+			public int compare(Personal p1, Personal p2)
+			{
+				return p2.getCreation_time().compareTo(p1.getCreation_time());
+			}
+		});
+		
+		int limit = 3;			// Limit to show on each section, otherwise the page will be flooded
+		boolean non_max = false;
+		boolean imp_max = false;
+		int non_counter = 0;
+		int imp_counter = 0;
+		
+		for (Personal o : obj)
+		{
+			Personal pm = o;
+			// Check which list to put into
+			if (pm.isImportant())
+			{
+				if (imp_counter < limit) important.add(pm);
+				else imp_max = true;
+			}
+			else
+			{
+				if (non_counter < limit) nonImportant.add(pm);
+				else non_max = true;
+			}
+			
+			if (imp_max && non_max) break;
+		}
+		
+		request.setAttribute("important_messages", important);
+		request.setAttribute("messages", nonImportant);
+	}
+	
+	private void getMessageContext(HttpServletRequest request, User u)
+	{
+		// Initialize
+		Person p = u.getPerson();
+		List<Personal> list = null;
+					
+		// Set sub tab
+		String sub = request.getParameter("sub_tab");
+		if (sub == null) { sub = "inbox"; }
+		switch(sub)
+		{
+			case "compose":
+				break;
+			case "trash":
+				break;
+			case "sent":
+				list = PersonalService.getInstance().getAllFromSenderId(p.getID());
+				break;
+			case "inbox":
+			default:
+				list = PersonalService.getInstance().getAllFromReceiverId(p.getID());
+				break;
+		}		
+		
+		// Set messages
+		if (list != null)
+		{
+			// Sort
+			Collections.sort(list, new Comparator<Personal>()
+			{
+				@Override
+				public int compare(Personal p1, Personal p2)
+				{
+					return p2.getCreation_time().compareTo(p1.getCreation_time());
+				}
+			});
+		}
+		else
+		{
+			list = new ArrayList<>();
+		}
+		
+		request.setAttribute("all_messages", list);
+		request.setAttribute("sub_tab", sub);
+	}
 }

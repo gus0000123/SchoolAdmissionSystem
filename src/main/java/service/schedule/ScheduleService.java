@@ -28,9 +28,6 @@ public class ScheduleService implements Service<Schedule>
 	@Override
 	public List<Schedule> getAll() { return dao.getAll(); }
 	
-	@Override
-	public Schedule getLastInsert() { return dao.getLastInsert(); }
-	
 	// Singleton
 	private static ScheduleService instance;
 	public ScheduleService() { this.dao = ScheduleDAO.getInstance(); }

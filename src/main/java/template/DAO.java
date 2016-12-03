@@ -16,5 +16,4 @@ public interface DAO<T>
 	void removeByPrimaryKey(int id);
 	List<T> getAll();
 	T getByPrimaryKey(int id);
-	T getLastInsert();
 }

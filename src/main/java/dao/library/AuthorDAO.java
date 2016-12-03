@@ -23,16 +23,6 @@ public class AuthorDAO implements DAO<Author>
 
 	@Override
 	public Author getByPrimaryKey(int id) { return (Author) HibernateUtil.load(Author.class, id); }
-	
-	@Override
-	public Author getLastInsert()
-	{
-		List<Object> result = HibernateUtil.getNRowOrderByColumn(Author.class, "id", 1, true);
-		if (result != null && result.size() > 0)
-			return (Author) result.get(0);
-		else
-			return null;
-	}
 
 	// Singleton
 	private static AuthorDAO instance;

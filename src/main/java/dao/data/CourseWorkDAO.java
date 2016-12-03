@@ -23,16 +23,6 @@ public class CourseWorkDAO implements DAO<CourseWork>
 
 	@Override
 	public CourseWork getByPrimaryKey(int id) { return (CourseWork) HibernateUtil.load(CourseWork.class, id); }
-
-	@Override
-	public CourseWork getLastInsert()
-	{
-		List<Object> result = HibernateUtil.getNRowOrderByColumn(CourseWork.class, "coursework_id", 1, true);
-		if (result != null && result.size() > 0)
-			return (CourseWork) result.get(0);
-		else
-			return null;
-	}
 	
 	// Singleton
 	private static CourseWorkDAO instance;

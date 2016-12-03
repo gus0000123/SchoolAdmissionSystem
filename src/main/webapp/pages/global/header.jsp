@@ -9,9 +9,9 @@
 				<td>
 					<div id="header-menu">
 						<div id="mail-btn" class="header-btn">
-							<form id="goToMessageForm" action="TestTab" method="post">
+							<form id="goToMessageIcon" action="TestTab" method="post">
 								<input type="hidden" name="tab" value="messages" />
-								<img src="${pageContext.servletContext.contextPath}/images/mail-icon.jpg" onclick="goToMessage()">
+								<img src="${pageContext.servletContext.contextPath}/images/mail-icon.jpg" onclick="launchForm(event, 'goToMessageIcon');">
 							</form>
 						</div>
 						<div id="announcement-btn" class="header-btn">
@@ -23,7 +23,7 @@
 						<div id="signout-btn" class="header-btn">
 							<form id="signout" action="Signout" method="post">
 								<img src="${pageContext.servletContext.contextPath}/images/signout-icon.png"
-									onclick="document.getElementById('signout').submit(); countdownLoading(0);">
+									onclick="launchForm(event, 'signout');">
 							</form>
 						</div>
 					</div>
@@ -31,13 +31,4 @@
 			</tr>
 		</table>
 	</div>
-	<script>
-		function goToMessage()
-		{
-			showLoading();
-			setTimeout(function() {
-				$("#goToMessageForm").submit();
-			}, 2000);
-		}
-	</script>
 </header>

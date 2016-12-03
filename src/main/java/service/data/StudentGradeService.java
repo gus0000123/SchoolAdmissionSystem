@@ -28,9 +28,6 @@ public class StudentGradeService implements Service<StudentGrade>
 	@Override
 	public List<StudentGrade> getAll() { return dao.getAll(); }
 	
-	@Override
-	public StudentGrade getLastInsert() { return dao.getLastInsert(); }
-	
 	// Singleton
 	private static StudentGradeService instance;
 	public StudentGradeService() { this.dao = StudentGradeDAO.getInstance(); }

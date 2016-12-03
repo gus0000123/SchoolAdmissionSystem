@@ -28,9 +28,6 @@ public class PersonService implements Service<Person>
 	@Override
 	public List<Person> getAll() { return dao.getAll(); }
 	
-	@Override
-	public Person getLastInsert() { return dao.getLastInsert(); }
-	
 	// Singleton
 	private static PersonService instance;
 	public PersonService() { this.dao = PersonDAO.getInstance(); }

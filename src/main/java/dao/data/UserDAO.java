@@ -23,16 +23,6 @@ public class UserDAO implements DAO<User>
 
 	@Override
 	public User getByPrimaryKey(int id) { return (User) HibernateUtil.load(User.class, id); }
-	
-	@Override
-	public User getLastInsert()
-	{
-		List<Object> result = HibernateUtil.getNRowOrderByColumn(User.class, "user_id", 1, true);
-		if (result != null && result.size() > 0)
-			return (User) result.get(0);
-		else
-			return null;
-	}
 		
 	/****************************SINGLETON**********************************/
 	private static UserDAO instance = null;

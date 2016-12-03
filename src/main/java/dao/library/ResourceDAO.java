@@ -23,16 +23,6 @@ public class ResourceDAO implements DAO<Resource>
 
 	@Override
 	public Resource getByPrimaryKey(int id) { return (Resource) HibernateUtil.load(Resource.class, id); }
-
-	@Override
-	public Resource getLastInsert()
-	{
-		List<Object> result = HibernateUtil.getNRowOrderByColumn(Resource.class, "id", 1, true);
-		if (result != null && result.size() > 0)
-			return (Resource) result.get(0);
-		else
-			return null;
-	}
 	
 	// Singleton
 	private static ResourceDAO instance;

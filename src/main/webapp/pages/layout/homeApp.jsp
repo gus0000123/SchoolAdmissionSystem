@@ -3,17 +3,7 @@
 <html>
 	<head>
 		<jsp:include page="../global/css_link.jsp" />
-		<c:choose>
-			<c:when test="${ tab eq 'overview' }">
-				<title>Overview</title>
-			</c:when>
-			<c:when test="${ tab eq 'info' }">
-				<title>Personal information</title>
-			</c:when>
-			<c:when test="${ tab eq 'messages' }">
-				<title>Messages</title>
-			</c:when>
-		</c:choose>
+		<jsp:include page="../global/title.jsp" />
 	</head>
 	<body>
 		<script type="text/javascript" src="${pageContext.servletContext.contextPath}/scripts/jquery-3.1.0.min.js"></script>

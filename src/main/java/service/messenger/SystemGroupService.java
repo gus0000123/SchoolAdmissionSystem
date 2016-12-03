@@ -28,9 +28,6 @@ public class SystemGroupService implements Service<SystemGroup>
 	@Override
 	public List<SystemGroup> getAll() { return dao.getAll(); }
 	
-	@Override
-	public SystemGroup getLastInsert() { return dao.getLastInsert(); }
-	
 	// Singleton
 	private static SystemGroupService instance;
 	public SystemGroupService() { this.dao = SystemGroupDAO.getInstance(); }

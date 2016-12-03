@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import bean.data.Person;
 import bean.data.Student;
 import bean.data.User;
-import dao.data.PersonDAO;
-import dao.data.StudentDAO;
-import dao.data.UserDAO;
+import service.data.PersonService;
+import service.data.StudentService;
+import service.data.UserService;
 
 /**
  * Servlet implementation class PageTransition
@@ -73,7 +73,7 @@ public class ToolTransition extends HttpServlet
 	
 	private String getUserContext(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		UserDAO dao = UserDAO.getInstance();
+		UserService service = UserService.getInstance();
 		
 		ArrayList<String> tableColumn = new ArrayList<>();
 		tableColumn.add("Username");
@@ -83,7 +83,7 @@ public class ToolTransition extends HttpServlet
 		
 		request.setAttribute("tableHeader", tableColumn);
 		
-		List<User> list = dao.getAll(); 
+		List<User> list = service.getAll(); 
 		if (list == null)
 		{
 			return HOME_URL;
@@ -97,7 +97,7 @@ public class ToolTransition extends HttpServlet
 	
 	private String getPersonContext(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		PersonDAO dao = PersonDAO.getInstance();
+		PersonService service = PersonService.getInstance();
 		
 		ArrayList<String> tableColumn = new ArrayList<>();
 		tableColumn.add("Person ID");
@@ -112,7 +112,7 @@ public class ToolTransition extends HttpServlet
 		
 		request.setAttribute("tableHeader", tableColumn);
 		
-		List<Person> list = dao.getAll(); 
+		List<Person> list = service.getAll(); 
 		if (list == null)
 		{
 			return HOME_URL;
@@ -126,7 +126,7 @@ public class ToolTransition extends HttpServlet
 	
 	private String getStudentContext(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		StudentDAO dao = StudentDAO.getInstance();
+		StudentService service = StudentService.getInstance();
 		
 		ArrayList<String> tableColumn = new ArrayList<>();
 		tableColumn.add("Person ID");
@@ -138,7 +138,7 @@ public class ToolTransition extends HttpServlet
 		
 		request.setAttribute("tableHeader", tableColumn);
 		
-		List<Student> list = dao.getAll();
+		List<Student> list = service.getAll();
 		if (list == null)
 		{
 			return HOME_URL;

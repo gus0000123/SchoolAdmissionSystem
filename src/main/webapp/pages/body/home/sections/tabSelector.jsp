@@ -31,11 +31,8 @@
 	<script>
 		function goToPage(tab)
 		{
-			showLoading();
-			setTimeout(function() {
-				$("#tabSubmitField").val(tab);
-				$("#tabSubmitForm").submit();
-			}, 2000);
+			$("#tabSubmitField").val(tab);
+			launchForm(event, 'tabSubmitForm');
 		}
 	</script>
 </div>

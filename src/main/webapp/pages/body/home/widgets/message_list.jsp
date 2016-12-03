@@ -21,8 +21,8 @@
 		border: none;
 		cursor: pointer;
 		padding-top: 8px;
-		border-top: 5px solid rgba(200, 200, 200, 0.5);
-		width: 80px;
+		border-top: 5px solid rgba(200, 200, 200, 0.0);
+		width: 150px;
 		font-weight: 700;
 		padding-left: 0;
 		margin-left: 0;
@@ -44,12 +44,23 @@
 			<thead>
 				<tr>
 					<th style="width: 13px;">
-						<c:if test="${ fn:length(all_messages) gt 0 }">
-							<input id="select-all" type="checkbox" name="select_all" value="all" onclick="selectAll()" />
+						<c:if test="${ sub_tab ne 'sent' }">
+							<c:if test="${ fn:length(all_messages) gt 0 }">
+								<input id="select-all" type="checkbox" name="select_all" value="all" onclick="selectAll()" />
+							</c:if>
 						</c:if>
 					</th>
 					<th style="width: 55%;">Title</th>
-					<th style="width: 25%;">Sender</th>
+					<th style="width: 25%;">
+						<c:choose>
+							<c:when test="${ sub_tab eq 'inbox' }">
+								Sender
+							</c:when>
+							<c:when test="${ sub_tab eq 'sent' }">
+								Receiver
+							</c:when>
+						</c:choose>
+					</th>
 					<th style="width: 15%;">Date</th>
 				</tr>
 			</thead>
@@ -67,7 +78,9 @@
 							<c:if test="${ not messasge.isTrash }">
 								<tr class="row-selector">
 									<td>
-										<input id="row-${ i }" type="checkbox" name="selection" value="${ message.getId() }" onclick="selectRow(${ i })" />
+										<c:if test="${ sub_tab ne 'sent' }">
+											<input id="row-${ i }" type="checkbox" name="selection" value="${ message.getId() }" onclick="selectRow(${ i })" />
+										</c:if>
 									</td>
 									<c:choose>
 										<c:when test="${ message.important }">
@@ -91,10 +104,12 @@
 					</c:otherwise>
 				</c:choose>
 			</tbody>
-			<c:if test="${ i gt 0 }">
-				<tfoot><tr><td colspan="4">
-					<input class="bottom-button" type="submit" value="Delete" />
-				</td></tr></tfoot>
+			<c:if test="${ sub_tab ne 'sent' }">
+				<c:if test="${ i gt 0 }">
+					<tfoot><tr><td colspan="4">
+						<input class="bottom-button" type="submit" value="Delete selected" />
+					</td></tr></tfoot>
+				</c:if>
 			</c:if>
 		</table>
 	</form>

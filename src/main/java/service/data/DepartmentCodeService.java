@@ -27,10 +27,7 @@ public class DepartmentCodeService implements Service<DepartmentCode>
 
 	@Override
 	public List<DepartmentCode> getAll() { return dao.getAll(); }
-	
-	@Override
-	public DepartmentCode getLastInsert() { return dao.getLastInsert(); }
-	
+
 	// Singleton
 	private static DepartmentCodeService instance;
 	public DepartmentCodeService() { this.dao = DepartmentCodeDAO.getInstance(); }

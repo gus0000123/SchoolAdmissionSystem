@@ -28,10 +28,8 @@ public class PersonalService implements Service<Personal>
 	@Override
 	public List<Personal> getAll() { return dao.getAll(); }
 	
-	@Override
-	public Personal getLastInsert() { return dao.getLastInsert(); }
-	
 	public List<Personal> getAllFromReceiverId(int id) { return dao.getAllByReceiverId(id); }
+	public List<Personal> getAllFromSenderId(int id) { return dao.getAllBySenderId(id); }
 	
 	// Singleton
 	private static PersonalService instance;

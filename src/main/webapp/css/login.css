@@ -2,7 +2,7 @@
 
 #loginBody {
 	width: 100vw;
-	height: 100vh;
+	height: calc(100vh - 35px);
 	overflow: hidden;
 	z-index: 0;
 }

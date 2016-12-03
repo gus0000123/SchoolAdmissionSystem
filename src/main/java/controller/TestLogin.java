@@ -14,7 +14,6 @@ import bean.data.User;
 import service.data.PersonService;
 import service.data.UserService;
 import util.BeanUtil;
-import util.HibernateUtil;
 
 /**
  * Servlet implementation class TestLogin
@@ -124,18 +123,13 @@ public class TestLogin extends HttpServlet
 			p.setMiddleName(middle_name);
 			p.setLastName(last_name);
 			p.setEmail(email);
-			
 			PersonService.getInstance().insert(p);
-			
-			// Reload person with id
-			p = (Person) HibernateUtil.getNRowOrderByColumn(Person.class, "ID", 1, true).get(0);
 			
 			// Create user
 			User u = new User();
 			u.setPerson(p);
 			u.setPassword(password);
 			u.setUser(BeanUtil.generateUserName(p));
-			
 			UserService.getInstance().insert(u);
 			
 			request.setAttribute("page", "confirmation");

@@ -27,10 +27,7 @@ public class CourseWorkService implements Service<CourseWork>
 
 	@Override
 	public List<CourseWork> getAll() { return dao.getAll(); }
-	
-	@Override
-	public CourseWork getLastInsert() { return dao.getLastInsert(); }
-	
+
 	// Singleton
 	private static CourseWorkService instance;
 	public CourseWorkService() { this.dao = CourseWorkDAO.getInstance(); }

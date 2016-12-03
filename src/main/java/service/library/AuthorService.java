@@ -28,9 +28,6 @@ public class AuthorService implements Service<Author>
 	@Override
 	public List<Author> getAll() { return dao.getAll(); }
 	
-	@Override
-	public Author getLastInsert() { return dao.getLastInsert(); }
-	
 	// Singleton
 	private static AuthorService instance;
 	public AuthorService() { this.dao = AuthorDAO.getInstance(); }

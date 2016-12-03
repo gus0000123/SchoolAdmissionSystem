@@ -28,9 +28,6 @@ public class AnnouncementService implements Service<Announcement>
 	@Override
 	public List<Announcement> getAll() { return dao.getAll(); }
 	
-	@Override
-	public Announcement getLastInsert() { return dao.getLastInsert(); }
-	
 	// Singleton
 	private static AnnouncementService instance;
 	public AnnouncementService() { this.dao = AnnouncementDAO.getInstance(); }

@@ -28,9 +28,6 @@ public class ResourceTypeService implements Service<ResourceType>
 	@Override
 	public List<ResourceType> getAll() { return dao.getAll(); }
 	
-	@Override
-	public ResourceType getLastInsert() { return dao.getLastInsert(); }
-	
 	// Singleton
 	private static ResourceTypeService instance;
 	public ResourceTypeService() { this.dao = ResourceTypeDAO.getInstance(); }

@@ -24,16 +24,6 @@ public class PersonDAO implements DAO<Person>
 	@Override
 	public Person getByPrimaryKey(int id) { return (Person) HibernateUtil.load(Person.class, id); }
 	
-	@Override
-	public Person getLastInsert()
-	{
-		List<Object> result = HibernateUtil.getNRowOrderByColumn(Person.class, "ID", 1, true);
-		if (result != null && result.size() > 0)
-			return (Person) result.get(0);
-		else
-			return null;
-	}
-	
 	// Singleton
 	private static PersonDAO instance = null;
 	
