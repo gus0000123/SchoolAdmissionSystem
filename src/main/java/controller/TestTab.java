@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -57,6 +59,16 @@ public class TestTab extends HttpServlet
 			List<Personal> nonImportant = new ArrayList<>();
 			List<Personal> important = new ArrayList<>();
 			
+			// Sort
+			Collections.sort(obj, new Comparator<Personal>()
+			{
+				@Override
+				public int compare(Personal p1, Personal p2)
+				{
+					return p2.getCreation_time().compareTo(p1.getCreation_time());
+				}
+			});
+			
 			int limit = 3;			// Limit to show on each section, otherwise the page will be flooded
 			boolean non_max = false;
 			boolean imp_max = false;
@@ -83,6 +95,30 @@ public class TestTab extends HttpServlet
 			
 			request.setAttribute("important_messages", important);
 			request.setAttribute("messages", nonImportant);
+		}
+		else if (tab.equals("messages") && u.getPerson() != null)
+		{
+			Person p = u.getPerson();
+			List<Personal> list = PersonalService.getInstance().getAllFromReceiverId(p.getID());
+			
+			if (list != null)
+			{
+				// Sort
+				Collections.sort(list, new Comparator<Personal>()
+				{
+					@Override
+					public int compare(Personal p1, Personal p2)
+					{
+						return p2.getCreation_time().compareTo(p1.getCreation_time());
+					}
+				});
+			}
+			else
+			{
+				list = new ArrayList<>();
+			}
+			
+			request.setAttribute("all_messages", list);
 		}
 		
 		request.setAttribute("tab", request.getParameter("tab"));

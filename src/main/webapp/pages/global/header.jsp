@@ -9,7 +9,10 @@
 				<td>
 					<div id="header-menu">
 						<div id="mail-btn" class="header-btn">
-							<img src="${pageContext.servletContext.contextPath}/images/mail-icon.jpg">
+							<form id="goToMessageForm" action="TestTab" method="post">
+								<input type="hidden" name="tab" value="messages" />
+								<img src="${pageContext.servletContext.contextPath}/images/mail-icon.jpg" onclick="goToMessage()">
+							</form>
 						</div>
 						<div id="announcement-btn" class="header-btn">
 							<img src="${pageContext.servletContext.contextPath}/images/announcement-icon.png">
@@ -28,4 +31,13 @@
 			</tr>
 		</table>
 	</div>
+	<script>
+		function goToMessage()
+		{
+			showLoading();
+			setTimeout(function() {
+				$("#goToMessageForm").submit();
+			}, 2000);
+		}
+	</script>
 </header>

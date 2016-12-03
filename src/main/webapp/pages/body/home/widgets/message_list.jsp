@@ -14,6 +14,27 @@
 	.row-selector:active {
 		background-color: rgba(0, 255, 200, 0.3);
 	}
+	
+	.bottom-button {
+		background: none;
+		outline: none;
+		border: none;
+		cursor: pointer;
+		padding-top: 8px;
+		border-top: 5px solid rgba(200, 200, 200, 0.5);
+		width: 80px;
+		font-weight: 700;
+		padding-left: 0;
+		margin-left: 0;
+	}
+	
+	.bottom-button:hover {
+		border-top: 5px solid rgba(0, 200, 255, 0.5);
+	}
+	
+	.bottom-button:active {
+		border-top: 5px solid rgba(0, 255, 200, 0.5);
+	}
 </style>
 <div>
 	<form action="TestTab" method="post">
@@ -72,7 +93,7 @@
 			</tbody>
 			<c:if test="${ i gt 0 }">
 				<tfoot><tr><td colspan="4">
-					<input type="submit" value="Delete" />
+					<input class="bottom-button" type="submit" value="Delete" />
 				</td></tr></tfoot>
 			</c:if>
 		</table>
