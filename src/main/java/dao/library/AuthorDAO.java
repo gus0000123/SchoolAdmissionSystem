@@ -27,7 +27,7 @@ public class AuthorDAO implements DAO<Author>
 	@Override
 	public Author getLastInsert()
 	{
-		List<Object> result = HibernateUtil.getNRowByColumn(Author.class, "id", 1, true);
+		List<Object> result = HibernateUtil.getNRowOrderByColumn(Author.class, "id", 1, true);
 		if (result != null && result.size() > 0)
 			return (Author) result.get(0);
 		else

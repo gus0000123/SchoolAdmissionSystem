@@ -28,7 +28,7 @@ public class AnnouncementDAO implements DAO<Announcement>
 	@Override
 	public Announcement getLastInsert()
 	{
-		List<Object> result = HibernateUtil.getNRowByColumn(Announcement.class, "message_id", 1, true);
+		List<Object> result = HibernateUtil.getNRowOrderByColumn(Announcement.class, "message_id", 1, true);
 		if (result != null && result.size() > 0)
 			return (Announcement) result.get(0);
 		else

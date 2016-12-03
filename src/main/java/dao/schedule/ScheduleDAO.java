@@ -27,7 +27,7 @@ public class ScheduleDAO implements DAO<Schedule>
 	@Override
 	public Schedule getLastInsert()
 	{
-		List<Object> result = HibernateUtil.getNRowByColumn(Schedule.class, "id", 1, true);
+		List<Object> result = HibernateUtil.getNRowOrderByColumn(Schedule.class, "id", 1, true);
 		if (result != null && result.size() > 0)
 			return (Schedule) result.get(0);
 		else

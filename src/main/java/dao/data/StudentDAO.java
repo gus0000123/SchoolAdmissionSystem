@@ -27,7 +27,7 @@ public class StudentDAO implements DAO<Student>
 	@Override
 	public Student getLastInsert()
 	{
-		List<Object> result = HibernateUtil.getNRowByColumn(Student.class, "id", 1, true);
+		List<Object> result = HibernateUtil.getNRowOrderByColumn(Student.class, "id", 1, true);
 		if (result != null && result.size() > 0)
 			return (Student) result.get(0);
 		else

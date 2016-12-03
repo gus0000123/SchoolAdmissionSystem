@@ -22,6 +22,10 @@ public class HibernateUtil
 		return sessionFactory;
 	}
 	
+	/**
+	 * Get session for hibernate. Make sure to manually close section when using this method
+	 * @return session created by hibernate
+	 */
 	public static Session getSession()
 	{
 		if (sessionFactory == null)
@@ -91,7 +95,7 @@ public class HibernateUtil
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static List<Object> getNRowByColumn(Class c, String columnName, int n, boolean fromLatest)
+	public static List<Object> getNRowOrderByColumn(Class c, String columnName, int n, boolean fromLatest)
 	{
 		Session session = getSession();
 		session.beginTransaction();

@@ -29,7 +29,7 @@ public class PersonalDAO implements DAO<Personal>
 	@Override
 	public Personal getLastInsert()
 	{
-		List<Object> result = HibernateUtil.getNRowByColumn(Personal.class, "message_id", 1, true);
+		List<Object> result = HibernateUtil.getNRowOrderByColumn(Personal.class, "message_id", 1, true);
 		if (result != null && result.size() > 0)
 			return (Personal) result.get(0);
 		else

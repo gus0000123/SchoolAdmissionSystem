@@ -27,7 +27,7 @@ public class CourseMarkDAO implements DAO<CourseMark>
 	@Override
 	public CourseMark getLastInsert()
 	{
-		List<Object> result = HibernateUtil.getNRowByColumn(CourseMark.class, "id", 1, true);
+		List<Object> result = HibernateUtil.getNRowOrderByColumn(CourseMark.class, "id", 1, true);
 		if (result != null && result.size() > 0)
 			return (CourseMark) result.get(0);
 		else

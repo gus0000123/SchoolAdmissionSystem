@@ -27,7 +27,7 @@ public class StudentGradeDAO implements DAO<StudentGrade>
 	@Override
 	public StudentGrade getLastInsert()
 	{
-		List<Object> result = HibernateUtil.getNRowByColumn(StudentGrade.class, "id", 1, true);
+		List<Object> result = HibernateUtil.getNRowOrderByColumn(StudentGrade.class, "id", 1, true);
 		if (result != null && result.size() > 0)
 			return (StudentGrade) result.get(0);
 		else

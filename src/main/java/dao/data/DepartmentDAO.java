@@ -27,7 +27,7 @@ public class DepartmentDAO implements DAO<Department>
 	@Override
 	public Department getLastInsert()
 	{
-		List<Object> result = HibernateUtil.getNRowByColumn(Department.class, "dept_id", 1, true);
+		List<Object> result = HibernateUtil.getNRowOrderByColumn(Department.class, "dept_id", 1, true);
 		if (result != null && result.size() > 0)
 			return (Department) result.get(0);
 		else

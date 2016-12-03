@@ -27,7 +27,7 @@ public class MessageDAO implements DAO<Message>
 	@Override
 	public Message getLastInsert()
 	{
-		List<Object> result = HibernateUtil.getNRowByColumn(Message.class, "message_id", 1, true);
+		List<Object> result = HibernateUtil.getNRowOrderByColumn(Message.class, "message_id", 1, true);
 		if (result != null && result.size() > 0)
 			return (Message) result.get(0);
 		else

@@ -27,7 +27,7 @@ public class ResourceTypeDAO implements DAO<ResourceType>
 	@Override
 	public ResourceType getLastInsert()
 	{
-		List<Object> result = HibernateUtil.getNRowByColumn(ResourceType.class, "id", 1, true);
+		List<Object> result = HibernateUtil.getNRowOrderByColumn(ResourceType.class, "id", 1, true);
 		if (result != null && result.size() > 0)
 			return (ResourceType) result.get(0);
 		else

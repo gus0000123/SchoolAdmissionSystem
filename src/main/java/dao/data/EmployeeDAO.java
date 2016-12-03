@@ -28,7 +28,7 @@ public class EmployeeDAO implements DAO<Employee>
 	@Override
 	public Employee getLastInsert()
 	{
-		List<Object> result = HibernateUtil.getNRowByColumn(Employee.class, "id", 1, true);
+		List<Object> result = HibernateUtil.getNRowOrderByColumn(Employee.class, "id", 1, true);
 		if (result != null && result.size() > 0)
 			return (Employee) result.get(0);
 		else

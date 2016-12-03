@@ -128,7 +128,7 @@ public class TestLogin extends HttpServlet
 			PersonService.getInstance().insert(p);
 			
 			// Reload person with id
-			p = (Person) HibernateUtil.getNRowByColumn(Person.class, "ID", 1, true).get(0);
+			p = (Person) HibernateUtil.getNRowOrderByColumn(Person.class, "ID", 1, true).get(0);
 			
 			// Create user
 			User u = new User();

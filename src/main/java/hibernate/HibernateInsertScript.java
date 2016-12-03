@@ -123,14 +123,14 @@ public class HibernateInsertScript
         p2.setDepartment(d);
         p2.setID(2);
         PersonDAO.getInstance().insert(p2);
-        p2 = (Person) HibernateUtil.getNRowByColumn(Person.class, "ID", 1, true).get(0);
+        p2 = (Person) HibernateUtil.getNRowOrderByColumn(Person.class, "ID", 1, true).get(0);
         
         User u2 = new User();
         u2.setUser(BeanUtil.generateUserName(p2));
         u2.setPassword("test");
         u2.setPerson(p2);
         UserDAO.getInstance().insert(u2);
-        u2 = (User) HibernateUtil.getNRowByColumn(User.class, "user_id", 1, true).get(0);
+        u2 = (User) HibernateUtil.getNRowOrderByColumn(User.class, "user_id", 1, true).get(0);
         
         // create few messages
         Personal pm1 = new Personal();
@@ -140,7 +140,7 @@ public class HibernateInsertScript
         pm1.setReceiver(p);
         pm1.setSender(p);
         PersonalDAO.getInstance().insert(pm1);
-        pm1 = (Personal) HibernateUtil.getNRowByColumn(Personal.class, "id", 1, true).get(0);
+        pm1 = (Personal) HibernateUtil.getNRowOrderByColumn(Personal.class, "id", 1, true).get(0);
         
         Personal pm2 = new Personal();
         pm2.setHeadline("Test normal 1");
@@ -149,7 +149,7 @@ public class HibernateInsertScript
         pm2.setReceiver(p);
         pm2.setSender(p2);
         PersonalDAO.getInstance().insert(pm2);
-        pm2 = (Personal) HibernateUtil.getNRowByColumn(Personal.class, "id", 1, true).get(0);
+        pm2 = (Personal) HibernateUtil.getNRowOrderByColumn(Personal.class, "id", 1, true).get(0);
         
         Personal pm3 = new Personal();
         pm3.setHeadline("Test normal 2");
@@ -158,6 +158,6 @@ public class HibernateInsertScript
         pm3.setReceiver(p);
         pm3.setSender(p2);
         PersonalDAO.getInstance().insert(pm3);
-        pm3 = (Personal) HibernateUtil.getNRowByColumn(Personal.class, "id", 1, true).get(0);
+        pm3 = (Personal) HibernateUtil.getNRowOrderByColumn(Personal.class, "id", 1, true).get(0);
 	}
 }

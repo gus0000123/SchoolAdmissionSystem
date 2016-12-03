@@ -28,7 +28,7 @@ public class SystemGroupDAO implements DAO<SystemGroup>
 	@Override
 	public SystemGroup getLastInsert()
 	{
-		List<Object> result = HibernateUtil.getNRowByColumn(SystemGroup.class, "sys_group_id", 1, true);
+		List<Object> result = HibernateUtil.getNRowOrderByColumn(SystemGroup.class, "sys_group_id", 1, true);
 		if (result != null && result.size() > 0)
 			return (SystemGroup) result.get(0);
 		else
