@@ -5,7 +5,7 @@
 		<div class="column" style="width: 300px;">
 			<jsp:include page="../widgets/searchTool.jsp" />
 		</div>
-		<div class="column">
+		<div class="column" style="width: calc(99% - 300px);">
 			<table>
 				<thead>
 					<tr>

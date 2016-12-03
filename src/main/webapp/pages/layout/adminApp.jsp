@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<jsp:include page="../../pages/global/css_link.jsp" />
+		<jsp:include page="../global/css_link.jsp" />
 		<title>Management Tool - Montreal College</title>
 	</head>
 	<body>
@@ -13,13 +13,13 @@
 				<tbody>
 					<tr>
 						<td class="web-side">
-							<jsp:include page="../../pages/global/sidebar.jsp" />
+							<jsp:include page="../global/sidebar.jsp" />
 						</td>
 						<td>
 							<table class="table-no-border fill-page">
 								<tbody>
-									<tr><td class="web-body" style="height: 1%;"><jsp:include page="../../pages/global/header.jsp" /></td></tr>
-									<tr><td class="web-body"><jsp:include page="../../pages/body/admin/layout.jsp" /></td></tr>
+									<tr><td class="web-body" style="height: 1%;"><jsp:include page="../global/header.jsp" /></td></tr>
+									<tr><td class="web-body"><jsp:include page="../body/admin/layout.jsp" /></td></tr>
 								</tbody>
 							</table>
 						</td>

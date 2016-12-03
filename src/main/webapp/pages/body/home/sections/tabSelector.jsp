@@ -17,11 +17,11 @@
 		</c:otherwise>
 	</c:choose>
 	<c:choose>
-		<c:when test="${ tab eq 'message' }">
+		<c:when test="${ tab eq 'messages' }">
 			<button class="active">Messages</button>
 		</c:when>
 		<c:otherwise>
-			<button onclick="goToPage('history')">History</button>
+			<button onclick="goToPage('messages')">Messages</button>
 		</c:otherwise>
 	</c:choose>
 	<!-- hidden form -->
@@ -31,8 +31,11 @@
 	<script>
 		function goToPage(tab)
 		{
-			$("#tabSubmitField").val(tab);
-			$("#tabSubmitForm").submit();
+			showLoading();
+			setTimeout(function() {
+				$("#tabSubmitField").val(tab);
+				$("#tabSubmitForm").submit();
+			}, 2000);
 		}
 	</script>
 </div>
