@@ -1,18 +1,19 @@
 package com.mcit.kritth.bo.data;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mcit.kritth.bo.BO;
+import com.mcit.kritth.bo.template.StudentAdmissionStatusBO;
 import com.mcit.kritth.dao.data.StudentAdmissionStatusDAOImpl;
 import com.mcit.kritth.model.data.StudentAdmissionStatus;
 
 @Service("studentAdmissionStatusService")
 @Transactional
-public class StudentAdmissionStatusBOImpl implements BO<StudentAdmissionStatus>
+public class StudentAdmissionStatusBOImpl implements StudentAdmissionStatusBO
 {
 	@Autowired
 	private StudentAdmissionStatusDAOImpl dao;
@@ -24,13 +25,13 @@ public class StudentAdmissionStatusBOImpl implements BO<StudentAdmissionStatus>
 	public void update(StudentAdmissionStatus o) { dao.updateBean(o); }
 
 	@Override
-	public void delete(StudentAdmissionStatus o) { dao.removeBeanByPrimaryKey(o.getId()); }
+	public void delete(StudentAdmissionStatus o) { dao.removeBeanByPrimaryKey(o.getStatus()); }
 
 	@Override
-	public void deleteById(int id) { dao.removeBeanByPrimaryKey(id); }
+	public void deleteById(Serializable id) { dao.removeBeanByPrimaryKey(id); }
 
 	@Override
-	public StudentAdmissionStatus getById(int id) { return dao.getModelByPrimaryKey(id); }
+	public StudentAdmissionStatus getById(Serializable id) { return dao.getModelByPrimaryKey(id); }
 
 	@Override
 	public List<StudentAdmissionStatus> getAll() { return dao.getAllBeans(); }

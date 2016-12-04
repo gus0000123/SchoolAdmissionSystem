@@ -1,18 +1,19 @@
 package com.mcit.kritth.bo.messenger;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mcit.kritth.bo.BO;
+import com.mcit.kritth.bo.template.MessageBO;
 import com.mcit.kritth.dao.messenger.MessageDAOImpl;
 import com.mcit.kritth.model.messenger.Message;
 
 @Service("messageService")
 @Transactional
-public class MessageBOImpl implements BO<Message>
+public class MessageBOImpl implements MessageBO
 {
 	@Autowired
 	private MessageDAOImpl dao;
@@ -27,10 +28,10 @@ public class MessageBOImpl implements BO<Message>
 	public void delete(Message o) { dao.removeBeanByPrimaryKey(o.getId()); }
 
 	@Override
-	public void deleteById(int id) { dao.removeBeanByPrimaryKey(id); }
+	public void deleteById(Serializable id) { dao.removeBeanByPrimaryKey(id); }
 
 	@Override
-	public Message getById(int id) { return dao.getModelByPrimaryKey(id); }
+	public Message getById(Serializable id) { return dao.getModelByPrimaryKey(id); }
 
 	@Override
 	public List<Message> getAll() { return dao.getAllBeans(); }

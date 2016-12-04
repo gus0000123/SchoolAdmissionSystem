@@ -13,7 +13,8 @@ import com.mcit.kritth.model.data.Person;
 public class Message
 {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@SequenceGenerator(name="msg_id_gen", sequenceName="messages_id_seq")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="msg_id_gen")
 	private int message_id;
 	@ManyToOne(fetch=FetchType.EAGER)
 	@NotNull

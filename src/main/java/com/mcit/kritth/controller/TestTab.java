@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mcit.kritth.bo.PersonalBO;
+import com.mcit.kritth.bo.template.PersonalBO;
 import com.mcit.kritth.model.data.Person;
 import com.mcit.kritth.model.data.User;
 import com.mcit.kritth.model.messenger.Personal;

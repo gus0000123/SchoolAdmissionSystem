@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mcit.kritth.bo.BO;
+import com.mcit.kritth.bo.template.PersonBO;
+import com.mcit.kritth.bo.template.StudentBO;
+import com.mcit.kritth.bo.template.UserBO;
 import com.mcit.kritth.model.data.Person;
 import com.mcit.kritth.model.data.Student;
 import com.mcit.kritth.model.data.User;
@@ -72,7 +74,7 @@ public class ToolTransition extends HttpServlet
 	
 	private String getUserContext(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		BO<User> service = ApplicationContextProvider.getService("userService");
+		UserBO service = ApplicationContextProvider.getApplicationContext().getBean("userService", UserBO.class);
 		
 		ArrayList<String> tableColumn = new ArrayList<>();
 		tableColumn.add("Username");
@@ -96,7 +98,7 @@ public class ToolTransition extends HttpServlet
 	
 	private String getPersonContext(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		BO<Person> service = ApplicationContextProvider.getService("personService");
+		PersonBO service = ApplicationContextProvider.getApplicationContext().getBean("personService", PersonBO.class);
 		
 		ArrayList<String> tableColumn = new ArrayList<>();
 		tableColumn.add("Person ID");
@@ -125,7 +127,7 @@ public class ToolTransition extends HttpServlet
 	
 	private String getStudentContext(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		BO<Student> service = ApplicationContextProvider.getService("studentService");
+		StudentBO service = ApplicationContextProvider.getApplicationContext().getBean("studentService", StudentBO.class);
 		
 		ArrayList<String> tableColumn = new ArrayList<>();
 		tableColumn.add("Person ID");

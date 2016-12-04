@@ -4,14 +4,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="Users"
-	, uniqueConstraints = @UniqueConstraint(columnNames = { "person_id" }))
+@Table(name="Users")
 public class User
 {
 	@Id
-	@GeneratedValue
-	private int user_id;
-	@NotNull
 	private String username;
 	@NotNull
 	private String password;
@@ -37,13 +33,5 @@ public class User
 	public String toString()
 	{
 		return person.toString() + " ;" + username + " ;" + password + " ;" + authority;
-	}
-
-	public int getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
 	}
 }

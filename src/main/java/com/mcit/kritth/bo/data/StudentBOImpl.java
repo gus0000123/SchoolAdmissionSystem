@@ -1,18 +1,19 @@
 package com.mcit.kritth.bo.data;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mcit.kritth.bo.BO;
+import com.mcit.kritth.bo.template.StudentBO;
 import com.mcit.kritth.dao.data.StudentDAOImpl;
 import com.mcit.kritth.model.data.Student;
 
 @Service("studentService")
 @Transactional
-public class StudentBOImpl implements BO<Student>
+public class StudentBOImpl implements StudentBO
 {
 	@Autowired
 	private StudentDAOImpl dao;
@@ -27,10 +28,10 @@ public class StudentBOImpl implements BO<Student>
 	public void delete(Student o) { dao.removeBeanByPrimaryKey(o.getId()); }
 
 	@Override
-	public void deleteById(int id) { dao.removeBeanByPrimaryKey(id); }
+	public void deleteById(Serializable id) { dao.removeBeanByPrimaryKey(id); }
 
 	@Override
-	public Student getById(int id) { return dao.getModelByPrimaryKey(id); }
+	public Student getById(Serializable id) { return dao.getModelByPrimaryKey(id); }
 
 	@Override
 	public List<Student> getAll() { return dao.getAllBeans(); }

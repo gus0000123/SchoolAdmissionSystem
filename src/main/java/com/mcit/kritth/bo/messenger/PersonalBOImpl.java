@@ -1,12 +1,13 @@
 package com.mcit.kritth.bo.messenger;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mcit.kritth.bo.PersonalBO;
+import com.mcit.kritth.bo.template.PersonalBO;
 import com.mcit.kritth.dao.messenger.PersonalDAOImpl;
 import com.mcit.kritth.model.messenger.Personal;
 
@@ -27,10 +28,10 @@ public class PersonalBOImpl implements PersonalBO
 	public void delete(Personal o) { dao.removeBeanByPrimaryKey(o.getId()); }
 
 	@Override
-	public void deleteById(int id) { dao.removeBeanByPrimaryKey(id); }
+	public void deleteById(Serializable id) { dao.removeBeanByPrimaryKey(id); }
 
 	@Override
-	public Personal getById(int id) { return dao.getModelByPrimaryKey(id); }
+	public Personal getById(Serializable id) { return dao.getModelByPrimaryKey(id); }
 
 	@Override
 	public List<Personal> getAll() { return dao.getAllBeans(); }

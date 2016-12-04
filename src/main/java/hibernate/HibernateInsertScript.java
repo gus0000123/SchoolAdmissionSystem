@@ -1,5 +1,6 @@
 package hibernate;
 
+import com.mcit.kritth.bo.template.*;
 import com.mcit.kritth.model.data.*;
 import com.mcit.kritth.model.messenger.*;
 import com.mcit.kritth.spring.ApplicationContextProvider;
@@ -17,19 +18,19 @@ public class HibernateInsertScript
     	StudentAdmissionStatus sa = new StudentAdmissionStatus();
         sa.setStatus("Pending");
         sa.setDescription("testing");
-        ApplicationContextProvider.getService("studentAdmissionStatusService").insert(sa);
+        ApplicationContextProvider.getApplicationContext().getBean("studentAdmissionStatusService", StudentAdmissionStatusBO.class).insert(sa);
         
         // Department code
         DepartmentCode dc = new DepartmentCode();
         dc.setDept_code("COMP");
         dc.setDept_name("Computer Science");
-        ApplicationContextProvider.getService("departmentCodeService").insert(dc);
+        ApplicationContextProvider.getApplicationContext().getBean("departmentCodeService", DepartmentCodeBO.class).insert(dc);
         
     	// Department
     	Department d = new Department();
     	d.setCode(dc);
     	d.setBudget(100000);
-    	ApplicationContextProvider.getService("departmentService").insert(d);
+    	ApplicationContextProvider.getApplicationContext().getBean("departmentService", DepartmentBO.class).insert(d);
     	
     	// Person
         Person p = new Person();
@@ -38,7 +39,7 @@ public class HibernateInsertScript
         p.setEmail("test");
         p.setGender('F');
         p.setDepartment(d);
-        ApplicationContextProvider.getService("personService").insert(p);
+        ApplicationContextProvider.getApplicationContext().getBean("personService", PersonBO.class).insert(p);
         
         // Student
         Student s = new Student();
@@ -46,25 +47,25 @@ public class HibernateInsertScript
         s.setCredit(10);
         s.setMajor("COMP");
         s.setPerson(p);
-        ApplicationContextProvider.getService("studentService").insert(s);
+        ApplicationContextProvider.getApplicationContext().getBean("studentService", StudentBO.class).insert(s);
         
         // Employee
         Employee e = new Employee();
         e.setPerson(p);
-        ApplicationContextProvider.getService("employeeService").insert(e);
+        ApplicationContextProvider.getApplicationContext().getBean("employeeService", EmployeeBO.class).insert(e);
         
         // Update department
         d.setDean(e);
         d.getStudents().add(s);
         d.getEmployees().add(e);
-        ApplicationContextProvider.getService("departmentService").update(d);
+        ApplicationContextProvider.getApplicationContext().getBean("departmentService", DepartmentBO.class).update(d);
         
         // User
         User u = new User();
         u.setUser(BeanUtil.generateUserName(p));
         u.setPassword("pass");
         u.setPerson(p);
-        ApplicationContextProvider.getService("userService").insert(u);
+        ApplicationContextProvider.getApplicationContext().getBean("userService", UserBO.class).insert(u);
         
         // Course
         Course c = new Course();
@@ -73,11 +74,11 @@ public class HibernateInsertScript
         c.setInstructor(e);
         c.getStudents().add(s);
         c.setCourse_code(BeanUtil.getCourseCode(c));
-        ApplicationContextProvider.getService("courseService").insert(c);
+        ApplicationContextProvider.getApplicationContext().getBean("courseService", CourseBO.class).insert(c);
         
         // Update assigned course
         e.getAssigned_courses().add(c);
-        ApplicationContextProvider.getService("employeeService").update(e);
+        ApplicationContextProvider.getApplicationContext().getBean("employeeService", EmployeeBO.class).update(e);
         
         // Course Work
         CourseWork cw = new CourseWork();
@@ -86,20 +87,20 @@ public class HibernateInsertScript
         cw.setCoursework_name("Assignment 1");
         cw.setMax_mark(30);
         cw.setCourse(c);
-        ApplicationContextProvider.getService("courseWorkService").insert(cw);
+        ApplicationContextProvider.getApplicationContext().getBean("courseWorkService", CourseWorkBO.class).insert(cw);
         
         // Course Mark
         CourseMark cm = new CourseMark();
         cm.setMark(20);
         cm.setCoursework(cw);
         cm.setStudent(s);
-        ApplicationContextProvider.getService("courseMarkService").insert(cm);
+        ApplicationContextProvider.getApplicationContext().getBean("courseMarkService", CourseMarkBO.class).insert(cm);
         
         // Student Grade
         StudentGrade sg = new StudentGrade();
         sg.getCourseMarks().add(cm);
         sg.setStudent(s);
-        ApplicationContextProvider.getService("studentGradeService").insert(sg);
+        ApplicationContextProvider.getApplicationContext().getBean("studentGradeService", StudentGradeBO.class).insert(sg);
         
         // Create second person and user to test messages
         Person p2 = new Person();
@@ -109,13 +110,13 @@ public class HibernateInsertScript
         p2.setGender('M');
         p2.setDepartment(d);
         p2.setID(2);
-        ApplicationContextProvider.getService("personService").insert(p2);
+        ApplicationContextProvider.getApplicationContext().getBean("personService", PersonBO.class).insert(p2);
         
         User u2 = new User();
         u2.setUser(BeanUtil.generateUserName(p2));
         u2.setPassword("test");
         u2.setPerson(p2);
-        ApplicationContextProvider.getService("userService").insert(u2);
+        ApplicationContextProvider.getApplicationContext().getBean("userService", UserBO.class).insert(u2);
         
         // create few messages
         Personal pm1 = new Personal();
@@ -124,7 +125,7 @@ public class HibernateInsertScript
         pm1.setMessage("This is test message for important message");
         pm1.setReceiver(p);
         pm1.setSender(p);
-        ApplicationContextProvider.getService("personalService").insert(pm1);
+        ApplicationContextProvider.getApplicationContext().getBean("personalService", PersonalBO.class).insert(pm1);
         
         Personal pm2 = new Personal();
         pm2.setHeadline("Test normal 1");
@@ -132,7 +133,7 @@ public class HibernateInsertScript
         pm2.setMessage("This is test message for normal message 1");
         pm2.setReceiver(p);
         pm2.setSender(p2);
-        ApplicationContextProvider.getService("personalService").insert(pm2);
+        ApplicationContextProvider.getApplicationContext().getBean("personalService", PersonalBO.class).insert(pm2);
         
         Personal pm3 = new Personal();
         pm3.setHeadline("Test normal 2");
@@ -140,7 +141,7 @@ public class HibernateInsertScript
         pm3.setMessage("This is test message for normal message 2");
         pm3.setReceiver(p);
         pm3.setSender(p2);
-        ApplicationContextProvider.getService("personalService").insert(pm3);
+        ApplicationContextProvider.getApplicationContext().getBean("personalService", PersonalBO.class).insert(pm3);
         
         System.exit(0);
 	}

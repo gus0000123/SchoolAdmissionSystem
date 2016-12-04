@@ -7,7 +7,9 @@ import javax.validation.constraints.NotNull;
 @Table(name="Course_Marks")
 public class CourseMark
 {
-	@Id @GeneratedValue					
+	@Id
+	@SequenceGenerator(name="cm_id_gen", sequenceName="course_marks_id_seq")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="cm_id_gen")					
 	private int id;
 	@NotNull							
 	private int mark;

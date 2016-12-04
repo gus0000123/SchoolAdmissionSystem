@@ -12,7 +12,9 @@ import com.mcit.kritth.model.data.Person;
 		, uniqueConstraints=@UniqueConstraint(columnNames="name"))
 public class SystemGroup
 {
-	@Id @GeneratedValue
+	@Id
+	@SequenceGenerator(name="sysg_id_gen", sequenceName="system_group_id_seq")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sysg_id_gen")
 	private int sys_group_id;
 	@NotNull
 	private String name;

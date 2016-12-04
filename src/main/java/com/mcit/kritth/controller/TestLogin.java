@@ -1,7 +1,6 @@
 package com.mcit.kritth.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mcit.kritth.bo.BO;
+import com.mcit.kritth.bo.template.PersonBO;
+import com.mcit.kritth.bo.template.UserBO;
 import com.mcit.kritth.model.data.Person;
 import com.mcit.kritth.model.data.User;
 import com.mcit.kritth.spring.ApplicationContextProvider;
@@ -66,39 +66,28 @@ public class TestLogin extends HttpServlet
 		this.getServletContext().getRequestDispatcher(url).forward(request, response);
 	}
 	
-	@SuppressWarnings("unchecked")
 	private String checkLogin(HttpServletRequest request)
 	{
 		String url = "/";
 		String user = request.getParameter("user");
 		String password = request.getParameter("password");
 		
-		BO<User> service = (BO<User>) ApplicationContextProvider.getApplicationContext().getBean("userService", BO.class);
-		List<User> list = service.getAll();
-		boolean found_user = false;
-		
-		// Find user
-		for (User u : list)
+		UserBO service = ApplicationContextProvider.getApplicationContext().getBean("userService", UserBO.class);
+		User u = service.getById(user);
+		if (u != null)
 		{
-			if (u.getUser().equals(user))
+			if (u.getPassword().equals(password))
 			{
-				found_user = true;
-				if (u.getPassword().equals(password))
-				{
-					// Attach user to session
-					request.getSession().setAttribute("user", u);
-					url = "/TestTab?tab=overview";
-				}
-				else
-				{
-					request.setAttribute("error", "password");
-				}
-				break;
+				// Attach user to session
+				request.getSession().setAttribute("user", u);
+				url = "/TestTab?tab=overview";
+			}
+			else
+			{
+				request.setAttribute("error", "password");
 			}
 		}
-		
-		// Cannot find user
-		if (!found_user)
+		else
 		{
 			request.setAttribute("error", "user");
 		}
@@ -119,8 +108,8 @@ public class TestLogin extends HttpServlet
 		
 		if (password.equals(cpassword))
 		{
-			BO<Person> personService = ApplicationContextProvider.getService("personService");
-			BO<User> userService = ApplicationContextProvider.getService("userService");
+			PersonBO personService = ApplicationContextProvider.getApplicationContext().getBean("personService", PersonBO.class);
+			UserBO userService = ApplicationContextProvider.getApplicationContext().getBean("userService", UserBO.class);
 			
 			// Create person
 			Person p = new Person();

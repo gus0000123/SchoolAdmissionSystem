@@ -2,7 +2,7 @@ package com.mcit.kritth.util;
 
 import java.util.List;
 
-import com.mcit.kritth.bo.BO;
+import com.mcit.kritth.bo.template.UserBO;
 import com.mcit.kritth.model.data.Course;
 import com.mcit.kritth.model.data.Person;
 import com.mcit.kritth.model.data.User;
@@ -14,7 +14,7 @@ public class BeanUtil
 	{
 		String user = p.getFirstName() + "." + p.getLastName();
 		
-		BO<User> service = ApplicationContextProvider.getService("userService");
+		UserBO service = ApplicationContextProvider.getApplicationContext().getBean("userService", UserBO.class);
 		
 		List<User> list = (List<User>) service.getAll();
 		int counter = 1;
@@ -35,8 +35,8 @@ public class BeanUtil
 
 	public static String getCourseCode(Course c)
 	{
-		return c.getClass_level() + "-"
-				+ ConverterUtil.fillLeft("" + c.getCourse_id(), '0', 2) + "-"
+		return c.getDepartment().getCode().getDept_code() + c.getClass_level()
+				+ ConverterUtil.fillLeft("" + c.getCourse_number(), '0', 2) + "-"
 				+ ConverterUtil.fillLeft("" + c.getSection(), '0', 2); 
 	}
 }

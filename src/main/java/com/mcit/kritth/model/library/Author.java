@@ -9,7 +9,9 @@ import javax.validation.constraints.NotNull;
 @Table(name="author")
 public class Author
 {
-	@Id @GeneratedValue
+	@Id
+	@SequenceGenerator(name="at_id_gen", sequenceName="author_id_seq")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="at_id_gen")
 	private int id;
 	@NotNull
 	private String first_name;

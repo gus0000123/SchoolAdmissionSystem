@@ -10,7 +10,8 @@ import javax.persistence.*;
 public class StudentGrade
 {
 	@Id
-	@GeneratedValue	
+	@SequenceGenerator(name="sg_id_gen", sequenceName="student_grade_id_seq")
+	@GeneratedValue	(strategy=GenerationType.SEQUENCE, generator="sg_id_gen")
 	private int gradeId;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date start_date = new Date();

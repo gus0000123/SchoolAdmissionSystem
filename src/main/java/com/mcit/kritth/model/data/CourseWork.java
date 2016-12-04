@@ -10,7 +10,8 @@ import javax.validation.constraints.NotNull;
 public class CourseWork
 {
 	@Id
-	@GeneratedValue						
+	@SequenceGenerator(name="cw_id_gen", sequenceName="course_works_id_seq")
+	@GeneratedValue (strategy=GenerationType.SEQUENCE, generator="cw_id_gen")				
 	private int coursework_id;
 	@NotNull							
 	private String coursework_name;

@@ -11,7 +11,9 @@ import com.mcit.kritth.model.messenger.SystemGroup;
 @Table(name="Schedules")
 public class Schedule
 {
-	@Id @GeneratedValue
+	@Id
+	@SequenceGenerator(name="sch_id_gen", sequenceName="schedule_id_seq")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sch_id_gen")
 	private int id;
 	@NotNull
 	private Date start_time;

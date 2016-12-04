@@ -11,8 +11,8 @@ import com.mcit.kritth.util.BeanUtil;
 @Table(name="Courses", uniqueConstraints=@UniqueConstraint(columnNames={"course_code"}))
 public class Course
 {
-	@Id @GeneratedValue
-	private int course_id;
+	@Id
+	private String course_code;		// Use BeanUtil.getCourseCode
 	@NotNull
 	private int class_level = 1;
 	@NotNull
@@ -21,8 +21,6 @@ public class Course
 	private int section = 1;
 	@NotNull
 	private String course_name;
-	@Column
-	private String course_code;		// Use BeanUtil.getCourseCode
 	private String course_description;
 	private int capacity = 0;
 	private int credit = 3;
@@ -125,12 +123,6 @@ public class Course
 	}
 	public void setCourse_code(String course_code) {
 		this.course_code = course_code;
-	}
-	public int getCourse_id() {
-		return course_id;
-	}
-	public void setCourse_id(int course_id) {
-		this.course_id = course_id;
 	}
 	public int getSection() {
 		return section;

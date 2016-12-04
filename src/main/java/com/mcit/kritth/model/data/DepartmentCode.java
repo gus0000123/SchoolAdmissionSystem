@@ -8,22 +8,12 @@ import javax.validation.constraints.*;
 		uniqueConstraints = { @UniqueConstraint(columnNames={ "dept_code" }) })
 public class DepartmentCode
 {
-	@Id @GeneratedValue	
-	private int id;
-	@NotNull	
+	@Id
 	private String dept_code;
 	@NotNull	
 	private String dept_name;
 	
 	public DepartmentCode() { }
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getDept_code() {
 		return dept_code;

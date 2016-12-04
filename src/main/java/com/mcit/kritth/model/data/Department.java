@@ -11,7 +11,8 @@ import javax.validation.constraints.NotNull;
 public class Department
 {
 	@Id
-	@GeneratedValue
+	@SequenceGenerator(name="dpt_id_gen", sequenceName="department_id_seq")
+	@GeneratedValue (strategy=GenerationType.SEQUENCE, generator="dpt_id_gen")
 	private int dept_id;
 	@NotNull
 	private int budget;

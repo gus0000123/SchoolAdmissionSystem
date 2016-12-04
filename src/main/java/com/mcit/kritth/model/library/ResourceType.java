@@ -8,21 +8,10 @@ import javax.validation.constraints.NotNull;
 		, uniqueConstraints=@UniqueConstraint(columnNames={"name"}))
 public class ResourceType
 {
-	@Id @GeneratedValue
-	private int id;
-	@NotNull
+	@Id
 	private String name;
 	@NotNull
 	private String description;
-	
-	public ResourceType() { }
-	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;
