@@ -21,19 +21,15 @@ Future Task:
 Backend:
 
 Current Task:
-- Finish database layout
 - Finish Bean design
 - Complete all DAOs
-- Create template for service layer until Spring replaces the servlet
 - Create unit testing for beans and util (DAO and service layer will wait until Mockito integration)
 - Create temporary servlet for testing each JSP
 
 Future Task:
-- Implement Spring to service layer
-- Swap all dao connections to service
-- Swap current Servlet with Spring
-- Complete Spring deployment for all functions
-- Integrate Log4J
+- Swap current Servlet with Spring MVC
+- Configure Spring MVC mapping
+- Correctly configure Log4J
 - Integrate Mockito after Spring integration
 - Move all resources to resources folder after Spring integration
 - Send confirmation email upon registered

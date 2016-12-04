@@ -11,12 +11,38 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
+  	<!-- JUnit -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    
+    <!-- Spring -->
+    <dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-core</artifactId>
+	    <version>4.3.4.RELEASE</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context</artifactId>
+	    <version>4.3.4.RELEASE</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-orm</artifactId>
+	    <version>4.3.4.RELEASE</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-tx</artifactId>
+	    <version>4.3.4.RELEASE</version>
+	</dependency>
+	<!-- END Spring -->
+    
+    <!-- JSTL -->
     <dependency>
       <groupId>jstl</groupId>
       <artifactId>jstl</artifactId>
@@ -27,48 +53,55 @@
       <artifactId>standard</artifactId>
       <version>1.1.2</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+    <!-- END JSTL -->
+    
+    <!-- MySQL -->
 	<dependency>
 	    <groupId>mysql</groupId>
 	    <artifactId>mysql-connector-java</artifactId>
 	    <version>6.0.5</version>
 	</dependency>
-	<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+	
+	<!-- Hibernate -->
 	<dependency>
 	    <groupId>org.hibernate</groupId>
 	    <artifactId>hibernate-core</artifactId>
 	    <version>5.2.5.Final</version>
 	</dependency>
-	<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
 	<dependency>
 	    <groupId>org.hibernate</groupId>
 	    <artifactId>hibernate-validator</artifactId>
 	    <version>5.3.2.Final</version>
 	</dependency>
-	<!-- https://mvnrepository.com/artifact/javax.transaction/jta -->
 	<dependency>
     	<groupId>javax.transaction</groupId>
     	<artifactId>jta</artifactId>
     	<version>1.1</version>
 	</dependency>
+	<!-- END Hibernate -->
+	
 	<dependency>
 		<groupId>org.slf4j</groupId>
 		<artifactId>slf4j-log4j12</artifactId>
 		<version>1.5.6</version>
 	</dependency>
+	
+	<!-- Javax -->
 	<dependency>
 		<groupId>javax</groupId>
 		<artifactId>javaee-web-api</artifactId>
 		<version>6.0</version>
 		<scope>provided</scope>
 	</dependency>
-	<!-- https://mvnrepository.com/artifact/org.webjars/jquery -->
+	
+	<!-- jQuery -->
 	<dependency>
 	    <groupId>org.webjars</groupId>
 	    <artifactId>jquery</artifactId>
 	    <version>3.1.1</version>
 	</dependency> 
-	<!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
+	
+	<!-- Bootstrap -->
 	<dependency>
 	    <groupId>org.webjars</groupId>
 	    <artifactId>bootstrap</artifactId>
