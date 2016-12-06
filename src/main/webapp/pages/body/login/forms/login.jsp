@@ -15,7 +15,14 @@
 						<c:if test="${ error eq 'user' }">
 							<span id="login-user-error" class="error-text">Please input correct username.</span>
 						</c:if>
-						<input id="login-user" type="text" placeholder="Username" name="user">
+						<c:choose>
+							<c:when test="${ empty account_name }">
+								<input id="login-user" type="text" placeholder="Username" name="user">
+							</c:when>
+							<c:otherwise>
+								<input id="login-user" type="text" placeholder="Username" name="user" value="${ account_name }">
+							</c:otherwise>
+						</c:choose>
 					</td>
 				</tr>
 				<tr>

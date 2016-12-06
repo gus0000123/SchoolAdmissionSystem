@@ -1,8 +1,12 @@
-<div class="confirmation-wrapper" onclick="closeConfirmation(); switchToLogin();">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<div class="confirmation-wrapper" onclick="closeConfirmation();">
 	<div class="confirmation-text">
 		ACCOUNT CREATED
 	</div>
 	<div class="confirmation-subtitle-text">
-		<span>You will receive confirmation e-mail shortly</span>
+		<span>Registration is completed</span><br />
+		<c:if test="${ not empty account_name }">
+			<span>Your account is: <c:out value="${ account_name }" /></span>
+		</c:if>
 	</div>
 </div>

@@ -1,6 +1,7 @@
 package com.mcit.kritth.bo.messenger;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,46 @@ public class PersonalBOImpl implements PersonalBO
 	public List<Personal> getAll() { return dao.getAllBeans(); }
 	
 	@Override
-	public List<Personal> getAllFromReceiverId(int id) { return dao.getAllByReceiverId(id); }
+	public List<Personal> getAllFromReceiverId(int id)
+	{	
+		List<Personal> list = dao.getAllByReceiverId(id);
+		List<Personal> result = new ArrayList<>();
+		for (Personal pm : list)
+		{
+			if (!pm.isTrash())
+				result.add(pm);
+		}
+		return result;
+	}
+	
+	private final int SENT_LIMIT = 20;
 	
 	@Override
-	public List<Personal> getAllFromSenderId(int id) { return dao.getAllBySenderId(id); }
+	public List<Personal> getAllFromSenderId(int id)
+	{
+		List<Personal> result = dao.getAllBySenderId(id);
+		if (result.size() < SENT_LIMIT)
+			return result;
+		else
+			return result.subList(0, SENT_LIMIT);
+	}
+
+	private final int TRASH_LIMIT = 20;
+	
+	@Override
+	public List<Personal> getTrashFromReceiverId(int id)
+	{
+		List<Personal> list = dao.getAllByReceiverId(id);
+		List<Personal> result = new ArrayList<>();
+		for (Personal pm : list)
+		{
+			if (pm.isTrash())
+				result.add(pm);
+		}
+		
+		if (result.size() < TRASH_LIMIT)
+			return result;
+		else
+			return result.subList(0, TRASH_LIMIT);
+	}
 }

@@ -25,8 +25,6 @@ public class Message
 	private String headline;
 	@NotNull
 	private String message;
-	@NotNull
-	private boolean isTrash = false;
 	
 	public Message() { }
 
@@ -68,13 +66,5 @@ public class Message
 
 	public void setHeadline(String headline) {
 		this.headline = headline;
-	}
-
-	public boolean isTrash() {
-		return isTrash;
-	}
-
-	public void setTrash(boolean isTrash) {
-		this.isTrash = isTrash;
 	}
 }

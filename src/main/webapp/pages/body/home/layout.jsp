@@ -15,6 +15,9 @@
 			<c:when test="${ tab eq 'messages' }">
 				<jsp:include page="tabs/messages.jsp" />
 			</c:when>
+			<c:when test="${ tab eq 'application' }">
+				<jsp:include page="tabs/application.jsp" />
+			</c:when>
 		</c:choose>
 	</div>
 </article>

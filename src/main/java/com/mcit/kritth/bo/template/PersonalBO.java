@@ -7,4 +7,5 @@ import com.mcit.kritth.model.messenger.Personal;
 public interface PersonalBO extends BaseBO<Personal> {
 	List<Personal> getAllFromReceiverId(int id);
 	List<Personal> getAllFromSenderId(int id);
+	List<Personal> getTrashFromReceiverId(int id);
 }

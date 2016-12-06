@@ -30,6 +30,10 @@ public class Employee
 	
 	@OneToMany(mappedBy="instructor",fetch=FetchType.EAGER)
 	private Set<Course> assigned_courses;
+
+	@ManyToOne(fetch=FetchType.EAGER)
+	private Department department;
+	
 	// TODO: Add pay cheque
 	
 	public Employee() { }
@@ -71,5 +75,13 @@ public class Employee
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 }

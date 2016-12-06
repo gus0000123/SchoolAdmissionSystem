@@ -40,10 +40,6 @@ public class Person
 	@Column(name="sin")	
 	private String sin;
 	
-	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="dept_id")
-	private Department department;
-	
 	public Person() { }
 
 	public String getSin() {
@@ -156,14 +152,6 @@ public class Person
 				email + " ;" +
 				gender + " ;" +
 				sin;
-	}
-
-	public Department getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(Department department) {
-		this.department = department;
 	}
 
 	public String getMiddleName() {

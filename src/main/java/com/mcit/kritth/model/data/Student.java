@@ -20,8 +20,11 @@ public class Student
 	private int year = 0;
 	@Temporal(TemporalType.DATE)
 	private Date start_date = new Date();
+
+	@ManyToOne(fetch=FetchType.EAGER)
+	private Department department;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@NotNull
 	private StudentAdmissionStatus admission_status;
 	
@@ -104,5 +107,13 @@ public class Student
 
 	public void setYear(int year) {
 		this.year = year;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 }

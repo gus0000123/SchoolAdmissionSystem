@@ -24,6 +24,14 @@
 			<button onclick="goToPage('messages')">Messages</button>
 		</c:otherwise>
 	</c:choose>
+	<c:choose>
+		<c:when test="${ tab eq 'application' }">
+			<button class="active">Application</button>
+		</c:when>
+		<c:otherwise>
+			<button onclick="goToPage('application')">Application</button>
+		</c:otherwise>
+	</c:choose>
 	<!-- hidden form -->
 	<form id="tabSubmitForm" action="TestTab" method="post">
 		<input id="tabSubmitField" type="hidden" name="tab" value="" />

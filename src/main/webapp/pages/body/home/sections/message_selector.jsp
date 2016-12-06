@@ -28,7 +28,7 @@
 			<tr><td>
 				<form id="selector_compose" method="post" action="TestTab">
 					<input type="hidden" name="tab" value="messages" />
-					<input type="hidden" name="sub_tab" value="compose" />
+					<input type="hidden" name="action" value="compose" />
 					<input type="submit" value="Compose" class="selection" onclick="launchForm(event, 'selector_compose')" />
 				</form>
 			</td></tr>

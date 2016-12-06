@@ -38,7 +38,6 @@ public class HibernateInsertScript
         p.setLastName("admin");
         p.setEmail("test");
         p.setGender('F');
-        p.setDepartment(d);
         ApplicationContextProvider.getApplicationContext().getBean("personService", PersonBO.class).insert(p);
         
         // Student
@@ -47,10 +46,12 @@ public class HibernateInsertScript
         s.setCredit(10);
         s.setMajor("COMP");
         s.setPerson(p);
+        s.setDepartment(d);
         ApplicationContextProvider.getApplicationContext().getBean("studentService", StudentBO.class).insert(s);
         
         // Employee
         Employee e = new Employee();
+        e.setDepartment(d);
         e.setPerson(p);
         ApplicationContextProvider.getApplicationContext().getBean("employeeService", EmployeeBO.class).insert(e);
         
@@ -108,7 +109,6 @@ public class HibernateInsertScript
         p2.setLastName("sub_admin");
         p2.setEmail("test");
         p2.setGender('M');
-        p2.setDepartment(d);
         p2.setID(2);
         ApplicationContextProvider.getApplicationContext().getBean("personService", PersonBO.class).insert(p2);
         
@@ -141,6 +141,7 @@ public class HibernateInsertScript
         pm3.setMessage("This is test message for normal message 2");
         pm3.setReceiver(p);
         pm3.setSender(p2);
+        pm3.setTrash(true);
         ApplicationContextProvider.getApplicationContext().getBean("personalService", PersonalBO.class).insert(pm3);
         
         System.exit(0);

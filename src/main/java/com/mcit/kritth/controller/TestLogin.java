@@ -127,6 +127,7 @@ public class TestLogin extends HttpServlet
 			userService.insert(u);
 			
 			request.setAttribute("page", "confirmation");
+			request.setAttribute("account_name", u.getUser());
 		}
 		else
 		{

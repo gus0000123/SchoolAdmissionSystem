@@ -37,14 +37,19 @@
 	}
 </style>
 <div>
-	<form action="TestTab" method="post">
+	<form id="messagesActionForm" action="TestMessage" method="post">
 		<!-- Temporary refresh -->
 		<input type="hidden" name="tab" value="messages" />
 		<table style="border-collapse: collapse; width: 100%; margin-top: 0; margin-bottom: 0;">
 			<thead>
 				<tr>
 					<th style="width: 13px;">
-						<c:if test="${ sub_tab ne 'sent' }">
+						<c:if test="${ sub_tab eq 'inbox' }">
+							<c:if test="${ fn:length(all_messages) gt 0 }">
+								<input id="select-all" type="checkbox" name="select_all" value="all" onclick="selectAll()" />
+							</c:if>
+						</c:if>
+						<c:if test="${ sub_tab eq 'trash' }">
 							<c:if test="${ fn:length(all_messages) gt 0 }">
 								<input id="select-all" type="checkbox" name="select_all" value="all" onclick="selectAll()" />
 							</c:if>
@@ -58,6 +63,9 @@
 							</c:when>
 							<c:when test="${ sub_tab eq 'sent' }">
 								Receiver
+							</c:when>
+							<c:when test="${ sub_tab eq 'trash' }">
+								Sender
 							</c:when>
 						</c:choose>
 					</th>
@@ -73,41 +81,56 @@
 						</td></tr>
 					</c:when>
 					<c:otherwise>
+						<!-- action -->
+						<input id="action_input" type="hidden" name="action" value="list" />
+						<!-- view message -->
+						<input id="select_message_input" type="hidden" name="select_message" value="" />
 						<c:set var="i" scope="page" value="1" />
 						<c:forEach var="message" items="${ all_messages }">
-							<c:if test="${ not messasge.isTrash }">
-								<tr class="row-selector">
-									<td>
-										<c:if test="${ sub_tab ne 'sent' }">
-											<input id="row-${ i }" type="checkbox" name="selection" value="${ message.getId() }" onclick="selectRow(${ i })" />
-										</c:if>
-									</td>
-									<c:choose>
-										<c:when test="${ message.important }">
-											<td><span style="color: red;"><c:out value="${ message.headline }" /></span></td>
-										</c:when>
-										<c:otherwise>
-											<td><c:out value="${ message.headline }" /></td>
-										</c:otherwise>
-									</c:choose>
-									<td>
-										<c:out value="${ message.sender.firstName }" />&nbsp;
-										<c:out value="${ message.sender.lastName }" />
-									</td>
-									<td>
-										<c:out value="${ fn:split(message.creation_time, ' ')[0] }" />
-									</td>
-								</tr>
-								<c:set var="i" scope="page" value="${ i + 1 }" />
-							</c:if>
+							<tr class="row-selector" onclick="viewMessage(event, ${ message.getId() })">
+								<td>
+									<input type="hidden" name="message_id" value="${ message.getId() }" />
+									<c:if test="${ sub_tab eq 'inbox' }">
+										<input id="row-${ i }" type="checkbox" name="selection" value="${ message.getId() }" onclick="selectRow(${ i })" />
+									</c:if>
+									<c:if test="${ sub_tab eq 'trash' }">
+										<input id="row-${ i }" type="checkbox" name="selection" value="${ message.getId() }" onclick="selectRow(${ i })" />
+									</c:if>
+								</td>
+								<c:choose>
+									<c:when test="${ message.important }">
+										<td><span style="color: red;"><c:out value="${ message.headline }" /></span></td>
+									</c:when>
+									<c:otherwise>
+										<td><c:out value="${ message.headline }" /></td>
+									</c:otherwise>
+								</c:choose>
+								<td>
+									<c:out value="${ message.sender.firstName }" />&nbsp;
+									<c:out value="${ message.sender.lastName }" />
+								</td>
+								<td>
+									<c:out value="${ fn:split(message.creation_time, ' ')[0] }" />
+								</td>
+							</tr>
+							<c:set var="i" scope="page" value="${ i + 1 }" />
 						</c:forEach>
 					</c:otherwise>
 				</c:choose>
 			</tbody>
-			<c:if test="${ sub_tab ne 'sent' }">
+			<c:if test="${ sub_tab eq 'inbox' }">
 				<c:if test="${ i gt 0 }">
 					<tfoot><tr><td colspan="4">
-						<input class="bottom-button" type="submit" value="Delete selected" />
+						<input type="hidden" name="sub_tab" value="inbox" />
+						<input class="bottom-button" type="submit" value="Delete selected" onclick="launchForm(event, 'messagesActionForm')" />
+					</td></tr></tfoot>
+				</c:if>
+			</c:if>
+			<c:if test="${ sub_tab eq 'trash' }">
+				<c:if test="${ i gt 0 }">
+					<tfoot><tr><td colspan="4">
+						<input type="hidden" name="sub_tab" value="trash" />
+						<input class="bottom-button" type="submit" value="Restore selected" onclick="launchForm(event, 'messagesActionForm')" />
 					</td></tr></tfoot>
 				</c:if>
 			</c:if>
@@ -143,6 +166,13 @@
 			} else {
 				$('#select-all').prop('checked', false);
 			}
+		}
+
+		function viewMessage(e, message_id) {
+			$('#messagesActionForm').attr("action", "TestTab");
+			$('#select_message_input').val(message_id);
+			$('#action_input').val("view");
+			launchForm(e, 'messagesActionForm');
 		}
 	</script>
 </div>

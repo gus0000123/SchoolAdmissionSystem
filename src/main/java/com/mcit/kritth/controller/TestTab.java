@@ -12,8 +12,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.ObjectNotFoundException;
+
+import com.mcit.kritth.bo.template.EmployeeBO;
 import com.mcit.kritth.bo.template.PersonalBO;
+import com.mcit.kritth.bo.template.StudentBO;
+import com.mcit.kritth.model.data.Employee;
 import com.mcit.kritth.model.data.Person;
+import com.mcit.kritth.model.data.Student;
 import com.mcit.kritth.model.data.User;
 import com.mcit.kritth.model.messenger.Personal;
 import com.mcit.kritth.spring.ApplicationContextProvider;
@@ -60,6 +66,10 @@ public class TestTab extends HttpServlet
 		else if (tab.equals("messages") && u.getPerson() != null)
 		{
 			getMessageContext(request, u);
+		}
+		else if (tab.equals("application") && u.getPerson() != null)
+		{
+			getApplicationContext(request, u);
 		}
 		
 		request.setAttribute("tab", request.getParameter("tab"));
@@ -125,45 +135,89 @@ public class TestTab extends HttpServlet
 		// Initialize
 		Person p = u.getPerson();
 		List<Personal> list = null;
+		Personal message = null;
+		
 		PersonalBO service = ApplicationContextProvider.getApplicationContext().getBean("personalService", PersonalBO.class);
 		
+		String action = request.getParameter("action");
+		if (action == null || action.equals(""))
+		{
+			action = "other";
+		}
+		
 		// Set sub tab
-		String sub = request.getParameter("sub_tab");
-		if (sub == null) { sub = "inbox"; }
-		switch(sub)
+		if (action.equals("other"))
 		{
-			case "compose":
-				break;
-			case "trash":
-				break;
-			case "sent":
-				list = service.getAllFromSenderId(p.getID());
-				break;
-			case "inbox":
-			default:
-				list = service.getAllFromReceiverId(p.getID());
-				break;
-		}		
-		
-		// Set messages
-		if (list != null)
-		{
-			// Sort
-			Collections.sort(list, new Comparator<Personal>()
+			String sub = request.getParameter("sub_tab");
+			if (sub == null) { sub = "inbox"; }
+			switch(sub)
 			{
-				@Override
-				public int compare(Personal p1, Personal p2)
+				case "trash":
+					list = service.getTrashFromReceiverId(p.getID());
+					break;
+				case "sent":
+					list = service.getAllFromSenderId(p.getID());
+					break;
+				case "inbox":
+				default:
+					list = service.getAllFromReceiverId(p.getID());
+					break;
+			}		
+			
+			// Set messages
+			if (list != null)
+			{
+				// Sort
+				Collections.sort(list, new Comparator<Personal>()
 				{
-					return p2.getCreation_time().compareTo(p1.getCreation_time());
-				}
-			});
+					@Override
+					public int compare(Personal p1, Personal p2)
+					{
+						return p2.getCreation_time().compareTo(p1.getCreation_time());
+					}
+				});
+			}
+			else
+			{
+				list = new ArrayList<>();
+			}
+			request.setAttribute("all_messages", list);
+			request.setAttribute("sub_tab", sub);
 		}
-		else
+		else if (action.equals("view"))
 		{
-			list = new ArrayList<>();
+			int message_id = Integer.parseInt(request.getParameter("select_message"));
+			message = service.getById(message_id);
+			
+			request.setAttribute("mode", "view");
+			request.setAttribute("message", message);
+			request.setAttribute("action", "view");
 		}
+		else if (action.equals("compose"))
+		{
+			request.setAttribute("mode", "compose");
+			request.setAttribute("action", "compose");
+		}
+	}
+	
+	private void getApplicationContext(HttpServletRequest request, User u)
+	{
+		// Initialize
+		Person p = u.getPerson();
+		StudentBO studentService = ApplicationContextProvider.getApplicationContext().getBean("studentService", StudentBO.class);
+		Student s = null;
 		
-		request.setAttribute("all_messages", list);
-		request.setAttribute("sub_tab", sub);
+		try { s = studentService.getById(p.getID()); }
+		catch (ObjectNotFoundException ex) { }
+		
+		EmployeeBO employeeService = ApplicationContextProvider.getApplicationContext().getBean("employeeService", EmployeeBO.class);
+		Employee e = null;
+		
+		try { e = employeeService.getById(p.getID()); }
+		catch (ObjectNotFoundException ex) { }
+		
+		// attach
+		request.setAttribute("student", s);
+		request.setAttribute("employee", e);
 	}
 }
