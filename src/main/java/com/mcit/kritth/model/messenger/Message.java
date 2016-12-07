@@ -24,6 +24,7 @@ public class Message
 	@NotNull
 	private String headline;
 	@NotNull
+	@Column(length=1000)
 	private String message;
 	
 	public Message() { }

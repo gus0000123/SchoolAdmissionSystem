@@ -20,16 +20,8 @@ public class Person
 	@NotNull
 	@Column(name="last_name")
 	private String lastName;
-	@Column(name="street_address")
-	private String streetAddress;
-	@Column(name="city")
-	private String city;
-	@Column(name="state")
-	private String state;
-	@Column(name="postal")
-	private String postal;
-	@Column(name="country")
-	private String country;
+	@Embedded
+	private Address address;
 	@Column(name="telephone")
 	private String telNo;
 	@NotNull
@@ -90,46 +82,6 @@ public class Person
 		this.lastName = lastName;
 	}
 
-	public String getStreetAddress() {
-		return streetAddress;
-	}
-
-	public void setStreetAddress(String streetAddress) {
-		this.streetAddress = streetAddress;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public String getPostal() {
-		return postal;
-	}
-
-	public void setPostal(String postal) {
-		this.postal = postal;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
 	public String getTelNo() {
 		return telNo;
 	}
@@ -141,13 +93,10 @@ public class Person
 	@Override
 	public String toString()
 	{
-		String address = streetAddress == null ? ""
-				: streetAddress + ", " + city + ", " + state + ", " + postal; 
 		return ID + " ;" + 
 				firstName + " ;" +
 				lastName + " ;" +
-				address + " ;" +
-				country + " ;" +
+				address.toString() + " ;" +
 				telNo + " ;" +
 				email + " ;" +
 				gender + " ;" +
