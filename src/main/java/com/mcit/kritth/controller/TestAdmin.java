@@ -28,7 +28,7 @@ public class TestAdmin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String url = "/pages/layout/adminApp.jsp";
+		String url = "/WEB-INF/jsp/layout/adminApp.jsp";
 		
 		this.getServletContext().getRequestDispatcher(url).forward(request, response);
 	}

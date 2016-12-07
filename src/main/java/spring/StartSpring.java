@@ -17,6 +17,7 @@ public class StartSpring
 			AbstractApplicationContext appContext = new AnnotationConfigApplicationContext(AppConfig.class);
 			ApplicationContextProvider context = new ApplicationContextProvider();
 			context.setApplicationContext(appContext);
+			started = true;
 		}
 	}
 	

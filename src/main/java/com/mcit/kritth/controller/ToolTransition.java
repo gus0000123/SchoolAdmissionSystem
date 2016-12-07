@@ -70,7 +70,7 @@ public class ToolTransition extends HttpServlet
 	}
 	
 	private final String HOME_URL = "/home.jsp";
-	private final String TOOL_URL = "/pages/admin/tool.jsp";
+	private final String TOOL_URL = "/WEB-INF/jsp/admin/tool.jsp";
 	
 	private String getUserContext(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{

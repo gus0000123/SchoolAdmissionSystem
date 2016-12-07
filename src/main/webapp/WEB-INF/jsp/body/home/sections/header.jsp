@@ -11,7 +11,7 @@
 			</span></span>
 		</div>
 		<div class="subtitle">
-			<span id="department-name"><c:out value="${ user.getPerson().getDepartment().getCode().getDept_name() }" /></span>
+			<span id="department-name"></span>
 		</div>
 	</div>
 </div>

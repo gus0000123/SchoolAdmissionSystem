@@ -9,5 +9,5 @@
 			...THINKING...
 		</div>
 	</div>
-	<jsp:include page="/pages/body/login/sections/registerConfirmation.jsp" />
+	<jsp:include page="/WEB-INF/jsp/body/login/sections/registerConfirmation.jsp" />
 </div>

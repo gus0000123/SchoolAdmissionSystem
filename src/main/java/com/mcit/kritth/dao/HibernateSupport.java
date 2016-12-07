@@ -5,12 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Hibernate;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@SuppressWarnings({ "unchecked", "rawtypes", "deprecation" })
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class HibernateSupport
 {
 	@Autowired
@@ -36,8 +35,7 @@ public class HibernateSupport
 	public List loadAll(Class c)
 	{
 		String hql = "FROM " + c.getName();
-		Query query = getSession().createQuery(hql);
-		List results = query.list();
+		List results = getSession().createQuery(hql).getResultList();
 		return results;
 	}
 	
@@ -48,7 +46,7 @@ public class HibernateSupport
 		else hql += " ASC";
 		hql += " LIMIT " + n;
 				
-		List<Object> last = getSession().createQuery(hql).list();
+		List<Object> last = getSession().createQuery(hql).getResultList();
 		
 		if (last != null) return last;
 		else return null;
@@ -87,9 +85,7 @@ public class HibernateSupport
 		
 		// Create query
 		String hql = "FROM " + c.getName() + " WHERE " + columnName + sign + ":value";
-		Query query = getSession().createQuery(hql);
-		query.setParameter("value", value);
-		List<Object> obj = query.list();
+		List<Object> obj = getSession().createQuery(hql).setParameter("value", value).getResultList();
 		
 		// Cast values
 		List<T> list = new ArrayList<>();

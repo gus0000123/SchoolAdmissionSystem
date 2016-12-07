@@ -4,19 +4,19 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<jsp:include page="/pages/global/css_link.jsp" />
+		<jsp:include page="/WEB-INF/jsp/global/css_link.jsp" />
 		<title>Sign in - Montreal College</title>
 	</head>
 	<body>
 		<div id="loginBody">
 			<div id="login-bg"></div>
 			<div id="login-div">
-				<jsp:include page="/pages/body/login/forms/login.jsp" />
-				<jsp:include page="/pages/body/login/forms/register.jsp" />
+				<jsp:include page="/WEB-INF/jsp/body/login/forms/login.jsp" />
+				<jsp:include page="/WEB-INF/jsp/body/login/forms/register.jsp" />
 			</div>
 		</div>
-		<jsp:include page="/pages/global/loadingScreen.jsp" />
-		<jsp:include page="/pages/global/footer.jsp" />
+		<jsp:include page="/WEB-INF/jsp/global/loadingScreen.jsp" />
+		<jsp:include page="/WEB-INF/jsp/global/footer.jsp" />
 		
 		<!-- java script -->
 		<script type="text/javascript" src="scripts/jquery-3.1.0.min.js"></script>

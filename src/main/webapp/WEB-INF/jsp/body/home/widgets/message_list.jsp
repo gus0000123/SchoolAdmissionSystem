@@ -87,7 +87,7 @@
 						<input id="select_message_input" type="hidden" name="select_message" value="" />
 						<c:set var="i" scope="page" value="1" />
 						<c:forEach var="message" items="${ all_messages }">
-							<tr class="row-selector" onclick="viewMessage(event, ${ message.getId() })">
+							<tr class="row-selector">
 								<td>
 									<input type="hidden" name="message_id" value="${ message.getId() }" />
 									<c:if test="${ sub_tab eq 'inbox' }">
@@ -97,22 +97,27 @@
 										<input id="row-${ i }" type="checkbox" name="selection" value="${ message.getId() }" onclick="selectRow(${ i })" />
 									</c:if>
 								</td>
-								<c:choose>
-									<c:when test="${ message.important }">
-										<td><span style="color: red;"><c:out value="${ message.headline }" /></span></td>
-									</c:when>
-									<c:otherwise>
-										<td><c:out value="${ message.headline }" /></td>
-									</c:otherwise>
-								</c:choose>
-								<td>
+								<td  onclick="viewMessage(event, ${ message.getId() })">
+									<c:choose>
+										<c:when test="${ message.important }">
+											<span style="color: red;">
+												<c:out value="${ message.headline }" />
+											</span>
+										</c:when>
+										<c:otherwise>
+											<c:out value="${ message.headline }" />
+										</c:otherwise>
+									</c:choose>
+								</td>
+								<td onclick="viewMessage(event, ${ message.getId() })">
 									<c:out value="${ message.sender.firstName }" />&nbsp;
 									<c:out value="${ message.sender.lastName }" />
 								</td>
-								<td>
+								<td onclick="viewMessage(event, ${ message.getId() })">
 									<c:out value="${ fn:split(message.creation_time, ' ')[0] }" />
 								</td>
 							</tr>
+							<!-- increase counter -->
 							<c:set var="i" scope="page" value="${ i + 1 }" />
 						</c:forEach>
 					</c:otherwise>

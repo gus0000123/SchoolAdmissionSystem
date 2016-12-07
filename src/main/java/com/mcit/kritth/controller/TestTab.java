@@ -45,7 +45,7 @@ public class TestTab extends HttpServlet
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		String url = "/pages/layout/homeApp.jsp";
+		String url = "/WEB-INF/jsp/layout/homeApp.jsp";
 		String tab = request.getParameter("tab");
 		
 		User u = (User) request.getSession().getAttribute("user");
