@@ -1,5 +1,6 @@
 package com.mcit.kritth.model.library;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -76,6 +77,7 @@ public class Author
 	}
 
 	public Set<Resource> getResources() {
+		if (resources == null) resources = new HashSet<>();
 		return resources;
 	}
 

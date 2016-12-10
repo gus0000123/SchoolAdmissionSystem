@@ -16,7 +16,7 @@ public class Personal extends Message
 	@NotNull
 	private boolean important = false;
 	@NotNull
-	private boolean isTrash = false;
+	private boolean trash = false;
 	
 	public Personal() { }
 
@@ -37,10 +37,10 @@ public class Personal extends Message
 	}
 
 	public boolean isTrash() {
-		return isTrash;
+		return trash;
 	}
 
 	public void setTrash(boolean isTrash) {
-		this.isTrash = isTrash;
+		this.trash = isTrash;
 	}
 }

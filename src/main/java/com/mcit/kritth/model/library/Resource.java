@@ -1,6 +1,7 @@
 package com.mcit.kritth.model.library;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -113,6 +114,7 @@ public class Resource
 	}
 
 	public Set<Author> getContributor() {
+		if (contributor == null) contributor = new HashSet<>();
 		return contributor;
 	}
 
@@ -126,5 +128,21 @@ public class Resource
 
 	public void setDate_added(Date date_added) {
 		this.date_added = date_added;
+	}
+
+	public int getPages() {
+		return pages;
+	}
+
+	public void setPages(int pages) {
+		this.pages = pages;
+	}
+
+	public Date getPublished_date() {
+		return published_date;
+	}
+
+	public void setPublished_date(Date published_date) {
+		this.published_date = published_date;
 	}
 }

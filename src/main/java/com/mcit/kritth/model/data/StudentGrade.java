@@ -19,7 +19,7 @@ public class StudentGrade
 	@OneToOne
 	@JoinColumn(name="student_id")
 	private Student student;
-	
+
 	@OneToOne
 	@JoinColumn(name="course_id")
 	private Course course;
@@ -57,5 +57,13 @@ public class StudentGrade
 	}
 	public void setStart_date(Date start_date) {
 		this.start_date = start_date;
+	}
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 }

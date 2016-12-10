@@ -62,7 +62,6 @@ public class Course
 	public Course() { }
 	
 	public String getCourse_name() {
-		course_name = BeanUtil.getCourseCode(this);
 		return course_name;
 	}
 	public void setCourse_name(String course_name) {
@@ -119,6 +118,7 @@ public class Course
 		this.class_level = class_level;
 	}
 	public String getCourse_code() {
+		course_name = BeanUtil.getCourseCode(this);
 		return course_code;
 	}
 	public void setCourse_code(String course_code) {
