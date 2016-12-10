@@ -110,4 +110,12 @@ public class Person
 	public void setMiddleName(String middleName) {
 		this.middleName = middleName;
 	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 }

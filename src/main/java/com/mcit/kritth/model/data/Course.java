@@ -36,7 +36,7 @@ public class Course
 	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@NotNull
 	private Employee instructor;
-	
+
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="course")
 	private Set<CourseWork> course_works;
 	
@@ -154,5 +154,14 @@ public class Course
 
 	public void setIs_active(boolean is_active) {
 		this.is_active = is_active;
+	}
+
+	public Set<CourseWork> getCourse_works() {
+		if (course_works == null) course_works = new HashSet<CourseWork>();
+		return course_works;
+	}
+
+	public void setCourse_works(Set<CourseWork> course_works) {
+		this.course_works = course_works;
 	}
 }

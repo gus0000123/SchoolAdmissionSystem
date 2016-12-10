@@ -1,7 +1,8 @@
 package com.mcit.kritth.model.data;
 
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -33,7 +34,7 @@ public class Schedule
 	@JoinTable(name="as_schedules_system_group",
 		joinColumns={@JoinColumn(name="schedule_id")},
 		inverseJoinColumns={@JoinColumn(name="system_group_id")})
-	private List<SystemGroup> groupToShow;
+	private Set<SystemGroup> groupToShow;
 	
 	public Schedule() { }
 
@@ -69,11 +70,12 @@ public class Schedule
 		this.creator = creator;
 	}
 
-	public List<SystemGroup> getGroupToShow() {
+	public Set<SystemGroup> getGroupToShow() {
+		if (groupToShow == null) groupToShow = new HashSet<>();
 		return groupToShow;
 	}
 
-	public void setGroupToShow(List<SystemGroup> groupToShow) {
+	public void setGroupToShow(Set<SystemGroup> groupToShow) {
 		this.groupToShow = groupToShow;
 	}
 
