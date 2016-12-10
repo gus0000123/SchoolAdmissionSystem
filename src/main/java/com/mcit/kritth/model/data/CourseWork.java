@@ -27,7 +27,7 @@ public class CourseWork
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date deadline;
 	
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@NotNull 					
 	private Course course;
 	

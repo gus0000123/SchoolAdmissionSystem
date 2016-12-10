@@ -30,7 +30,7 @@ public class Schedule
 	@NotNull
 	private Person creator;
 	
-	@ManyToMany(cascade={CascadeType.ALL},fetch=FetchType.EAGER)
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="as_schedules_system_group",
 		joinColumns={@JoinColumn(name="schedule_id")},
 		inverseJoinColumns={@JoinColumn(name="system_group_id")})

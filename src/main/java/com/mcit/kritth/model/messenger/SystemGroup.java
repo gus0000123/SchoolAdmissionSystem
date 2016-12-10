@@ -18,7 +18,7 @@ public class SystemGroup
 	private int sys_group_id;
 	@NotNull
 	private String name;
-	@ManyToMany(cascade={CascadeType.ALL})
+	@ManyToMany
 	@JoinTable(name="as_person_system_group",
 		joinColumns={@JoinColumn(name="sys_group_id")},
 		inverseJoinColumns={@JoinColumn(name="ID")})

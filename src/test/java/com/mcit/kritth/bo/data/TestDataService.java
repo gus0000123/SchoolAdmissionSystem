@@ -12,7 +12,6 @@ import org.hibernate.ObjectNotFoundException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.dao.DataIntegrityViolationException;
 
 import com.mcit.kritth.bo.TestService;
 import com.mcit.kritth.bo.template.CourseBO;
@@ -188,6 +187,7 @@ public class TestDataService implements TestService
 		cService.deleteById(course.getCourse_code());
 		dService.deleteById(department.getDeptId());
 		dcService.deleteById(department_code.getDept_code());
+		eService.deleteById(employee.getId());
 		pService.deleteById(person.getID());
 		
 		try { department_code = dcService.getById(department_code.getDept_code()); }
@@ -223,6 +223,7 @@ public class TestDataService implements TestService
 			cService.delete(course);
 			dService.delete(department);
 			dcService.delete(department_code);
+			eService.delete(employee);
 			pService.delete(person);
 		}
 	}

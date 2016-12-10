@@ -9,7 +9,7 @@ import com.mcit.kritth.model.data.Person;
 @Table(name="Personal_Messages")
 public class Personal extends Message
 {
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name="receiver_id")
 	@NotNull
 	private Person receiver;

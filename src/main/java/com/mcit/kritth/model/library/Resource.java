@@ -34,7 +34,7 @@ public class Resource
 	private Date date_added;
 	
 	@NotNull
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.EAGER)
 	private Author author;
 	
 	@NotNull

@@ -24,13 +24,13 @@ public class Department
 	@NotNull
 	private DepartmentCode dept_code;
 	
-	@ManyToMany(cascade={CascadeType.ALL},fetch=FetchType.EAGER)
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="as_departments_students",
 		joinColumns={@JoinColumn(name="dept_id")},
 		inverseJoinColumns={@JoinColumn(name="student_id")})
 	private Set<Student> students;
 	
-	@ManyToMany(cascade={CascadeType.ALL},fetch=FetchType.EAGER)
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="as_departments_employees",
 		joinColumns={@JoinColumn(name="dept_id")},
 		inverseJoinColumns={@JoinColumn(name="employee_id")})

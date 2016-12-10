@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 @Table(name="Announcements")
 public class Announcement extends Message
 {
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne
 	@NotNull
 	private SystemGroup system_group;
 

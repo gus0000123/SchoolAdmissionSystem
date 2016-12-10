@@ -14,12 +14,12 @@ public class CourseMark
 	@NotNull							
 	private int mark;
 	
-	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="course_work_id")
 	@NotNull 							
 	private CourseWork coursework;
 	
-	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="student_id") 
 	@NotNull 							
 	private Student student;

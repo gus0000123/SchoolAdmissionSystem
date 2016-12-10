@@ -33,26 +33,26 @@ public class Course
 	@NotNull
 	private Department department;
 	
-	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@NotNull
 	private Employee instructor;
 
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="course")
 	private Set<CourseWork> course_works;
 	
-	@ManyToMany(cascade={CascadeType.ALL})
+	@ManyToMany
 	@JoinTable(name="as_course_pre_requisite",
 		joinColumns={@JoinColumn(name="course_id")},
 		inverseJoinColumns={@JoinColumn(name="pre_req_id")})
 	private Set<Course> prerequisite;
 	
-	@ManyToMany(cascade={CascadeType.ALL})
+	@ManyToMany
 	@JoinTable(name="as_course_ta",
 		joinColumns={@JoinColumn(name="course_id")},
 		inverseJoinColumns={@JoinColumn(name="employee_id")})
 	private Set<Employee> ta;
 	
-	@ManyToMany(cascade={CascadeType.ALL},fetch=FetchType.EAGER)
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="as_registered_students",
 		joinColumns={@JoinColumn(name="course_id")},
 		inverseJoinColumns={@JoinColumn(name="student_id")})
