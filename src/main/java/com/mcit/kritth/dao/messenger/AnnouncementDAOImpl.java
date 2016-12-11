@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.mcit.kritth.dao.DAO;
-import com.mcit.kritth.dao.HibernateSupport;
+import com.mcit.kritth.dao.template.AnnouncementDAO;
+import com.mcit.kritth.dao.template.HibernateSupport;
 import com.mcit.kritth.model.messenger.Announcement;
 
 @SuppressWarnings("unchecked")
 @Repository("announcementDAO")
-public class AnnouncementDAOImpl extends HibernateSupport implements DAO<Announcement>
+public class AnnouncementDAOImpl extends HibernateSupport implements AnnouncementDAO
 {
 	@Override
 	public void insertBean(Announcement o) { insert(o); }

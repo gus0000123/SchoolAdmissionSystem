@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mcit.kritth.bo.template.UserBO;
-import com.mcit.kritth.dao.data.UserDAOImpl;
+import com.mcit.kritth.dao.template.UserDAO;
 import com.mcit.kritth.model.data.User;
 
 @Service("userService")
@@ -16,7 +16,7 @@ import com.mcit.kritth.model.data.User;
 public class UserBOImpl implements UserBO
 {
 	@Autowired
-	private UserDAOImpl dao;
+	private UserDAO dao;
 	
 	@Override
 	public void insert(User o) { dao.insertBean(o); }

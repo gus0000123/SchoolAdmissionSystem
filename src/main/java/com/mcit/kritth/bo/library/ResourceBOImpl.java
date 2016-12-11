@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mcit.kritth.bo.template.ResourceBO;
-import com.mcit.kritth.dao.library.ResourceDAOImpl;
+import com.mcit.kritth.dao.template.ResourceDAO;
 import com.mcit.kritth.model.library.Resource;
 
 @Service("resourceService")
@@ -16,7 +16,7 @@ import com.mcit.kritth.model.library.Resource;
 public class ResourceBOImpl implements ResourceBO
 {
 	@Autowired
-	private ResourceDAOImpl dao;
+	private ResourceDAO dao;
 	
 	@Override
 	public void insert(Resource o) { dao.insertBean(o); }

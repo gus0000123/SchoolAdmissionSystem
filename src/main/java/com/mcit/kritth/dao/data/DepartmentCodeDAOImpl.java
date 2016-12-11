@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.mcit.kritth.dao.DAO;
-import com.mcit.kritth.dao.HibernateSupport;
+import com.mcit.kritth.dao.template.DepartmentCodeDAO;
+import com.mcit.kritth.dao.template.HibernateSupport;
 import com.mcit.kritth.model.data.DepartmentCode;
 
 @SuppressWarnings("unchecked")
 @Repository("departmentCodeDAO")
-public class DepartmentCodeDAOImpl extends HibernateSupport implements DAO<DepartmentCode>
+public class DepartmentCodeDAOImpl extends HibernateSupport implements DepartmentCodeDAO
 {
 	@Override
 	public void insertBean(DepartmentCode o) { insert(o); }

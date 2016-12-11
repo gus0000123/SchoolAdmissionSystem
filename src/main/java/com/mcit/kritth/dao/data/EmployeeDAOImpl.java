@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.mcit.kritth.dao.DAO;
-import com.mcit.kritth.dao.HibernateSupport;
+import com.mcit.kritth.dao.template.EmployeeDAO;
+import com.mcit.kritth.dao.template.HibernateSupport;
 import com.mcit.kritth.model.data.Employee;
 
 @SuppressWarnings("unchecked")
 @Repository("employeeDAO")
-public class EmployeeDAOImpl extends HibernateSupport implements DAO<Employee>
+public class EmployeeDAOImpl extends HibernateSupport implements EmployeeDAO
 {
 	@Override
 	public void insertBean(Employee o) { insert(o); }

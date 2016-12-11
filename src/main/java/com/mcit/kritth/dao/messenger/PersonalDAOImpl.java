@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.mcit.kritth.dao.DAO;
-import com.mcit.kritth.dao.HibernateSupport;
+import com.mcit.kritth.dao.template.PersonalDAO;
+import com.mcit.kritth.dao.template.HibernateSupport;
 import com.mcit.kritth.model.messenger.Personal;
 
 @SuppressWarnings("unchecked")
 @Repository("personalDAO")
-public class PersonalDAOImpl extends HibernateSupport implements DAO<Personal>
+public class PersonalDAOImpl extends HibernateSupport implements PersonalDAO
 {
 	@Override
 	public void insertBean(Personal o) { insert(o); }
@@ -28,12 +28,15 @@ public class PersonalDAOImpl extends HibernateSupport implements DAO<Personal>
 	@Override
 	public Personal getModelByPrimaryKey(Serializable id) { return (Personal) load(Personal.class, id);	}
 	
-	public List<Personal> getAllByReceiverId(int id)
+	@Override
+	public List<Personal> getAllByReceiverId(Serializable id)
 	{
-		return getCondition(CONDITION_EQUAL, 0, Personal.class, "receiver_id", new Integer(id));
+		return getCondition(CONDITION_EQUAL, 0, Personal.class, "receiver_id", (int) id);
 	}
-	public List<Personal> getAllBySenderId(int id)
+	
+	@Override
+	public List<Personal> getAllBySenderId(Serializable id)
 	{
-		return getCondition(CONDITION_EQUAL, 0, Personal.class, "sender_ID", new Integer(id));
+		return getCondition(CONDITION_EQUAL, 0, Personal.class, "sender_ID", (int) id);
 	}
 }

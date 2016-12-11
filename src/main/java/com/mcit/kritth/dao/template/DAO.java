@@ -1,4 +1,4 @@
-package com.mcit.kritth.dao;
+package com.mcit.kritth.dao.template;
 
 import java.io.Serializable;
 import java.util.List;

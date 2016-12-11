@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.mcit.kritth.dao.DAO;
-import com.mcit.kritth.dao.HibernateSupport;
+import com.mcit.kritth.dao.template.AuthorDAO;
+import com.mcit.kritth.dao.template.HibernateSupport;
 import com.mcit.kritth.model.library.Author;
 
 @SuppressWarnings("unchecked")
 @Repository("authorDAO")
-public class AuthorDAOImpl extends HibernateSupport implements DAO<Author>
+public class AuthorDAOImpl extends HibernateSupport implements AuthorDAO
 {
 	@Override
 	public void insertBean(Author o) { insert(o); }

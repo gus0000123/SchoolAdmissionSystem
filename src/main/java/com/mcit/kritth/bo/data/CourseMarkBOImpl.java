@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mcit.kritth.bo.template.CourseMarkBO;
-import com.mcit.kritth.dao.data.CourseMarkDAOImpl;
+import com.mcit.kritth.dao.template.CourseMarkDAO;
 import com.mcit.kritth.model.data.CourseMark;
 
 @Service("courseMarkService")
@@ -16,7 +16,7 @@ import com.mcit.kritth.model.data.CourseMark;
 public class CourseMarkBOImpl implements CourseMarkBO
 {
 	@Autowired
-	private CourseMarkDAOImpl dao;
+	private CourseMarkDAO dao;
 	
 	@Override
 	public void insert(CourseMark o) { dao.insertBean(o); }

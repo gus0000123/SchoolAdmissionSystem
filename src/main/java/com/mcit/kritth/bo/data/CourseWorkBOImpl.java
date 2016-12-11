@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import com.mcit.kritth.bo.template.CourseWorkBO;
-import com.mcit.kritth.dao.data.CourseWorkDAOImpl;
+import com.mcit.kritth.dao.template.CourseWorkDAO;
 import com.mcit.kritth.model.data.CourseWork;
 
 @Service("courseWorkService")
@@ -17,7 +17,7 @@ import com.mcit.kritth.model.data.CourseWork;
 public class CourseWorkBOImpl implements CourseWorkBO
 {
 	@Autowired
-	private CourseWorkDAOImpl dao;
+	private CourseWorkDAO dao;
 	
 	@Override
 	public void insert(CourseWork o) { dao.insertBean(o); }

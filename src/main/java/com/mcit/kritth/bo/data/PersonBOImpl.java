@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mcit.kritth.bo.template.PersonBO;
-import com.mcit.kritth.dao.data.PersonDAOImpl;
+import com.mcit.kritth.dao.template.PersonDAO;
 import com.mcit.kritth.model.data.Person;
 
 @Service("personService")
@@ -16,7 +16,7 @@ import com.mcit.kritth.model.data.Person;
 public class PersonBOImpl implements PersonBO
 {
 	@Autowired
-	private PersonDAOImpl dao;
+	private PersonDAO dao;
 	
 	@Override
 	public void insert(Person o) { dao.insertBean(o); }

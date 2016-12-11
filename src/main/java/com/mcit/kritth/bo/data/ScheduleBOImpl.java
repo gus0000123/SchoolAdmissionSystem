@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mcit.kritth.bo.template.ScheduleBO;
-import com.mcit.kritth.dao.data.ScheduleDAOImpl;
+import com.mcit.kritth.dao.template.ScheduleDAO;
 import com.mcit.kritth.model.data.Schedule;
 
 @Service("scheduleService")
@@ -16,7 +16,7 @@ import com.mcit.kritth.model.data.Schedule;
 public class ScheduleBOImpl implements ScheduleBO
 {
 	@Autowired
-	private ScheduleDAOImpl dao;
+	private ScheduleDAO dao;
 	
 	@Override
 	public void insert(Schedule o) { dao.insertBean(o); }

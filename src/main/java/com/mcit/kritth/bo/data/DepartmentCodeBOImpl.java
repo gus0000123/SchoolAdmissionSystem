@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mcit.kritth.bo.template.DepartmentCodeBO;
-import com.mcit.kritth.dao.data.DepartmentCodeDAOImpl;
+import com.mcit.kritth.dao.template.DepartmentCodeDAO;
 import com.mcit.kritth.model.data.DepartmentCode;
 
 @Service("departmentCodeService")
@@ -16,7 +16,7 @@ import com.mcit.kritth.model.data.DepartmentCode;
 public class DepartmentCodeBOImpl implements DepartmentCodeBO
 {
 	@Autowired
-	private DepartmentCodeDAOImpl dao;
+	private DepartmentCodeDAO dao;
 	
 	@Override
 	public void insert(DepartmentCode o) { dao.insertBean(o); }

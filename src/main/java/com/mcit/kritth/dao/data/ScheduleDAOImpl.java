@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.mcit.kritth.dao.DAO;
-import com.mcit.kritth.dao.HibernateSupport;
+import com.mcit.kritth.dao.template.HibernateSupport;
+import com.mcit.kritth.dao.template.ScheduleDAO;
 import com.mcit.kritth.model.data.Schedule;
 
 @SuppressWarnings("unchecked")
 @Repository("scheduleDAO")
-public class ScheduleDAOImpl extends HibernateSupport implements DAO<Schedule>
+public class ScheduleDAOImpl extends HibernateSupport implements ScheduleDAO
 {
 	@Override
 	public void insertBean(Schedule o) { insert(o); }

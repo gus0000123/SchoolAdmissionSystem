@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mcit.kritth.bo.template.MessageBO;
-import com.mcit.kritth.dao.messenger.MessageDAOImpl;
+import com.mcit.kritth.dao.template.MessageDAO;
 import com.mcit.kritth.model.messenger.Message;
 
 @Service("messageService")
@@ -16,7 +16,7 @@ import com.mcit.kritth.model.messenger.Message;
 public class MessageBOImpl implements MessageBO
 {
 	@Autowired
-	private MessageDAOImpl dao;
+	private MessageDAO dao;
 	
 	@Override
 	public void insert(Message o) { dao.insertBean(o); }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mcit.kritth.bo.template.PersonalBO;
-import com.mcit.kritth.dao.messenger.PersonalDAOImpl;
+import com.mcit.kritth.dao.template.PersonalDAO;
 import com.mcit.kritth.model.messenger.Personal;
 
 @Service("personalService")
@@ -17,7 +17,7 @@ import com.mcit.kritth.model.messenger.Personal;
 public class PersonalBOImpl implements PersonalBO
 {
 	@Autowired
-	private PersonalDAOImpl dao;
+	private PersonalDAO dao;
 	
 	@Override
 	public void insert(Personal o) { dao.insertBean(o); }

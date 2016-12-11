@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.mcit.kritth.dao.DAO;
-import com.mcit.kritth.dao.HibernateSupport;
+import com.mcit.kritth.dao.template.HibernateSupport;
+import com.mcit.kritth.dao.template.PersonDAO;
 import com.mcit.kritth.model.data.Person;
 
 @SuppressWarnings("unchecked")
 @Repository("personDAO")
-public class PersonDAOImpl extends HibernateSupport implements DAO<Person>
+public class PersonDAOImpl extends HibernateSupport implements PersonDAO
 {
 	@Override
 	public void insertBean(Person o) { insert(o); }

@@ -5,14 +5,14 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.mcit.kritth.dao.DAO;
-import com.mcit.kritth.dao.HibernateSupport;
+import com.mcit.kritth.dao.template.HibernateSupport;
+import com.mcit.kritth.dao.template.StudentAdmissionStatusDAO;
 import com.mcit.kritth.model.data.StudentAdmissionStatus;
 
 @SuppressWarnings("unchecked")
 @Repository("studentAdmissionStatusDAO")
-public class StudentAdmissionStatusDAOImpl extends HibernateSupport implements DAO<StudentAdmissionStatus> {
-
+public class StudentAdmissionStatusDAOImpl extends HibernateSupport implements StudentAdmissionStatusDAO
+{
 	@Override
 	public void insertBean(StudentAdmissionStatus o) { insert(o); }
 

@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.mcit.kritth.dao.DAO;
-import com.mcit.kritth.dao.HibernateSupport;
+import com.mcit.kritth.dao.template.ResourceTypeDAO;
+import com.mcit.kritth.dao.template.HibernateSupport;
 import com.mcit.kritth.model.library.ResourceType;
 
 @SuppressWarnings("unchecked")
 @Repository("resourceTypeDAO")
-public class ResourceTypeDAOImpl extends HibernateSupport implements DAO<ResourceType>
+public class ResourceTypeDAOImpl extends HibernateSupport implements ResourceTypeDAO
 {
 	@Override
 	public void insertBean(ResourceType o) { insert(o); }

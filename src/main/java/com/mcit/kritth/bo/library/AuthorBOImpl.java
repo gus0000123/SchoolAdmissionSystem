@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mcit.kritth.bo.template.AuthorBO;
-import com.mcit.kritth.dao.library.AuthorDAOImpl;
+import com.mcit.kritth.dao.template.AuthorDAO;
 import com.mcit.kritth.model.library.Author;
 
 @Service("authorService")
@@ -16,7 +16,7 @@ import com.mcit.kritth.model.library.Author;
 public class AuthorBOImpl implements AuthorBO
 {
 	@Autowired
-	private AuthorDAOImpl dao;
+	private AuthorDAO dao;
 	
 	@Override
 	public void insert(Author o) { dao.insertBean(o); }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mcit.kritth.bo.template.SystemGroupBO;
-import com.mcit.kritth.dao.messenger.SystemGroupDAOImpl;
+import com.mcit.kritth.dao.template.SystemGroupDAO;
 import com.mcit.kritth.model.messenger.SystemGroup;
 
 @Service("systemGroupService")
@@ -16,7 +16,7 @@ import com.mcit.kritth.model.messenger.SystemGroup;
 public class SystemGroupBOImpl implements SystemGroupBO
 {
 	@Autowired
-	private SystemGroupDAOImpl dao;
+	private SystemGroupDAO dao;
 	
 	@Override
 	public void insert(SystemGroup o) { dao.insertBean(o); }

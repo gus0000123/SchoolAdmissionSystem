@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.mcit.kritth.dao.DAO;
-import com.mcit.kritth.dao.HibernateSupport;
+import com.mcit.kritth.dao.template.SystemGroupDAO;
+import com.mcit.kritth.dao.template.HibernateSupport;
 import com.mcit.kritth.model.messenger.SystemGroup;
 
 @SuppressWarnings("unchecked")
 @Repository("systemGroupDAO")
-public class SystemGroupDAOImpl extends HibernateSupport implements DAO<SystemGroup>
+public class SystemGroupDAOImpl extends HibernateSupport implements SystemGroupDAO
 {
 	@Override
 	public void insertBean(SystemGroup o) { insert(o); }

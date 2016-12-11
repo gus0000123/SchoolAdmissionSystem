@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mcit.kritth.bo.template.StudentGradeBO;
-import com.mcit.kritth.dao.data.StudentGradeDAOImpl;
+import com.mcit.kritth.dao.template.StudentGradeDAO;
 import com.mcit.kritth.model.data.StudentGrade;
 
 @Service("studentGradeService")
@@ -16,7 +16,7 @@ import com.mcit.kritth.model.data.StudentGrade;
 public class StudentGradeBOImpl implements StudentGradeBO
 {
 	@Autowired
-	private StudentGradeDAOImpl dao;
+	private StudentGradeDAO dao;
 	
 	@Override
 	public void insert(StudentGrade o) { dao.insertBean(o); }

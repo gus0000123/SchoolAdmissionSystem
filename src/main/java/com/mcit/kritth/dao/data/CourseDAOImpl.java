@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.mcit.kritth.dao.DAO;
-import com.mcit.kritth.dao.HibernateSupport;
+import com.mcit.kritth.dao.template.CourseDAO;
+import com.mcit.kritth.dao.template.HibernateSupport;
 import com.mcit.kritth.model.data.Course;
 
 @SuppressWarnings("unchecked")
 @Repository("courseDAO")
-public class CourseDAOImpl extends HibernateSupport implements DAO<Course>
+public class CourseDAOImpl extends HibernateSupport implements CourseDAO
 {
 	@Override
 	public void insertBean(Course o) { insert(o); }
