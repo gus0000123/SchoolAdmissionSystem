@@ -27,8 +27,19 @@
 				</c:forEach>
 			</tbody>
 			<tfoot>
+				<tr>
+					<td colspan="4">
+						<button class="bottom-button">Add</button>
+						<button class="bottom-button">Remove</button>
+					</td>
+				</tr>
 			</tfoot>
 		</table>
+	</form>
+	<form action="TestAdmin" method="post">
+		<input type="hidden" name="tab" value="person" />
+		<input type="hidden" name="mode" value="insert" />
+		<input type="submit" value="test" />
 	</form>
 	<script>
 		var counter = 0;

@@ -33,15 +33,47 @@ public class TestAdmin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String url;
+		String tab = request.getParameter("tab");
+		if (tab == null){ tab = ""; }
 		
-		String url = "/WEB-INF/jsp/layout/adminApp.jsp";
-		
-		PersonBO service = ApplicationContextProvider.getApplicationContext().getBean("personService", PersonBO.class);
-		List<Person> list = service.getAll();
-		
-		request.setAttribute("list", list);
+		switch(tab)
+		{
+			case "person":
+				url = getPersonContext(request);
+				break;
+			default:
+				url = "/TestTab?tab=overview";
+				break;
+		}
 		
 		this.getServletContext().getRequestDispatcher(url).forward(request, response);
 	}
-
+	
+	private String getPersonContext(HttpServletRequest request)
+	{
+		String url = "/WEB-INF/jsp/layout/adminApp.jsp";
+		String mode = request.getParameter("mode");
+		if (mode == null) { mode = "list"; }
+		
+		switch(mode)
+		{
+			case "list":
+				PersonBO service = ApplicationContextProvider.getApplicationContext().getBean("personService", PersonBO.class);
+				List<Person> list = service.getAll();
+				request.setAttribute("mode", "list");
+				request.setAttribute("list", list);
+				break;
+			case "edit":
+				request.setAttribute("mode", "edit");
+				break;
+			case "insert":
+				request.setAttribute("mode", "insert");
+				break;
+		}
+		
+		request.setAttribute("tab", "person");
+		
+		return url;
+	}
 }

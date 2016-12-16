@@ -16,7 +16,7 @@ public class Employee
 	
 	@NotNull
 	@Column(name="salary")
-	private double salary;
+	private double salary = 0;
 	@Column(name="rank")
 	private int rank = 5;
 	@Temporal(TemporalType.TIMESTAMP)

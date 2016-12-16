@@ -6,7 +6,14 @@
 			<jsp:include page="../widgets/searchTool.jsp" />
 		</div>
 		<div class="column" style="width: calc(99% - 300px);">
-			<jsp:include page="../widgets/personTable.jsp" />
+			<c:choose>
+				<c:when test="${ mode eq 'list' }">
+					<jsp:include page="../widgets/personTable.jsp" />
+				</c:when>
+				<c:otherwise>
+					<jsp:include page="../widgets/personModify.jsp" />
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 </div>
