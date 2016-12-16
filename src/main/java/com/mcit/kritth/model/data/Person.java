@@ -21,7 +21,7 @@ public class Person
 	@Column(name="last_name")
 	private String lastName;
 	@Embedded
-	private Address address;
+	private Address address = new Address();
 	@Column(name="telephone")
 	private String telNo;
 	@NotNull
@@ -90,11 +90,19 @@ public class Person
 		this.telNo = telNo;
 	}
 	
+	public String getFullName()
+	{
+		return firstName + " "
+				+ (middleName != null ? middleName + " " : "")
+				+ lastName;
+	}
+	
 	@Override
 	public String toString()
 	{
 		return ID + " ;" + 
 				firstName + " ;" +
+				middleName + " ;" +
 				lastName + " ;" +
 				address.toString() + " ;" +
 				telNo + " ;" +

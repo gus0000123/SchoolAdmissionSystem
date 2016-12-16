@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.mcit.kritth.dao.template.CourseWorkDAO;
-import com.mcit.kritth.dao.template.DAO;
 import com.mcit.kritth.dao.template.HibernateSupport;
 import com.mcit.kritth.model.data.CourseWork;
 

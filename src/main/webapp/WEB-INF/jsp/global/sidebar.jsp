@@ -5,9 +5,9 @@
 			<img src="${pageContext.servletContext.contextPath}/images/home-icon.png">
 		</button>
 	</form>
-	<form action="toolTransition" method="post">
+	<form id="adminSideButtonForm" action="TestAdmin" method="post">
 		<input type="hidden" name="page" value="User" />
-		<button>
+		<button onclick="launchForm(event, 'adminSideButtonForm');">
 			<img src="${pageContext.servletContext.contextPath}/images/application-icon.png">
 		</button>
 	</form>

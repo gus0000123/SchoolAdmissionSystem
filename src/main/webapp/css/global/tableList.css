@@ -1,0 +1,7 @@
+.table-selector { border-collapse: collapse; width: 100%; margin-top: 0; margin-bottom: 0; }
+.row-selector { background-color: rgba(200, 200, 200, 0.3); border-bottom: 3px solid rgb(255, 255, 255); cursor: pointer; }
+.row-selector:hover { background-color: rgba(0, 200, 255, 0.1); }
+.row-selector:active { background-color: rgba(0, 255, 200, 0.3); }
+.bottom-button { background: none; outline: none; border: none; cursor: pointer; padding-top: 8px; border-top: 5px solid rgba(200, 200, 200, 0.0); width: 150px; font-weight: 700; padding-left: 0; margin-left: 0; }
+.bottom-button:hover { border-top: 5px solid rgba(0, 200, 255, 0.5); }
+.bottom-button:active { border-top: 5px solid rgba(0, 255, 200, 0.5); }

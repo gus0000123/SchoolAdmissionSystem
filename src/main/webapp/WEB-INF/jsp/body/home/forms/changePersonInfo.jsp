@@ -22,15 +22,15 @@
 			</tr>
 			<tr>
 				<td><label for="address">Street Address:</label></td>
-				<td><input id="address" name="address" type="text" value="${ user.person.streetAddress }" /></td>
+				<td><input id="address" name="address" type="text" value="${ user.person.address.streetAddress }" /></td>
 			</tr>
 			<tr>
 				<td><label for="city">City:</label></td>
-				<td><input id="city" name="city" type="text" value="${ user.person.city }" /></td>
+				<td><input id="city" name="city" type="text" value="${ user.person.address.city }" /></td>
 			</tr>
 			<tr>
 				<td><label for="province">Province/State:</label></td>
-				<td><input id="province" name="province" type="text" value="${ user.person.state }" /></td>
+				<td><input id="province" name="province" type="text" value="${ user.person.address.state }" /></td>
 			</tr>
 			<tr>
 				<td><label for="country">Country:</label></td>
@@ -290,7 +290,7 @@
 			</tr>
 			<tr>
 				<td><label for="postal">Postal Code:</label></td>
-				<td><input id="postal" name="postal" type="text" value="${ user.person.postal }" /></td>
+				<td><input id="postal" name="postal" type="text" value="${ user.person.address.postal }" /></td>
 			</tr>
 			<tr>
 				<td><label for="telephone">Phone number:</label></td>
@@ -323,7 +323,7 @@
 	<script>
 		$(document).ready(function()
 		{
-			$('#country').val('${ user.person.country }');
+			$('#country').val('${ user.person.address.country }');
 			$('#gender').val('${ user.person.gender.toString() }');
 		});
 	</script>

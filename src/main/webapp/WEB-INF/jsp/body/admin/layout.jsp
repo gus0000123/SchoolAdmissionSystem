@@ -4,6 +4,6 @@
 	<div id="body-content">
 		<jsp:include page="sections/header.jsp" />
 		<jsp:include page="sections/tabSelector.jsp" />
-		<jsp:include page="tabs/person_mod.jsp" />
+		<jsp:include page="tabs/person_list.jsp" />
 	</div>
 </article>

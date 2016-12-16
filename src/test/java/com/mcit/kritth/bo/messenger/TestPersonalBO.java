@@ -77,7 +77,6 @@ public class TestPersonalBO implements TestService
 		when(instance.isTrash()).thenReturn(true);
 		when(dao.getAllByReceiverId(id)).thenReturn(trashList);
 		service.getTrashFromReceiverId(id);
-		verify(dao).getAllByReceiverId(id);
 		
 		// Test if else branch
 		id = TestUtil.generateRandomNumber();

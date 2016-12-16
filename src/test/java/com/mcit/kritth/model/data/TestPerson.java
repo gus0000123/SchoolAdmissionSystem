@@ -62,6 +62,9 @@ public class TestPerson implements TestBean
 		assertNotNull(p.getGender());
 		assertNotNull(p.getSin());
 		assertNotNull(p.toString());
+		assertNotNull(p.getFullName());
+		
+		p.setMiddleName(null);
+		assertNotNull(p.getFullName());
 	}
-	
 }

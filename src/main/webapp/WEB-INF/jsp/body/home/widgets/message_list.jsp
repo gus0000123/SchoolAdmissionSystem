@@ -1,46 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<style>
-	.row-selector {
-		background-color: rgba(200, 200, 200, 0.3);
-		border-bottom: 3px solid rgb(255, 255, 255);
-		cursor: pointer;
-	}
-
-	.row-selector:hover {
-		background-color: rgba(0, 200, 255, 0.1);
-	}
-	
-	.row-selector:active {
-		background-color: rgba(0, 255, 200, 0.3);
-	}
-	
-	.bottom-button {
-		background: none;
-		outline: none;
-		border: none;
-		cursor: pointer;
-		padding-top: 8px;
-		border-top: 5px solid rgba(200, 200, 200, 0.0);
-		width: 150px;
-		font-weight: 700;
-		padding-left: 0;
-		margin-left: 0;
-	}
-	
-	.bottom-button:hover {
-		border-top: 5px solid rgba(0, 200, 255, 0.5);
-	}
-	
-	.bottom-button:active {
-		border-top: 5px solid rgba(0, 255, 200, 0.5);
-	}
-</style>
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/global/tableList.css">
 <div>
 	<form id="messagesActionForm" action="TestMessage" method="post">
 		<!-- Temporary refresh -->
 		<input type="hidden" name="tab" value="messages" />
-		<table style="border-collapse: collapse; width: 100%; margin-top: 0; margin-bottom: 0;">
+		<table class="table-selector">
 			<thead>
 				<tr>
 					<th style="width: 13px;">
@@ -143,21 +108,21 @@
 	</form>
 	<script>
 		var counter = 0;
-	
+		
 		function selectAll() {
 			var count = 1;
 			for (count = 1; count <= ${ i }; count++) {
 				if ($('#select-all').is(':checked')) $('#row-' + count).prop('checked', true);
 				else $('#row-' + count).prop('checked', false);
 			}
-
+			
 			if ($('#select-all').is(':checked')) {
 				counter = ${ i } - 1;
 			} else {
 				counter = 0;
 			}
 		}
-
+	
 		function selectRow(index) {
 			if ($('#row-' + index).is(':checked')) {
 				counter++;
@@ -172,7 +137,7 @@
 				$('#select-all').prop('checked', false);
 			}
 		}
-
+		
 		function viewMessage(e, message_id) {
 			$('#messagesActionForm').attr("action", "TestTab");
 			$('#select_message_input').val(message_id);
