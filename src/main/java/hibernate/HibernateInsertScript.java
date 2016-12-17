@@ -6,13 +6,11 @@ import com.mcit.kritth.model.messenger.*;
 import com.mcit.kritth.spring.ApplicationContextProvider;
 import com.mcit.kritth.util.BeanUtil;
 
-import spring.StartSpring;
-
 public class HibernateInsertScript
 {
 	public static void main(String[] args)
 	{		
-		StartSpring.init();
+		ApplicationContextProvider.getApplicationContext();
 		
 		// Student admission
     	StudentAdmissionStatus sa = new StudentAdmissionStatus();

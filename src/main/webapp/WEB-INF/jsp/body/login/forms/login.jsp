@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div>
-	<form id="login-form" action="TestLogin" method="post">
+	<form id="login-form" action="login" method="post">
 		<table id="login-table" class="middle-table">
 			<thead>
 				<tr>
@@ -38,7 +38,6 @@
 						<c:if test="${ error eq 'unknown' }">
 							<span id="login-password-error" class="error-text">Unknown error has occurred.</span>
 						</c:if>
-						<input type="hidden" name="action" value="login" />
 						<input id="login-submit" type="submit" value="Sign in" onclick="signin(event)">
 					</td>
 				</tr>

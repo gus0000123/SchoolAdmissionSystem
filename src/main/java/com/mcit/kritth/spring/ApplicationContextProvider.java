@@ -4,8 +4,10 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 
-import spring.StartSpring;
+import com.mcit.kritth.configuration.AppConfig;
 
 public class ApplicationContextProvider implements ApplicationContextAware
 {
@@ -16,7 +18,9 @@ public class ApplicationContextProvider implements ApplicationContextAware
 	{
 		if (context == null)
 		{
-			StartSpring.init();
+			AbstractApplicationContext appContext = new AnnotationConfigApplicationContext(AppConfig.class);
+			ApplicationContextProvider provider = new ApplicationContextProvider();
+			provider.setApplicationContext(appContext);
 		}
 		return context;
 	}

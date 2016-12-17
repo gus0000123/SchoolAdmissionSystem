@@ -1,5 +1,5 @@
 <div>
-	<form id="register-form" action="TestLogin" method="post">
+	<form id="register-form" action="registerUser" method="post">
 		<table id="register-table" class="middle-table">
 			<thead>
 				<tr>
@@ -51,7 +51,6 @@
 				</tr>
 				<tr>
 					<td>
-						<input type="hidden" name="action" value="register" />
 						<input id="register-submit" type="submit" value="Register" onclick="register(event)">
 					</td>
 				</tr>

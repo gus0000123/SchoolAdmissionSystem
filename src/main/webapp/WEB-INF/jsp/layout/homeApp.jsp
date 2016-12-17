@@ -6,7 +6,7 @@
 		<jsp:include page="../global/title.jsp" />
 	</head>
 	<body>
-		<script type="text/javascript" src="${pageContext.servletContext.contextPath}/scripts/jquery-3.1.0.min.js"></script>
+		<script type="text/javascript" src="<c:url value="resources/scripts/jquery-3.1.0.min.js" />"></script>
 		<div id="page-wrapper">
 			<table class="table-no-border fill-page">
 				<tbody>
@@ -28,7 +28,7 @@
 		</div>
 		<jsp:include page="../global/loadingScreen.jsp" />
 		
-		<script type="text/javascript" src="${pageContext.servletContext.contextPath}/scripts/main.js"></script>
-		<script type="text/javascript" src="${pageContext.servletContext.contextPath}/scripts/personal-validation.js"></script>
+		<script type="text/javascript" src="<c:url value="resources/scripts/main.js" />"></script>
+		<script type="text/javascript" src="<c:url value="resources/scripts/personal-validation.js" />"></script>
 	</body>
 </html>

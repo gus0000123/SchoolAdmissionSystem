@@ -4,24 +4,24 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<jsp:include page="/WEB-INF/jsp/global/css_link.jsp" />
+		<jsp:include page="global/css_link.jsp" />
 		<title>Sign in - Montreal College</title>
 	</head>
 	<body>
 		<div id="loginBody">
 			<div id="login-bg"></div>
 			<div id="login-div">
-				<jsp:include page="/WEB-INF/jsp/body/login/forms/login.jsp" />
-				<jsp:include page="/WEB-INF/jsp/body/login/forms/register.jsp" />
+				<jsp:include page="body/login/forms/login.jsp" />
+				<jsp:include page="body/login/forms/register.jsp" />
 			</div>
 		</div>
-		<jsp:include page="/WEB-INF/jsp/global/loadingScreen.jsp" />
-		<jsp:include page="/WEB-INF/jsp/global/footer.jsp" />
+		<jsp:include page="global/loadingScreen.jsp" />
+		<jsp:include page="global/footer.jsp" />
 		
 		<!-- java script -->
-		<script type="text/javascript" src="scripts/jquery-3.1.0.min.js"></script>
-		<script type="text/javascript" src="scripts/main.js"></script>
-		<script type="text/javascript" src="scripts/login-validation.js"></script>
+		<script type="text/javascript" src="<c:url value="resources/scripts/jquery-3.1.0.min.js" />"></script>
+		<script type="text/javascript" src="<c:url value="resources/scripts/main.js" />"></script>
+		<script type="text/javascript" src="<c:url value="resources/scripts/login-validation.js" />"></script>
 		
 		<!-- switching page -->
 		<c:choose>
