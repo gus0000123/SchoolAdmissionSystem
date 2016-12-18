@@ -2,14 +2,23 @@ package com.mcit.kritth.controller.admin;
 
 import java.util.List;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mcit.kritth.bo.template.DepartmentBO;
+import com.mcit.kritth.bo.template.EmployeeBO;
 import com.mcit.kritth.bo.template.PersonBO;
+import com.mcit.kritth.bo.template.StudentBO;
+import com.mcit.kritth.bo.template.UserBO;
+import com.mcit.kritth.model.data.Department;
+import com.mcit.kritth.model.data.Employee;
 import com.mcit.kritth.model.data.Person;
+import com.mcit.kritth.model.data.Student;
+import com.mcit.kritth.model.data.User;
 import com.mcit.kritth.spring.ApplicationContextProvider;
 
 @Controller
@@ -55,11 +64,51 @@ public class PersonController
 	{
 		String url = "layout/adminApp";
 		
-		PersonBO service = ApplicationContextProvider.getApplicationContext().getBean("personService", PersonBO.class);
-		List<Person> list = service.getAll();
+		PersonBO pservice = ApplicationContextProvider.getApplicationContext().getBean("personService", PersonBO.class);
+		List<Person> list = pservice.getAll();
 		
 		ModelAndView model = new ModelAndView(url);
 		model.addObject("list", list);
+		
+		return model;
+	}
+	
+	private ModelAndView attachValues(int id, ModelAndView model)
+	{
+		DepartmentBO service = ApplicationContextProvider.getApplicationContext().getBean("departmentService", DepartmentBO.class);
+		List<Department> list = service.getAll();
+		model.addObject("department_list", list);
+		
+		// Fetch data
+		if (id >= 0)
+		{
+			// Try getting user
+			try
+			{
+				UserBO uservice = ApplicationContextProvider.getApplicationContext().getBean("userService", UserBO.class);
+				User u = uservice.getByPersonId(id);
+				model.addObject("user", u);
+			}
+			catch (ObjectNotFoundException e) { }
+			
+			// Try getting student
+			try
+			{
+				StudentBO sservice = ApplicationContextProvider.getApplicationContext().getBean("studentService", StudentBO.class);
+				Student s = sservice.getById(id);
+				model.addObject("student", s);
+			}
+			catch (ObjectNotFoundException e) { }
+				
+			// Try getting employee
+			try
+			{
+				EmployeeBO eservice = ApplicationContextProvider.getApplicationContext().getBean("employeeService", EmployeeBO.class);
+				Employee e = eservice.getById(id);
+				model.addObject("employee", e);
+			}
+			catch (ObjectNotFoundException e) { }
+		}
 		
 		return model;
 	}
@@ -70,7 +119,9 @@ public class PersonController
 	{
 		String url = "layout/adminApp";
 		
-		return new ModelAndView(url);
+		ModelAndView model = new ModelAndView(url);
+		
+		return attachValues(-1, model); 
 	}
 	
 	// TODO: Add all parameters
@@ -101,7 +152,7 @@ public class PersonController
 		model.addObject("p_gender", p.getGender());
 		model.addObject("p_sin", p.getSin());
 		
-		return model;
+		return attachValues(id, model);
 	}
 	
 	@RequestMapping(value = "personDoInsert", method = RequestMethod.POST)
@@ -120,7 +171,6 @@ public class PersonController
 		service.insert(p);
 		
 		ModelAndView model = new ModelAndView(url);
-		model.addObject("mode", "view");
 		
 		return model;
 	}
@@ -132,7 +182,7 @@ public class PersonController
 			@RequestParam("p_last_name") String last_name,
 			@RequestParam("p_email") String email)
 	{
-		String url = "forward:/personView";
+		String url = "forward:/studentController";
 		
 		PersonBO service = ApplicationContextProvider.getApplicationContext().getBean("personService", PersonBO.class);
 		int iid = Integer.parseInt(id);
@@ -143,7 +193,6 @@ public class PersonController
 		service.update(p);
 		
 		ModelAndView model = new ModelAndView(url);
-		model.addObject("mode", "view");
 		
 		return model;
 	}

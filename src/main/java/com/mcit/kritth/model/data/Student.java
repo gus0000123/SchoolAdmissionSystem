@@ -13,7 +13,6 @@ public class Student
 {
 	@Id
 	private int id;
-	@NotNull
 	private String major;
 	private String minor;
 	private int credit = 0;
@@ -22,15 +21,16 @@ public class Student
 	private Date start_date = new Date();
 
 	@ManyToOne(fetch=FetchType.EAGER)
+	@NotNull
 	private Department department;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@NotNull
 	private StudentAdmissionStatus admission_status;
 	
-	@NotNull
 	@OneToOne
 	@JoinColumn(name="person_id")
+	@NotNull
 	private Person person;
 	
 	@ManyToMany

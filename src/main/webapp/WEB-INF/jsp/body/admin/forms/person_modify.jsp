@@ -93,7 +93,7 @@
 			<td><label for="p_country">Country</label></td>
 			<td>
 				<select name="p_country">
-					<option>Placeholder</option>
+					<jsp:include page="../../../global/countryDropdown.jsp" />
 				</select>
 			</td>
 		</tr>

@@ -27,4 +27,11 @@ public class UserDAOImpl extends HibernateSupport implements UserDAO
 
 	@Override
 	public User getModelByPrimaryKey(Serializable id) { return (User) load(User.class, id); }
+
+	@Override
+	public User getByPersonID(Serializable id) {
+		List<User> list = this.getCondition(CONDITION_EQUAL, 1, User.class, "person_id", id);
+		if (list != null && list.size() > 0) return list.get(0);
+		else return null;
+	}
 }

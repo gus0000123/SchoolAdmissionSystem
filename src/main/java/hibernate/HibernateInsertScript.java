@@ -19,16 +19,26 @@ public class HibernateInsertScript
         ApplicationContextProvider.getApplicationContext().getBean("studentAdmissionStatusService", StudentAdmissionStatusBO.class).insert(sa);
         
         // Department code
+        DepartmentCode dc2 = new DepartmentCode();
+        dc2.setDept_code("ARCH");
+        dc2.setDept_name("Architecture");
+        ApplicationContextProvider.getApplicationContext().getBean("departmentCodeService", DepartmentCodeBO.class).insert(dc2);
+        
         DepartmentCode dc = new DepartmentCode();
         dc.setDept_code("COMP");
         dc.setDept_name("Computer Science");
         ApplicationContextProvider.getApplicationContext().getBean("departmentCodeService", DepartmentCodeBO.class).insert(dc);
         
-    	// Department
+        // Department
     	Department d = new Department();
     	d.setCode(dc);
     	d.setBudget(100000);
     	ApplicationContextProvider.getApplicationContext().getBean("departmentService", DepartmentBO.class).insert(d);
+    	
+    	Department d2 = new Department();
+    	d2.setCode(dc2);
+    	d2.setBudget(100000);
+    	ApplicationContextProvider.getApplicationContext().getBean("departmentService", DepartmentBO.class).insert(d2);
     	
     	// Person
         Person p = new Person();
@@ -42,7 +52,6 @@ public class HibernateInsertScript
         Student s = new Student();
         s.setAdmissionStatus(sa);
         s.setCredit(10);
-        s.setMajor("COMP");
         s.setPerson(p);
         s.setDepartment(d);
         ApplicationContextProvider.getApplicationContext().getBean("studentService", StudentBO.class).insert(s);

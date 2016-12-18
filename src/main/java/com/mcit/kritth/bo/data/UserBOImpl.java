@@ -35,4 +35,7 @@ public class UserBOImpl implements UserBO
 
 	@Override
 	public List<User> getAll() { return dao.getAllBeans(); }
+
+	@Override
+	public User getByPersonId(Serializable id) { return dao.getByPersonID(id); }
 }
