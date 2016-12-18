@@ -4,6 +4,17 @@
 	<div id="body-content">
 		<jsp:include page="sections/header.jsp" />
 		<jsp:include page="sections/tabSelector.jsp" />
-		<jsp:include page="tabs/person_list.jsp" />
+		
+		<c:choose>
+			<c:when test="${ tab eq 'person' }">
+				<jsp:include page="tabs/person_list.jsp" />
+			</c:when>
+			<c:when test="${ tab eq 'student' }">
+				<jsp:include page="tabs/student_list.jsp" />
+			</c:when>
+			<c:otherwise>
+				<jsp:include page="tabs/person_list.jsp" />
+			</c:otherwise>
+		</c:choose>
 	</div>
 </article>

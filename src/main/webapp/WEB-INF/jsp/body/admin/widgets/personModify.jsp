@@ -2,11 +2,11 @@
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/global/tableList.css" />">
 <div>
 	<form id="person-admin-modify-form" action="admin" method="post">
-		<jsp:include page="../forms/person_modify.jsp" />
+		<jsp:include page="../forms/person_main_modify.jsp" />
 		<c:if test="${ mode ne 'insert' }">
-			<jsp:include page="../forms/user_modify.jsp" />
-			<jsp:include page="../forms/student_modify.jsp" />
-			<jsp:include page="../forms/employee_modify.jsp" />
+			<jsp:include page="../forms/person_user_modify.jsp" />
+			<jsp:include page="../forms/person_student_modify.jsp" />
+			<jsp:include page="../forms/person_employee_modify.jsp" />
 		</c:if>
 		<input type="hidden" name="actionPerformed" value=true />
 		<input type="hidden" name="mode" value="${ mode }" />

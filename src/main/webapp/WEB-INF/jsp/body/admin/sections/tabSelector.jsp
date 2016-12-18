@@ -33,14 +33,14 @@
 		</c:otherwise>
 	</c:choose>
 	<!-- hidden form -->
-	<form id="tabSubmitForm" action="home" method="post">
+	<form id="tabSubmitForm" action="admin" method="post">
 		<input id="tabSubmitField" type="hidden" name="tab" value="" />
 	</form>
 	<script>
 		function goToPage(tab)
 		{
 			$("#tabSubmitField").val(tab);
-			$("#tabSubmitForm").submit();
+			launchForm(event, "tabSubmitForm");
 		}
 	</script>
 </div>

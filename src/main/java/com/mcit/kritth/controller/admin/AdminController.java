@@ -27,6 +27,9 @@ public class AdminController
 		
 		switch(tab)
 		{
+			case "student":
+				url = "forward:/studentController";
+				break;
 			case "person":
 			default:
 				url = "forward:/personController";
