@@ -34,7 +34,7 @@ public class LoginController
 		{
 			if (u.getPassword().equals(password))
 			{
-				model = new ModelAndView("redirect:/TestTab?tab=overview");
+				model = new ModelAndView("forward:/home");
 				model.addObject("user", u);
 			}
 			else

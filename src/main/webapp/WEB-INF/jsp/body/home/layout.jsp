@@ -12,7 +12,7 @@
 			<c:when test="${ tab eq 'info' }">
 				<jsp:include page="tabs/personalInfo.jsp" />
 			</c:when>
-			<c:when test="${ tab eq 'messages' }">
+			<c:when test="${ tab eq 'message' }">
 				<jsp:include page="tabs/messages.jsp" />
 			</c:when>
 			<c:when test="${ tab eq 'application' }">

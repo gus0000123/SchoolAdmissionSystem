@@ -1,10 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/css/global/tableList.css">
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/global/tableList.css" />">
 <div>
-	<form id="messagesActionForm" action="TestMessage" method="post">
+	<form id="messagesActionForm" action="moveMessages" method="post">
 		<!-- Temporary refresh -->
-		<input type="hidden" name="tab" value="messages" />
+		<input type="hidden" name="tab" value="message" />
 		<table class="table-selector">
 			<thead>
 				<tr>
@@ -47,7 +47,7 @@
 					</c:when>
 					<c:otherwise>
 						<!-- action -->
-						<input id="action_input" type="hidden" name="action" value="list" />
+						<input id="action_input" type="hidden" name="action" value="other" />
 						<!-- view message -->
 						<input id="select_message_input" type="hidden" name="select_message" value="" />
 						<c:set var="i" scope="page" value="1" />
@@ -139,7 +139,7 @@
 		}
 		
 		function viewMessage(e, message_id) {
-			$('#messagesActionForm').attr("action", "TestTab");
+			$('#messagesActionForm').attr("action", "home");
 			$('#select_message_input').val(message_id);
 			$('#action_input').val("view");
 			launchForm(e, 'messagesActionForm');

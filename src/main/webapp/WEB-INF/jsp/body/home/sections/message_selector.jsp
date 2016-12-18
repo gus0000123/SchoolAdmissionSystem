@@ -26,29 +26,29 @@
 	<table style="width: 100%;">
 		<tbody>
 			<tr><td>
-				<form id="selector_compose" method="post" action="TestTab">
-					<input type="hidden" name="tab" value="messages" />
+				<form id="selector_compose" method="post" action="home">
+					<input type="hidden" name="tab" value="message" />
 					<input type="hidden" name="action" value="compose" />
 					<input type="submit" value="Compose" class="selection" onclick="launchForm(event, 'selector_compose')" />
 				</form>
 			</td></tr>
 			<tr><td>
-				<form id="selector_inbox" method="post" action="TestTab">
-					<input type="hidden" name="tab" value="messages" />
+				<form id="selector_inbox" method="post" action="home">
+					<input type="hidden" name="tab" value="message" />
 					<input type="hidden" name="sub_tab" value="inbox" />
 					<input type="submit" value="Inbox" class="selection" onclick="launchForm(event, 'selector_inbox')" />
 				</form>
 			</td></tr>
 			<tr><td>
-				<form id="selector_sent" method="post" action="TestTab">
-					<input type="hidden" name="tab" value="messages" />
+				<form id="selector_sent" method="post" action="home">
+					<input type="hidden" name="tab" value="message" />
 					<input type="hidden" name="sub_tab" value="sent" />
 					<input type="submit" value="Sent" class="selection" onclick="launchForm(event, 'selector_sent')"  />
 				</form>
 			</td></tr>
 			<tr><td>
-				<form id="selector_trash" method="post" action="TestTab">
-					<input type="hidden" name="tab" value="messages" />
+				<form id="selector_trash" method="post" action="home">
+					<input type="hidden" name="tab" value="message" />
 					<input type="hidden" name="sub_tab" value="trash" />
 					<input type="submit" value="Trash" class="selection" onclick="launchForm(event, 'selector_trash')" />
 				</form>

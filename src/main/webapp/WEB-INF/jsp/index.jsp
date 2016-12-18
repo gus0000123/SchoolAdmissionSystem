@@ -20,8 +20,8 @@
 		
 		<!-- java script -->
 		<script type="text/javascript" src="<c:url value="resources/scripts/jquery-3.1.0.min.js" />"></script>
-		<script type="text/javascript" src="<c:url value="resources/scripts/main.js" />"></script>
-		<script type="text/javascript" src="<c:url value="resources/scripts/login-validation.js" />"></script>
+		<script type="text/javascript" src="<c:url value="/resources/scripts/main.js" />"></script>
+		<script type="text/javascript" src="<c:url value="/resources/scripts/login-validation.js" />"></script>
 		
 		<!-- switching page -->
 		<c:choose>

@@ -17,11 +17,11 @@
 		</c:otherwise>
 	</c:choose>
 	<c:choose>
-		<c:when test="${ tab eq 'messages' }">
+		<c:when test="${ tab eq 'message' }">
 			<button class="active">Messages</button>
 		</c:when>
 		<c:otherwise>
-			<button onclick="goToPage('messages')">Messages</button>
+			<button onclick="goToPage('message')">Messages</button>
 		</c:otherwise>
 	</c:choose>
 	<c:choose>
@@ -33,7 +33,7 @@
 		</c:otherwise>
 	</c:choose>
 	<!-- hidden form -->
-	<form id="tabSubmitForm" action="TestTab" method="post">
+	<form id="tabSubmitForm" action="home" method="post">
 		<input id="tabSubmitField" type="hidden" name="tab" value="" />
 	</form>
 	<script>
