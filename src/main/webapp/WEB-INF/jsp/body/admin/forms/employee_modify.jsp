@@ -1,10 +1,10 @@
 <table>
 	<thead>
-		<tr onclick="toggleForm('employee-body');" style="cursor: pointer;">
+		<tr style="cursor: pointer;">
 			<th colspan="2">Employee Information</th>
 		</tr>
 	</thead>
-	<tbody id="employee-body" style="width: 100%; display: none;">
+	<tbody id="employee-body" style="width: 100%;">
 		<tr>
 			<td colspan="2" style="text-align: center;">
 				<span style="font-style: italic;">This person does not contain employee record. Click to create one.</span>

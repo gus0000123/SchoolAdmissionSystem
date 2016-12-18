@@ -1,10 +1,10 @@
 <table>
 	<thead>
-		<tr onclick="toggleForm('user-body');" style="cursor: pointer;">
+		<tr style="cursor: pointer;">
 			<th colspan="2">User Information</th>
 		</tr>
 	</thead>
-	<tbody id="user-body" style="width: 100%; display: none;">
+	<tbody id="user-body" style="width: 100%;">
 		<tr>
 			<td colspan="2" style="text-align: center;">
 				<span style="font-style: italic;">This person does not contain user record. Click to create one.</span>

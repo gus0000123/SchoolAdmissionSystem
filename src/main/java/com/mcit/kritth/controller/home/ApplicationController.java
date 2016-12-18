@@ -1,4 +1,4 @@
-package com.mcit.kritth.controller;
+package com.mcit.kritth.controller.home;
 
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Controller;

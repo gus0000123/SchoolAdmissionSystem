@@ -1,4 +1,4 @@
-package com.mcit.kritth.controller;
+package com.mcit.kritth.controller.home;
 
 import java.util.ArrayList;
 import java.util.Collections;

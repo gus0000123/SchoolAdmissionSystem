@@ -7,7 +7,7 @@
 		</div>
 		<div class="column" style="width: calc(99% - 300px);">
 			<c:choose>
-				<c:when test="${ mode eq 'list' }">
+				<c:when test="${ mode eq 'view' }">
 					<jsp:include page="../widgets/personTable.jsp" />
 				</c:when>
 				<c:otherwise>

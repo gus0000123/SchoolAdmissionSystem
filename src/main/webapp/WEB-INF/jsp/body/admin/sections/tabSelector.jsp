@@ -1,15 +1,39 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div id="tab-selector">
 	<c:choose>
-		<c:when test="${ tab eq 'overview' }">
-			<button class="active">Overview</button>
+		<c:when test="${ tab eq 'person' }">
+			<button class="active">Person</button>
 		</c:when>
 		<c:otherwise>
-			<button onclick="goToPage('overview')">Overview</button>
+			<button onclick="goToPage('person')">Person</button>
+		</c:otherwise>
+	</c:choose>
+	<c:choose>
+		<c:when test="${ tab eq 'student' }">
+			<button class="active">Student</button>
+		</c:when>
+		<c:otherwise>
+			<button onclick="goToPage('student')">Student</button>
+		</c:otherwise>
+	</c:choose>
+	<c:choose>
+		<c:when test="${ tab eq 'department' }">
+			<button class="active">Department</button>
+		</c:when>
+		<c:otherwise>
+			<button onclick="goToPage('department')">Department</button>
+		</c:otherwise>
+	</c:choose>
+	<c:choose>
+		<c:when test="${ tab eq 'course' }">
+			<button class="active">Course</button>
+		</c:when>
+		<c:otherwise>
+			<button onclick="goToPage('person')">Course</button>
 		</c:otherwise>
 	</c:choose>
 	<!-- hidden form -->
-	<form id="tabSubmitForm" action="TestTab" method="post">
+	<form id="tabSubmitForm" action="home" method="post">
 		<input id="tabSubmitField" type="hidden" name="tab" value="" />
 	</form>
 	<script>
