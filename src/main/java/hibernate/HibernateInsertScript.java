@@ -151,6 +151,9 @@ public class HibernateInsertScript
         pm3.setTrash(true);
         ApplicationContextProvider.getApplicationContext().getBean("personalService", PersonalBO.class).insert(pm3);
         
+        s.getEnrolled_courses().add(c);
+        ApplicationContextProvider.getApplicationContext().getBean("studentService", StudentBO.class).update(s);
+        
         System.exit(0);
 	}
 }

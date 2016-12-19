@@ -118,7 +118,7 @@ public class Course
 		this.class_level = class_level;
 	}
 	public String getCourse_code() {
-		course_name = BeanUtil.getCourseCode(this);
+		course_code = BeanUtil.getCourseCode(this);
 		return course_code;
 	}
 	public void setCourse_code(String course_code) {

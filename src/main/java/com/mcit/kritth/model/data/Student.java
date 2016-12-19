@@ -33,7 +33,7 @@ public class Student
 	@NotNull
 	private Person person;
 	
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="as_student_enrolled_courses",
 		joinColumns={@JoinColumn(name="student_id")},
 		inverseJoinColumns={@JoinColumn(name="course_id")})

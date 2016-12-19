@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mcit.kritth.bo.template.CourseBO;
 import com.mcit.kritth.bo.template.DepartmentBO;
 import com.mcit.kritth.bo.template.PersonBO;
 import com.mcit.kritth.bo.template.StudentAdmissionStatusBO;
 import com.mcit.kritth.bo.template.StudentBO;
+import com.mcit.kritth.model.data.Course;
 import com.mcit.kritth.model.data.Department;
 import com.mcit.kritth.model.data.Student;
 import com.mcit.kritth.model.data.StudentAdmissionStatus;
@@ -158,6 +160,9 @@ public class StudentController
 		DepartmentBO dservice = ApplicationContextProvider.getApplicationContext().getBean("departmentService", DepartmentBO.class);
 		model.addObject("department_list", dservice.getAll());
 		
+		CourseBO cservice = ApplicationContextProvider.getApplicationContext().getBean("courseService", CourseBO.class);
+		model.addObject("all_courses", cservice.getAll());
+		
 		model.addObject("tab", "student");
 		return model;
 	}
@@ -166,7 +171,8 @@ public class StudentController
 	public ModelAndView studentDoEdit(
 			@RequestParam("id") String id,
 			@RequestParam("s_department") String department_id,
-			@RequestParam("s_admission_status") String status)
+			@RequestParam("s_admission_status") String status,
+			@RequestParam(value = "s_course_selection", required = false) List<String> courses)
 	{
 		String url = "forward:/studentView";
 		
@@ -181,6 +187,22 @@ public class StudentController
 		
 		StudentAdmissionStatusBO saservice = ApplicationContextProvider.getApplicationContext().getBean("studentAdmissionStatusService", StudentAdmissionStatusBO.class);
 		StudentAdmissionStatus sa = saservice.getById(status);
+		
+		s.getEnrolled_courses().clear();
+		if (courses != null)
+		{
+			CourseBO cservice = ApplicationContextProvider.getApplicationContext().getBean("courseService", CourseBO.class);
+			ArrayList<String> codes = new ArrayList<>();
+			for (String cid : courses)
+			{
+				if (!codes.contains(cid))
+				{
+					codes.add(cid);
+					Course c = cservice.getById(cid);
+					s.getEnrolled_courses().add(c);
+				}
+			}
+		}
 		
 		s.setDepartment(d);
 		s.setAdmissionStatus(sa);
