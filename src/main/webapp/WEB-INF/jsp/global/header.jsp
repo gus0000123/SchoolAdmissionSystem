@@ -9,8 +9,8 @@
 				<td>
 					<div id="header-menu">
 						<div id="mail-btn" class="header-btn">
-							<form id="goToMessageIcon" action="TestTab" method="post">
-								<input type="hidden" name="tab" value="messages" />
+							<form id="goToMessageIcon" action="home" method="post">
+								<input type="hidden" name="tab" value="message" />
 								<img src="<c:url value="resources/images/mail-icon.jpg" />" onclick="launchForm(event, 'goToMessageIcon');">
 							</form>
 						</div>

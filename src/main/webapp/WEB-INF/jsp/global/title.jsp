@@ -6,7 +6,7 @@
 	<c:when test="${ tab eq 'info' }">
 		<title>Personal information</title>
 	</c:when>
-	<c:when test="${ tab eq 'messages' }">
+	<c:when test="${ tab eq 'message' }">
 		<c:choose>
 			<c:when test="${ sub_tab eq 'inbox' }">
 				<title>Inbox</title>
@@ -21,5 +21,11 @@
 				<title>Trash</title>
 			</c:when>
 		</c:choose>
+	</c:when>
+	<c:when test="${ tab eq 'person' }">
+		<title>Person management</title>
+	</c:when>
+	<c:when test="${ tab eq 'student' }">
+		<title>Student management</title>
 	</c:when>
 </c:choose>
