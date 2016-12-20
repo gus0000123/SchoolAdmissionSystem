@@ -1,6 +1,9 @@
 package com.mcit.kritth.controller.admin;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Controller;
@@ -168,7 +171,9 @@ public class CourseController
 		course.getCourse_code();			// Auto generate course_code
 		
 		try { cservice.insert(course); } // In case course_code is the same, do nothing for now
-		catch (Exception e) { }
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		ModelAndView model = new ModelAndView(url);
 		
@@ -208,20 +213,46 @@ public class CourseController
 	}
 	
 	// Can only delete
-	private void courseworkCourseUpdate(List<String> coursework_id, Course course)
+	private Set<CourseWork> courseworkCourseUpdate(List<String> coursework_id, Course course)
 	{
+		Set<CourseWork> listToDelete = new HashSet<>();
+		
 		if (coursework_id != null)
 		{
-			// Remove course from old students
+			List<CourseWork> courseworkToRemove = new ArrayList<>();
 			for (CourseWork cw : course.getCourse_works())
-				BidirectionalUtil.removeIfOld(course, cservice, cw, course.getCourse_works(), "" + cw.getCoursework_id(), coursework_id);
+			{
+				if (!coursework_id.contains(cw.getCoursework_id()))
+					courseworkToRemove.add(cw);
+			}
+			
+			for (CourseWork cw : courseworkToRemove)
+			{
+				course.getCourse_works().remove(cw);
+				listToDelete.add(cw);
+			}
+			
+			System.out.println(course.getCourse_works().size());
+			
+			for (String cwid : coursework_id)
+			{
+				CourseWork cw = cwservice.getById(Integer.parseInt(cwid));
+				if (!course.getCourse_works().contains(cw))
+				{
+					course.getCourse_works().add(cw);
+				}
+			}
 		}
 		else
 		{
-			// Remove course from all students
 			for (CourseWork cw : course.getCourse_works())
-				BidirectionalUtil.remove(course, cservice, cw, course.getCourse_works());
+			{
+				listToDelete.add(cw);
+			}
+			course.getCourse_works().clear();
 		}
+		
+		return listToDelete;
 	}
 	
 	@RequestMapping(value="/courseDoEdit", method=RequestMethod.POST)
@@ -250,10 +281,17 @@ public class CourseController
 		course.getCourse_code();			// Auto generate course_code in case other values are changed
 		
 		studentCourseUpdate(student_id, course);
-		courseworkCourseUpdate(coursework_id, course);
+		Set<CourseWork> toDelete = courseworkCourseUpdate(coursework_id, course);
 		
 		try { cservice.update(course); } // In case course_code is the same, do nothing for now
-		catch (Exception e) { }
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		for (CourseWork cw : toDelete)
+		{
+			cwservice.delete(cw);
+		}
 		
 		ModelAndView model = new ModelAndView(url);
 		model.addObject("tab", "course");

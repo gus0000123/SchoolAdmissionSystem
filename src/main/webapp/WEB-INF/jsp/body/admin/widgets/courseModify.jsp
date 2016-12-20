@@ -17,6 +17,7 @@
 		</button>
 		<button class="bottom-button" onclick="returnToView(event)">Back</button>
 	</form>
+	<jsp:include page="courseCourseworkInsertion.jsp" />
 	<form id="return-to-course-view" action="admin" method="post">
 		<input type="hidden" name="tab" value="course" />
 	</form>
