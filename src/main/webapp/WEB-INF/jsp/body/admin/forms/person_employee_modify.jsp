@@ -46,10 +46,6 @@
 					</c:choose>
 				</td>
 			</tr>
-			<tr>
-				<td><label for="e_instructor">Instructor:</label></td>
-				<td><input type="checkbox" name="e_instructor" value="true" /></td>
-			</tr>
 		</tbody>
 	</table>
 	<script>

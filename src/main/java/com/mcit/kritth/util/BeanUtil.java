@@ -1,7 +1,6 @@
 package com.mcit.kritth.util;
 
 import java.util.List;
-
 import com.mcit.kritth.bo.template.UserBO;
 import com.mcit.kritth.model.data.Course;
 import com.mcit.kritth.model.data.Person;

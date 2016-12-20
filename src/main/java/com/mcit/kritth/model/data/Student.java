@@ -116,4 +116,17 @@ public class Student
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
+	
+	@Override
+	public int hashCode() {
+		return ("student:" + id).hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object s) {
+		if (s instanceof Student)
+			return this.getId() == ((Student) s).getId();
+		else
+			return false;
+	}
 }

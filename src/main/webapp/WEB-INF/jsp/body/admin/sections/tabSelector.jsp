@@ -29,7 +29,7 @@
 			<button class="active">Course</button>
 		</c:when>
 		<c:otherwise>
-			<button onclick="goToPage('person')">Course</button>
+			<button onclick="goToPage('course')">Course</button>
 		</c:otherwise>
 	</c:choose>
 	<!-- hidden form -->

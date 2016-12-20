@@ -1,80 +1,13 @@
-header, footer {
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	min-width: 800px;
-	text-align: center;
-	z-index: 1;
-}
+header, footer { margin: 0; padding: 0; width: 100%; min-width: 800px; text-align: center; z-index: 1; }
+header { top: 0; }
 
-header {
-	top: 0;
-}
+#header-wrapper { position: relative; display: inline-block; overflow: hidden; z-index: 1; width: 100%; height: var(--top-panel-height); border-bottom: 1px solid rgba(0, 0, 0, 0.4); background-color: white; }
+#header-wrapper table { width: 100%; border-collapse: collapse; }
+#header-wrapper table tr td { padding: 0; margin: 0; }
 
-#header-wrapper {
-	position: relative;
-	display: inline-block;
-	overflow: hidden;
-	z-index: 1;
-	width: 100%;
-	height: var(--top-panel-height);
-	border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-	background-color: white;
-}
+#institution-name { position: relative; display: table; left: 0; width: 300px; text-align: left; margin-top: 15px; margin-left: 0; font-size: 120%; font-weight: 600; letter-spacing: 5px; vertical-align: top;	-webkit-user-select: none; cursor: default; }
 
-
-#header-wrapper table {
-	width: 100%;
-	border-collapse: collapse;
-}
-
-#header-wrapper table tr td {
-	padding: 0;
-	margin: 0;
-}
-
-#institution-name {
-	position: relative;
-	display: table;
-	left: 0;
-	width: 300px;
-	text-align: left;
-	margin-top: 15px;
-	margin-left: 0;
-	font-size: 120%;
-	font-weight: 600;
-	letter-spacing: 5px;
-	vertical-align: top;
-	-webkit-user-select: none;
-	cursor: default;
-}
-
-#header-menu {
-	position: relative;
-	display: table;
-	width: fit-content;
-	right: 0;
-	margin-left: auto;
-}
-
-#header-menu .header-btn {
-	position: relative;
-	display: inline-block;
-	height: var(--side-panel-width);
-	width: 40px;
-	padding: 5px;
-	border-left: 1px solid black;
-	overflow: hidden;
-	background-color: white;
-	cursor: pointer;
-}
-
-#header-menu .header-btn:hover {
-	-webkit-filter: invert(100%);
-	border-left: 1px solid white;
-}
-
-#header-menu img {
-	width: 40px;
-	height: auto;
-}
+#header-menu { position: relative; display: table; width: fit-content; right: 0; margin-left: auto; }
+#header-menu .header-btn { position: relative; display: inline-block; height: var(--side-panel-width); width: 40px; padding: 5px; border-left: 1px solid black; overflow: hidden; background-color: white; cursor: pointer; }
+#header-menu .header-btn:hover { -webkit-filter: invert(100%); border-left: 1px solid white; }
+#header-menu img { width: 40px; height: auto; }

@@ -95,4 +95,17 @@ public class CourseWork
 	public void setDeadline(Date deadline) {
 		this.deadline = deadline;
 	}
+	
+	@Override
+	public int hashCode()
+	{
+		return (new Integer(this.coursework_id)).hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj instanceof CourseWork) return this.coursework_id == ((CourseWork) obj).getCoursework_id();
+		else return false;
+	}
 }

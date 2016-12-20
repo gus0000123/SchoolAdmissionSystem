@@ -19,14 +19,32 @@ import com.mcit.kritth.model.data.Department;
 import com.mcit.kritth.model.data.Student;
 import com.mcit.kritth.model.data.StudentAdmissionStatus;
 import com.mcit.kritth.spring.ApplicationContextProvider;
+import com.mcit.kritth.util.BidirectionalUtil;
 
 @Controller
 public class StudentController
 {
+	private CourseBO cservice;
+	private StudentBO sservice;
+	private DepartmentBO dservice;
+	private StudentAdmissionStatusBO saservice;
+	private PersonBO pservice;
+	
+	private void init()
+	{
+		cservice = ApplicationContextProvider.getApplicationContext().getBean(CourseBO.class);
+		sservice = ApplicationContextProvider.getApplicationContext().getBean(StudentBO.class);
+		dservice = ApplicationContextProvider.getApplicationContext().getBean(DepartmentBO.class);
+		saservice = ApplicationContextProvider.getApplicationContext().getBean(StudentAdmissionStatusBO.class);
+		pservice = ApplicationContextProvider.getApplicationContext().getBean(PersonBO.class);
+	}
+	
 	@RequestMapping(value = "/studentController")
 	public ModelAndView studentActionSelector(
 			@RequestParam(value = "studentAction", required = false) String action)
 	{
+		if (cservice == null) init();
+		
 		String url = "forward:/studentView";
 		
 		if (action == null) action = "view";
@@ -63,35 +81,28 @@ public class StudentController
 	{
 		String url = "forward:/personView";
 		
-		// Attach student
-		StudentBO service = ApplicationContextProvider.getApplicationContext().getBean("studentService", StudentBO.class);
 		if (attachStudent.size() > 0 && attachStudent.get(0).equals("attach"))
 		{
-			DepartmentBO dservice = ApplicationContextProvider.getApplicationContext().getBean("departmentService", DepartmentBO.class);
-			
 			Student student = null;
 			
 			try
 			{
-				student = service.getById(Integer.parseInt(id));
+				student = sservice.getById(Integer.parseInt(id));
 				student.setDepartment(dservice.getById(Integer.parseInt(department_id)));
-				service.update(student);
+				sservice.update(student);
 			}
 			catch (ObjectNotFoundException ex)
 			{
-				StudentAdmissionStatusBO saservice = ApplicationContextProvider.getApplicationContext().getBean("studentAdmissionStatusService", StudentAdmissionStatusBO.class); 
-				PersonBO pservice = ApplicationContextProvider.getApplicationContext().getBean("personService", PersonBO.class);
-				
 				student = new Student();
 				student.setAdmissionStatus(saservice.getById("Pending"));
 				student.setPerson(pservice.getById(Integer.parseInt(id)));
 				student.setDepartment(dservice.getById(Integer.parseInt(department_id)));
-				service.insert(student);
+				sservice.insert(student);
 			}
 		}
 		else
 		{
-			service.deleteById(Integer.parseInt(id));
+			sservice.deleteById(Integer.parseInt(id));
 		}
 		
 		ModelAndView model = new ModelAndView(url);
@@ -107,10 +118,9 @@ public class StudentController
 	{
 		String url = "forward:/studentView";
 		
-		StudentBO service = ApplicationContextProvider.getApplicationContext().getBean("studentService", StudentBO.class);
 		for (String id : selection)
 		{
-			service.deleteById(Integer.parseInt(id));
+			sservice.deleteById(Integer.parseInt(id));
 		}
 		
 		ModelAndView model = new ModelAndView(url);
@@ -124,8 +134,7 @@ public class StudentController
 	{
 		String url = "layout/adminApp";
 		
-		StudentBO service = ApplicationContextProvider.getApplicationContext().getBean("studentService", StudentBO.class);
-		List<Student> list = service.getAll();
+		List<Student> list = sservice.getAll();
 		
 		if (list == null) { list = new ArrayList<>(); }
 		
@@ -144,8 +153,7 @@ public class StudentController
 		String url = "layout/adminApp";
 		
 		int id = Integer.parseInt(sid);
-		StudentBO service = ApplicationContextProvider.getApplicationContext().getBean("studentService", StudentBO.class);
-		Student s = service.getById(id);
+		Student s = sservice.getById(id);
 		
 		ModelAndView model = new ModelAndView(url);
 		model.addObject("p_id", id);
@@ -167,6 +175,38 @@ public class StudentController
 		return model;
 	}
 	
+	private void courseStudentUpdate(List<String> courses, Student s)
+	{
+		if (courses != null)
+		{
+			// Add student to new courses
+			for (String course_code : courses)
+			{
+				Course c = cservice.getById(course_code);
+				BidirectionalUtil.addIfNew(c, cservice, s, c.getStudents());
+			}
+			
+			// Remove student to old removed course
+			for (Course c : s.getEnrolled_courses())
+				BidirectionalUtil.removeIfOld(c, cservice, s, c.getStudents(), c.getCourse_code(), courses);
+		}
+		else
+		{
+			// Remove student from all courses
+			for (Course c : s.getEnrolled_courses())
+				BidirectionalUtil.remove(c, cservice, s, c.getStudents());
+		}
+		
+		s.getEnrolled_courses().clear();
+		
+		// Add course to student
+		if (courses != null)
+		{
+			for (String course_code : courses)
+				BidirectionalUtil.add(course_code, cservice, s.getEnrolled_courses());
+		}
+	}
+	
 	@RequestMapping(value = "/studentDoEdit")
 	public ModelAndView studentDoEdit(
 			@RequestParam("id") String id,
@@ -179,34 +219,17 @@ public class StudentController
 		int pid = Integer.parseInt(id);
 		int did = Integer.parseInt(department_id);
 		
-		StudentBO service = ApplicationContextProvider.getApplicationContext().getBean("studentService", StudentBO.class);
-		Student s = service.getById(pid);
+		Student s = sservice.getById(pid);
 		
-		DepartmentBO dservice = ApplicationContextProvider.getApplicationContext().getBean("departmentService", DepartmentBO.class);
 		Department d = dservice.getById(did);
-		
-		StudentAdmissionStatusBO saservice = ApplicationContextProvider.getApplicationContext().getBean("studentAdmissionStatusService", StudentAdmissionStatusBO.class);
 		StudentAdmissionStatus sa = saservice.getById(status);
-		
-		s.getEnrolled_courses().clear();
-		if (courses != null)
-		{
-			CourseBO cservice = ApplicationContextProvider.getApplicationContext().getBean("courseService", CourseBO.class);
-			ArrayList<String> codes = new ArrayList<>();
-			for (String cid : courses)
-			{
-				if (!codes.contains(cid))
-				{
-					codes.add(cid);
-					Course c = cservice.getById(cid);
-					s.getEnrolled_courses().add(c);
-				}
-			}
-		}
 		
 		s.setDepartment(d);
 		s.setAdmissionStatus(sa);
-		service.update(s);
+		
+		courseStudentUpdate(courses, s);
+		
+		sservice.update(s);
 		
 		ModelAndView model = new ModelAndView(url);
 		

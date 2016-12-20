@@ -28,8 +28,7 @@ public class Course
 	
 	// TODO: private Map<DayOfWeek, ScheduleTime> schedule;
 	
-	@OneToOne
-	@JoinColumn(name="dept_id")
+	@ManyToOne(fetch=FetchType.EAGER)
 	@NotNull
 	private Department department;
 	
@@ -37,16 +36,16 @@ public class Course
 	@NotNull
 	private Employee instructor;
 
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="course")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="course", fetch=FetchType.EAGER)
 	private Set<CourseWork> course_works;
 	
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="as_course_pre_requisite",
 		joinColumns={@JoinColumn(name="course_id")},
 		inverseJoinColumns={@JoinColumn(name="pre_req_id")})
 	private Set<Course> prerequisite;
 	
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="as_course_ta",
 		joinColumns={@JoinColumn(name="course_id")},
 		inverseJoinColumns={@JoinColumn(name="employee_id")})
@@ -163,5 +162,20 @@ public class Course
 
 	public void setCourse_works(Set<CourseWork> course_works) {
 		this.course_works = course_works;
+	}
+	
+	@Override
+	public boolean equals(Object o)
+	{
+		if (o instanceof Course)
+			return this.hashCode() == ((Course) o).hashCode();
+		else
+			return false;
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return ("course:" + this.class_level + "" +  this.course_number + "" +  this.section + ":" + this.course_name).hashCode();
 	}
 }
