@@ -14,13 +14,11 @@ public class CourseMark
 	@NotNull							
 	private int mark;
 	
-	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="course_work_id")
+	@ManyToOne(fetch=FetchType.EAGER)
 	@NotNull 							
 	private CourseWork coursework;
 	
-	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="student_id") 
+	@ManyToOne(fetch=FetchType.EAGER) 
 	@NotNull 							
 	private Student student;
 	

@@ -39,10 +39,7 @@ public class Student
 		inverseJoinColumns={@JoinColumn(name="course_id")})
 	private Set<Course> enrolled_courses;
 	
-	@ManyToMany(cascade={CascadeType.ALL})
-	@JoinTable(name="as_student_grades",
-		joinColumns={@JoinColumn(name="student_id")},
-		inverseJoinColumns={@JoinColumn(name="student_grade_id")})
+	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
 	private Set<StudentGrade> marks;
 	
 	public Student() { }

@@ -97,6 +97,9 @@ public class HibernateInsertScript
         cw.setCourse(c);
         ApplicationContextProvider.getApplicationContext().getBean("courseWorkService", CourseWorkBO.class).insert(cw);
         
+        c.getCourse_works().add(cw);
+        ApplicationContextProvider.getApplicationContext().getBean("courseService", CourseBO.class).update(c);
+        
         // Course Mark
         CourseMark cm = new CourseMark();
         cm.setMark(20);

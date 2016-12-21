@@ -16,11 +16,11 @@ public class StudentGrade
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date start_date = new Date();
 	
-	@OneToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="student_id")
 	private Student student;
 
-	@OneToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="course_id")
 	private Course course;
 	
