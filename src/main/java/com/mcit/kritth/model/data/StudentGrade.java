@@ -24,10 +24,7 @@ public class StudentGrade
 	@JoinColumn(name="course_id")
 	private Course course;
 	
-	@ManyToMany(cascade={CascadeType.ALL},fetch=FetchType.EAGER)
-	@JoinTable(name="as_student_grades_marks",
-		joinColumns={@JoinColumn(name="student_grade_id")},
-		inverseJoinColumns={@JoinColumn(name="course_mark_id")})
+	@OneToMany(cascade={CascadeType.ALL},fetch=FetchType.EAGER)
 	private Set<CourseMark> courseMarks;
 	// TODO: private Attendance attendance;
 	
