@@ -2,6 +2,7 @@ package com.mcit.kritth.bo.data;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mcit.kritth.bo.template.EmployeeBO;
 import com.mcit.kritth.dao.template.EmployeeDAO;
+import com.mcit.kritth.model.data.Course;
 import com.mcit.kritth.model.data.Employee;
 
 @Service("employeeService")
@@ -35,4 +37,16 @@ public class EmployeeBOImpl implements EmployeeBO
 
 	@Override
 	public List<Employee> getAll() { return dao.getAllBeans(); }
+
+	@Override
+	public boolean updateAssignedCourse(Employee obj, Course objToAdd) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateAssignedCourseList(Employee obj, Set<Course> objToAdd) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
