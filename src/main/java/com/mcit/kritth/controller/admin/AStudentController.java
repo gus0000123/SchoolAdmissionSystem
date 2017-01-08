@@ -22,7 +22,7 @@ import com.mcit.kritth.spring.ApplicationContextProvider;
 import com.mcit.kritth.util.BidirectionalUtil;
 
 @Controller
-public class StudentController
+public class AStudentController
 {
 	private CourseBO cservice;
 	private StudentBO sservice;
@@ -210,6 +210,8 @@ public class StudentController
 	@RequestMapping(value = "/studentDoEdit")
 	public ModelAndView studentDoEdit(
 			@RequestParam("id") String id,
+			@RequestParam("s_major") String major,
+			@RequestParam("s_minor") String minor,
 			@RequestParam("s_department") String department_id,
 			@RequestParam("s_admission_status") String status,
 			@RequestParam(value = "s_course_selection", required = false) List<String> courses)
@@ -224,6 +226,8 @@ public class StudentController
 		Department d = dservice.getById(did);
 		StudentAdmissionStatus sa = saservice.getById(status);
 		
+		s.setMajor(major);
+		s.setMinor(minor);
 		s.setDepartment(d);
 		s.setAdmissionStatus(sa);
 		

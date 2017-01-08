@@ -1,5 +1,8 @@
 package hibernate;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import com.mcit.kritth.bo.template.*;
 import com.mcit.kritth.model.data.*;
 import com.mcit.kritth.model.messenger.*;
@@ -84,21 +87,61 @@ public class HibernateInsertScript
         c.setCourse_code(BeanUtil.getCourseCode(c));
         ApplicationContextProvider.getApplicationContext().getBean("courseService", CourseBO.class).insert(c);
         
+        Course c2 = new Course();
+        c2.setCourse_name("Introduction to Architecture");
+        c2.setDepartment(d2);
+        c2.setInstructor(e);
+        c2.getStudents().add(s);
+        c2.setCourse_code(BeanUtil.getCourseCode(c2));
+        ApplicationContextProvider.getApplicationContext().getBean("courseService", CourseBO.class).insert(c2);
+        
         // Update assigned course
         e.getAssigned_courses().add(c);
+        e.getAssigned_courses().add(c2);
         ApplicationContextProvider.getApplicationContext().getBean("employeeService", EmployeeBO.class).update(e);
         
         // Course Work
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy-HH:mm");
+        
         CourseWork cw = new CourseWork();
-        cw.setContribution(0.2);
+        cw.setContribution(0.7);
         cw.setCoursework_description("test");
         cw.setCoursework_name("Assignment 1");
         cw.setMax_mark(30);
         cw.setCourse(c);
+        try {
+			cw.setDeadline(sdf.parse("31/12/2099-23:30"));
+		} catch (ParseException e1) { }
         ApplicationContextProvider.getApplicationContext().getBean("courseWorkService", CourseWorkBO.class).insert(cw);
         
+        CourseWork cw2 = new CourseWork();
+        cw2.setContribution(0.1);
+        cw2.setCoursework_description("test");
+        cw2.setCoursework_name("Assignment 2");
+        cw2.setMax_mark(30);
+        cw2.setCourse(c);
+        try {
+			cw2.setDeadline(sdf.parse("31/12/2100-23:30"));
+		} catch (ParseException e1) { }
+        ApplicationContextProvider.getApplicationContext().getBean("courseWorkService", CourseWorkBO.class).insert(cw2);
+        
+        CourseWork cw3 = new CourseWork();
+        cw3.setContribution(0.9);
+        cw3.setCoursework_description("test");
+        cw3.setCoursework_name("Assignment 1");
+        cw3.setMax_mark(30);
+        cw3.setCourse(c2);
+        try {
+			cw3.setDeadline(sdf.parse("31/12/2099-23:30"));
+		} catch (ParseException e1) { }
+        ApplicationContextProvider.getApplicationContext().getBean("courseWorkService", CourseWorkBO.class).insert(cw3);
+        
         c.getCourse_works().add(cw);
+        c.getCourse_works().add(cw2);
         ApplicationContextProvider.getApplicationContext().getBean("courseService", CourseBO.class).update(c);
+        
+        c2.getCourse_works().add(cw3);
+        ApplicationContextProvider.getApplicationContext().getBean("courseService", CourseBO.class).update(c2);
         
         // Course Mark
         CourseMark cm = new CourseMark();
@@ -107,11 +150,28 @@ public class HibernateInsertScript
         cm.setStudent(s);
         ApplicationContextProvider.getApplicationContext().getBean("courseMarkService", CourseMarkBO.class).insert(cm);
         
+        CourseMark cm2 = new CourseMark();
+        cm2.setMark(20);
+        cm2.setCoursework(cw3);
+        cm2.setStudent(s);
+        ApplicationContextProvider.getApplicationContext().getBean("courseMarkService", CourseMarkBO.class).insert(cm2);
+        
         // Student Grade
         StudentGrade sg = new StudentGrade();
         sg.getCourseMarks().add(cm);
         sg.setStudent(s);
+        sg.setCourse(c);
         ApplicationContextProvider.getApplicationContext().getBean("studentGradeService", StudentGradeBO.class).insert(sg);
+        
+        StudentGrade sg2 = new StudentGrade();
+        sg2.getCourseMarks().add(cm2);
+        sg2.setStudent(s);
+        sg2.setCourse(c2);
+        ApplicationContextProvider.getApplicationContext().getBean("studentGradeService", StudentGradeBO.class).insert(sg2);
+        
+        s.getMarks().add(sg);
+        s.getMarks().add(sg2);
+        ApplicationContextProvider.getApplicationContext().getBean(StudentBO.class).update(s);
         
         // Create second person and user to test messages
         Person p2 = new Person();
@@ -155,6 +215,7 @@ public class HibernateInsertScript
         ApplicationContextProvider.getApplicationContext().getBean("personalService", PersonalBO.class).insert(pm3);
         
         s.getEnrolled_courses().add(c);
+        s.getEnrolled_courses().add(c2);
         ApplicationContextProvider.getApplicationContext().getBean("studentService", StudentBO.class).update(s);
         
         System.exit(0);

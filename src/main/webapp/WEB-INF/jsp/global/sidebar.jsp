@@ -12,4 +12,10 @@
 			<img src="<c:url value="resources/images/application-icon.png" />">
 		</button>
 	</form>
+	<form id="studentSideButtonForm" action="student" method="post">
+		<input type="hidden" name="tab" value="student" />
+		<button onclick="launchForm(event, 'studentSideButtonForm');">
+			<img src="<c:url value="resources/images/student-icon.png" />">
+		</button>
+	</form>
 </aside>

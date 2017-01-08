@@ -24,6 +24,7 @@ public class CourseWork
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creation_date = new Date();
+	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date deadline;
 	

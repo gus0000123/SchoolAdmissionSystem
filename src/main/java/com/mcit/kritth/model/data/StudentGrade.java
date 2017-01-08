@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="All_Student_Grades")
@@ -13,13 +14,17 @@ public class StudentGrade
 	@SequenceGenerator(name="sg_id_gen", sequenceName="student_grade_id_seq")
 	@GeneratedValue	(strategy=GenerationType.SEQUENCE, generator="sg_id_gen")
 	private int gradeId;
+	
+	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date start_date = new Date();
 	
+	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="student_id")
 	private Student student;
 
+	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="course_id")
 	private Course course;
