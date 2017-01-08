@@ -18,7 +18,7 @@ import com.mcit.kritth.model.data.CourseWork;
 import com.mcit.kritth.spring.ApplicationContextProvider;
 
 @Controller
-public class CourseworkController
+public class ACourseworkController
 {
 	private CourseWorkBO cwservice;
 	private CourseBO cservice;

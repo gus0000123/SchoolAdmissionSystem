@@ -20,7 +20,7 @@ import com.mcit.kritth.spring.ApplicationContextProvider;
 
 @Controller
 @SessionAttributes("user")
-public class OverviewController {
+public class HOverviewController {
 	@RequestMapping(value = "/homeOverview", method = RequestMethod.POST)
 	public ModelAndView getOverviewContext(
 			@ModelAttribute User u)

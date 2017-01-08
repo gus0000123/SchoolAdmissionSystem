@@ -12,6 +12,9 @@
 			<c:when test="${ tab eq 'transcript' }">
 				<jsp:include page="tabs/transcript.jsp" />
 			</c:when>
+			<c:when test="${ tab eq 'register' }">
+				<jsp:include page="tabs/registration.jsp" />
+			</c:when>
 			<c:otherwise>
 				<jsp:include page="tabs/overview.jsp" />
 			</c:otherwise>

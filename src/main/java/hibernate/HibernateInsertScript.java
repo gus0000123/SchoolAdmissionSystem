@@ -85,6 +85,7 @@ public class HibernateInsertScript
         c.setInstructor(e);
         c.getStudents().add(s);
         c.setCourse_code(BeanUtil.getCourseCode(c));
+        c.setCapacity(100);
         ApplicationContextProvider.getApplicationContext().getBean("courseService", CourseBO.class).insert(c);
         
         Course c2 = new Course();
@@ -93,11 +94,23 @@ public class HibernateInsertScript
         c2.setInstructor(e);
         c2.getStudents().add(s);
         c2.setCourse_code(BeanUtil.getCourseCode(c2));
+        c2.setCapacity(20);
         ApplicationContextProvider.getApplicationContext().getBean("courseService", CourseBO.class).insert(c2);
+        
+        Course c3 = new Course();
+        c3.setCourse_name("Introduction to Algorithm");
+        c3.setDepartment(d);
+        c3.setInstructor(e);
+        c3.setClass_level(2);
+        c3.setCourse_number(10);
+        c3.setCourse_code(BeanUtil.getCourseCode(c3));
+        c3.setCapacity(30);
+        ApplicationContextProvider.getApplicationContext().getBean(CourseBO.class).insert(c3);
         
         // Update assigned course
         e.getAssigned_courses().add(c);
         e.getAssigned_courses().add(c2);
+        e.getAssigned_courses().add(c3);
         ApplicationContextProvider.getApplicationContext().getBean("employeeService", EmployeeBO.class).update(e);
         
         // Course Work

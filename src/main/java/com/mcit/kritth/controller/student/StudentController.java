@@ -44,6 +44,9 @@ public class StudentController
 					case "transcript":
 						url = "forward:/studentTranscript";
 						break;
+					case "register":
+						url = "forward:/studentCourseRegister";
+						break;
 					case "overview":
 					default:
 						url = "forward:/studentOverview";

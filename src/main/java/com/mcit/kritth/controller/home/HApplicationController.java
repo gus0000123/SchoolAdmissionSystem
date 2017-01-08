@@ -18,7 +18,7 @@ import com.mcit.kritth.spring.ApplicationContextProvider;
 
 @Controller
 @SessionAttributes("user")
-public class ApplicationController
+public class HApplicationController
 {
 	@RequestMapping(value = "/homeApplication", method = RequestMethod.POST)
 	public ModelAndView getApplicationContext(

@@ -18,7 +18,7 @@ import com.mcit.kritth.util.BeanUtil;
 
 @Controller
 @SessionAttributes("user")
-public class LoginController
+public class HLoginController
 {
 	@RequestMapping(value = "/login", method= {RequestMethod.POST})
 	public  ModelAndView login(

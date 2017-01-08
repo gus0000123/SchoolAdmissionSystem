@@ -26,7 +26,7 @@ import com.mcit.kritth.spring.ApplicationContextProvider;
 import com.mcit.kritth.util.BidirectionalUtil;
 
 @Controller
-public class CourseController
+public class ACourseController
 {
 	private CourseBO cservice;
 	private DepartmentBO dservice;

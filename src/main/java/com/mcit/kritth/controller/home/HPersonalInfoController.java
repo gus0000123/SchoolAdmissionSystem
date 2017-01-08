@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @SessionAttributes("user")
-public class PersonalInfoController
+public class HPersonalInfoController
 {
 	@RequestMapping(value = "/homeInfo", method = RequestMethod.POST)
 	public ModelAndView getPersonalInfoContext()

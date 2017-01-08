@@ -22,7 +22,7 @@ import com.mcit.kritth.model.data.User;
 import com.mcit.kritth.spring.ApplicationContextProvider;
 
 @Controller
-public class PersonController
+public class APersonController
 {
 	@RequestMapping(value = "/personController", method = RequestMethod.POST)
 	public ModelAndView personActionSelector(

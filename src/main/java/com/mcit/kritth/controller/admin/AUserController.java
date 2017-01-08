@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class UserController
+public class AUserController
 {
 	@RequestMapping(value = "/userController")
 	public ModelAndView userActionSelector()

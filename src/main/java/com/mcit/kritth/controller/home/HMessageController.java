@@ -21,7 +21,7 @@ import com.mcit.kritth.spring.ApplicationContextProvider;
 
 @Controller
 @SessionAttributes("user")
-public class MessageController
+public class HMessageController
 {
 	@RequestMapping(value = "/homeMessage", method = RequestMethod.POST)
 	public ModelAndView getMessageContext(

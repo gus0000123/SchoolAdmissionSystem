@@ -86,4 +86,19 @@ public class Department
 	public void setEmployees(Set<Employee> employees) {
 		this.employees = employees;
 	}
+	
+	@Override
+	public boolean equals(Object o)
+	{
+		if (o instanceof Department)
+			return this.hashCode() == o.hashCode();
+		else
+			return false;
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return dept_code.getDept_code().hashCode();
+	}
 }
