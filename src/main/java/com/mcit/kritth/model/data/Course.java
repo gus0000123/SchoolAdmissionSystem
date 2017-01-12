@@ -22,7 +22,7 @@ public class Course
 	@NotNull
 	private String course_name;
 	private String course_description;
-	private int capacity = 0;
+	private int capacity = 10;
 	private int credit = 3;
 	private boolean is_active = true;
 	

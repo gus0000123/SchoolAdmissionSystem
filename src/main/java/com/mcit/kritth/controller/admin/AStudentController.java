@@ -175,6 +175,7 @@ public class AStudentController
 		return model;
 	}
 	
+	/*
 	private void courseStudentUpdate(List<String> courses, Student s)
 	{
 		if (courses != null)
@@ -205,7 +206,7 @@ public class AStudentController
 			for (String course_code : courses)
 				BidirectionalUtil.add(course_code, cservice, s.getEnrolled_courses());
 		}
-	}
+	}*/
 	
 	@RequestMapping(value = "/studentDoEdit")
 	public ModelAndView studentDoEdit(
@@ -231,7 +232,14 @@ public class AStudentController
 		s.setDepartment(d);
 		s.setAdmissionStatus(sa);
 		
-		courseStudentUpdate(courses, s);
+		s.getEnrolled_courses().clear();
+		for (String cid : courses)
+		{
+			Course c = cservice.getById(cid);
+			s.getEnrolled_courses().add(c);
+		}
+		
+		// courseStudentUpdate(courses, s);
 		
 		sservice.update(s);
 		

@@ -32,7 +32,15 @@ public class StudentBOImpl implements StudentBO
 	public void insert(Student o) { dao.insertBean(o); }
 
 	@Override
-	public void update(Student o) { dao.updateBean(o); }
+	public void update(Student o)
+	{
+		Student s = getById(o.getId());
+		
+		dao.updateBean(o);
+		
+		// Check if course changed
+		updateCourses(s, o);
+	}
 
 	@Override
 	public void delete(Student o) { dao.removeBeanByPrimaryKey(o.getId()); }
@@ -45,75 +53,29 @@ public class StudentBOImpl implements StudentBO
 
 	@Override
 	public List<Student> getAll() { return dao.getAllBeans(); }
-
-	/************************ADDING DEPENDENCY********************************/
-
-	@Override
-	public boolean updateStudentGrade(Student obj, StudentGrade objToAdd)
-	{
-		return false;
-	}
 	
-	@Override
-	public boolean updateStudentGradeList(Student obj, Set<StudentGrade> objToAdd)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	@Override
-	public boolean updateCourse(Student obj, Course course)
+	private void updateCourses(Student oldStudent, Student newStudent)
 	{
 		CourseBO cservice = ApplicationContextProvider.getApplicationContext().getBean(CourseBO.class);
 		
-		if (course != null)
+		// Delete student from old courses
+		for (Course c : oldStudent.getEnrolled_courses())
 		{
-			if (obj.getEnrolled_courses().contains(course)) { obj.getEnrolled_courses().remove(course);	}
-			else { obj.getEnrolled_courses().add(course); }
-			
-			if (!course.getStudents().contains(obj))
+			if (!newStudent.getEnrolled_courses().contains(c))
 			{
-				cservice.updateStudent(course, obj);
+				c.getStudents().remove(newStudent);
+				cservice.update(c);
 			}
-			return true;
 		}
-		else
+		
+		// Add student to new course
+		for (Course c : newStudent.getEnrolled_courses())
 		{
-			return updateCourseList(obj, null);
+			if (!oldStudent.getEnrolled_courses().contains(c))
+			{
+				c.getStudents().add(newStudent);
+				cservice.update(c);
+			}
 		}
-	}
-
-	@Override
-	public boolean updateCourseList(Student obj, Set<Course> objToAdd)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean updatePerson(Student obj, Person objToAdd)
-	{
-		// Person does not need to update dependency
-		obj.setPerson(objToAdd);
-		update(obj);
-		return true;
-	}
-
-	@Override
-	public boolean updateStatus(Student obj, StudentAdmissionStatus objToAdd)
-	{
-		// Status does not need to update dependency
-		obj.setAdmissionStatus(objToAdd);
-		update(obj);
-		return true;
-	}
-
-	@Override
-	public boolean updateDepartment(Student obj, Department objToAdd)
-	{
-		// Department does not need to update dependency
-		obj.setDepartment(objToAdd);
-		update(obj);
-		return true;
 	}
 }

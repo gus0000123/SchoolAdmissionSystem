@@ -43,6 +43,7 @@ public class CourseWorkBOImpl implements CourseWorkBO
 	@Override
 	public boolean updateCourse(CourseWork obj, Course objToAdd)
 	{
+		/*
 		CourseBO cservice = ApplicationContextProvider.getApplicationContext().getBean(CourseBO.class);
 		
 		if (objToAdd != null)
@@ -59,7 +60,7 @@ public class CourseWorkBOImpl implements CourseWorkBO
 		{
 			return false; //return updateCourseList(obj, null);
 		}
-		
+		*/
 		return false;
 	}
 }

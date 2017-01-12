@@ -180,7 +180,7 @@ public class ACourseController
 		return model;
 	}
 	
-	private void studentCourseUpdate(List<String> student_id, Course course)
+/*	private void studentCourseUpdate(List<String> student_id, Course course)
 	{
 		if (student_id != null)
 		{
@@ -210,10 +210,10 @@ public class ACourseController
 			for (String sid : student_id)
 				BidirectionalUtil.add(Integer.parseInt(sid), sservice, course.getStudents());
 		}
-	}
+	}*/
 	
 	// Can only delete
-	private Set<CourseWork> courseworkCourseUpdate(List<String> coursework_id, Course course)
+/*	private Set<CourseWork> courseworkCourseUpdate(List<String> coursework_id, Course course)
 	{
 		Set<CourseWork> listToDelete = new HashSet<>();
 		
@@ -254,7 +254,7 @@ public class ACourseController
 		
 		return listToDelete;
 	}
-	
+	*/
 	@RequestMapping(value="/courseDoEdit", method=RequestMethod.POST)
 	public ModelAndView courseDoEdit(
 			@RequestParam(value="c_course_code") String course_code,
@@ -280,18 +280,25 @@ public class ACourseController
 		
 		course.getCourse_code();			// Auto generate course_code in case other values are changed
 		
-		studentCourseUpdate(student_id, course);
-		Set<CourseWork> toDelete = courseworkCourseUpdate(coursework_id, course);
-		
-		try { cservice.update(course); } // In case course_code is the same, do nothing for now
-		catch (Exception e) {
-			e.printStackTrace();
+		course.getStudents().clear();
+		for (String sid : student_id)
+		{
+			Student s = sservice.getById(Integer.parseInt(sid));
+			course.getStudents().add(s);
 		}
 		
+		// studentCourseUpdate(student_id, course);
+		// Set<CourseWork> toDelete = courseworkCourseUpdate(coursework_id, course);
+		
+		try { cservice.update(course); } // In case course_code is the same, do nothing for now
+		catch (Exception e) { e.printStackTrace(); }
+		
+		/*
 		for (CourseWork cw : toDelete)
 		{
 			cwservice.delete(cw);
 		}
+		*/
 		
 		ModelAndView model = new ModelAndView(url);
 		model.addObject("tab", "course");
