@@ -36,19 +36,29 @@ public class CourseBOImpl implements CourseBO
 	{
 		Course c = getById(o.getCourse_code());
 		
-		dao.updateBean(o);
+		Set<Student> oldStudents = c.getStudents();
 		
-		// Check if department changed
-		if (!c.getDepartment().equals(o.getDepartment()))
-			o.getCourse_code(); // refresh course code
+		c.setClass_level(o.getClass_level());
+		c.setCourse_number(o.getCourse_number());
+		c.setSection(o.getSection());
+		c.setDepartment(o.getDepartment());
+		
+		c.getCourse_code();
+		
+		c.setInstructor(o.getInstructor());
+		c.setStudents(o.getStudents());
+		
+		dao.updateBean(c);
 		
 		// Check if student changed
-		updateStudents(c, o);
+		updateStudents(c, oldStudents);
 	}
 
 	@Override
 	public void delete(Course o)
 	{
+		// Clear students
+		updateStudents(o, null);
 		/*
 		updateDepartment(o, null);
 		updateInstructor(o, null);
@@ -69,26 +79,37 @@ public class CourseBOImpl implements CourseBO
 	@Override
 	public List<Course> getAll() { return dao.getAllBeans(); }
 
-	private void updateStudents(Course oldCourse, Course newCourse)
+	private void updateStudents(Course newCourse, Set<Student> oldStudents)
 	{
 		StudentBO sservice = ApplicationContextProvider.getApplicationContext().getBean(StudentBO.class);
 		
-		// Delete course from old student
-		for (Student s : oldCourse.getStudents())
+		if (oldStudents != null)
 		{
-			if (!newCourse.getStudents().contains(s))
+			// Delete course from old student
+			for (Student s : oldStudents)
 			{
-				s.getEnrolled_courses().remove(oldCourse);
-				sservice.update(s);
+				if (!newCourse.getStudents().contains(s))
+				{
+					s.getEnrolled_courses().remove(newCourse);
+					sservice.update(s);
+				}
+			}
+			
+			// Add course to new student
+			for (Student s : newCourse.getStudents())
+			{
+				if (!oldStudents.contains(s))
+				{
+					s.getEnrolled_courses().add(newCourse);
+					sservice.update(s);
+				}
 			}
 		}
-		
-		// Add course to new student
-		for (Student s : newCourse.getStudents())
+		else
 		{
-			if (!oldCourse.getStudents().contains(s))
+			for (Student s : newCourse.getStudents())
 			{
-				s.getEnrolled_courses().add(newCourse);
+				s.getEnrolled_courses().remove(newCourse);
 				sservice.update(s);
 			}
 		}

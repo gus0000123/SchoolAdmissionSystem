@@ -180,81 +180,6 @@ public class ACourseController
 		return model;
 	}
 	
-/*	private void studentCourseUpdate(List<String> student_id, Course course)
-	{
-		if (student_id != null)
-		{
-			// Add course to new students
-			for (String sid : student_id)
-			{
-				Student s = sservice.getById(Integer.parseInt(sid));
-				BidirectionalUtil.addIfNew(s, sservice, course, s.getEnrolled_courses());
-			}
-			
-			// Remove course from old students
-			for (Student s : course.getStudents())
-				BidirectionalUtil.removeIfOld(s, sservice, course, s.getEnrolled_courses(), "" + s.getId(), student_id);
-		}
-		else
-		{
-			// Remove course from all students
-			for (Student s : course.getStudents())
-				BidirectionalUtil.remove(s, sservice, course, s.getEnrolled_courses());
-		}
-		
-		course.getStudents().clear();
-		
-		// Add student to Courses
-		if (student_id != null)
-		{
-			for (String sid : student_id)
-				BidirectionalUtil.add(Integer.parseInt(sid), sservice, course.getStudents());
-		}
-	}*/
-	
-	// Can only delete
-/*	private Set<CourseWork> courseworkCourseUpdate(List<String> coursework_id, Course course)
-	{
-		Set<CourseWork> listToDelete = new HashSet<>();
-		
-		if (coursework_id != null)
-		{
-			List<CourseWork> courseworkToRemove = new ArrayList<>();
-			for (CourseWork cw : course.getCourse_works())
-			{
-				if (!coursework_id.contains(cw.getCoursework_id()))
-					courseworkToRemove.add(cw);
-			}
-			
-			for (CourseWork cw : courseworkToRemove)
-			{
-				course.getCourse_works().remove(cw);
-				listToDelete.add(cw);
-			}
-			
-			System.out.println(course.getCourse_works().size());
-			
-			for (String cwid : coursework_id)
-			{
-				CourseWork cw = cwservice.getById(Integer.parseInt(cwid));
-				if (!course.getCourse_works().contains(cw))
-				{
-					course.getCourse_works().add(cw);
-				}
-			}
-		}
-		else
-		{
-			for (CourseWork cw : course.getCourse_works())
-			{
-				listToDelete.add(cw);
-			}
-			course.getCourse_works().clear();
-		}
-		
-		return listToDelete;
-	}
-	*/
 	@RequestMapping(value="/courseDoEdit", method=RequestMethod.POST)
 	public ModelAndView courseDoEdit(
 			@RequestParam(value="c_course_code") String course_code,
@@ -269,7 +194,7 @@ public class ACourseController
 	{
 		String url = "forward:/courseView";
 		
-		Course course = cservice.getById(course_code);
+		Course course = new Course();
 		course.setClass_level(class_level);
 		course.setCourse_number(course_number);
 		course.setSection(section);
@@ -278,27 +203,21 @@ public class ACourseController
 		course.setDepartment(dservice.getById(Integer.parseInt(department_id)));
 		course.setInstructor(eservice.getById(Integer.parseInt(employee_id)));
 		
-		course.getCourse_code();			// Auto generate course_code in case other values are changed
+		course.setCourse_code(course_code);
 		
 		course.getStudents().clear();
-		for (String sid : student_id)
+		
+		if (student_id != null)
 		{
-			Student s = sservice.getById(Integer.parseInt(sid));
-			course.getStudents().add(s);
+			for (String sid : student_id)
+			{
+				Student s = sservice.getById(Integer.parseInt(sid));
+				course.getStudents().add(s);
+			}
 		}
 		
-		// studentCourseUpdate(student_id, course);
-		// Set<CourseWork> toDelete = courseworkCourseUpdate(coursework_id, course);
-		
-		try { cservice.update(course); } // In case course_code is the same, do nothing for now
+		try { cservice.update(course); }
 		catch (Exception e) { e.printStackTrace(); }
-		
-		/*
-		for (CourseWork cw : toDelete)
-		{
-			cwservice.delete(cw);
-		}
-		*/
 		
 		ModelAndView model = new ModelAndView(url);
 		model.addObject("tab", "course");

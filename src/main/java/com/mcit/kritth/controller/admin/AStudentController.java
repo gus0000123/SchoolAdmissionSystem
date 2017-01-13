@@ -19,7 +19,6 @@ import com.mcit.kritth.model.data.Department;
 import com.mcit.kritth.model.data.Student;
 import com.mcit.kritth.model.data.StudentAdmissionStatus;
 import com.mcit.kritth.spring.ApplicationContextProvider;
-import com.mcit.kritth.util.BidirectionalUtil;
 
 @Controller
 public class AStudentController
@@ -175,39 +174,6 @@ public class AStudentController
 		return model;
 	}
 	
-	/*
-	private void courseStudentUpdate(List<String> courses, Student s)
-	{
-		if (courses != null)
-		{
-			// Add student to new courses
-			for (String course_code : courses)
-			{
-				Course c = cservice.getById(course_code);
-				BidirectionalUtil.addIfNew(c, cservice, s, c.getStudents());
-			}
-			
-			// Remove student to old removed course
-			for (Course c : s.getEnrolled_courses())
-				BidirectionalUtil.removeIfOld(c, cservice, s, c.getStudents(), c.getCourse_code(), courses);
-		}
-		else
-		{
-			// Remove student from all courses
-			for (Course c : s.getEnrolled_courses())
-				BidirectionalUtil.remove(c, cservice, s, c.getStudents());
-		}
-		
-		s.getEnrolled_courses().clear();
-		
-		// Add course to student
-		if (courses != null)
-		{
-			for (String course_code : courses)
-				BidirectionalUtil.add(course_code, cservice, s.getEnrolled_courses());
-		}
-	}*/
-	
 	@RequestMapping(value = "/studentDoEdit")
 	public ModelAndView studentDoEdit(
 			@RequestParam("id") String id,
@@ -222,24 +188,27 @@ public class AStudentController
 		int pid = Integer.parseInt(id);
 		int did = Integer.parseInt(department_id);
 		
-		Student s = sservice.getById(pid);
+		Student s = new Student();
 		
 		Department d = dservice.getById(did);
 		StudentAdmissionStatus sa = saservice.getById(status);
 		
+		s.setId(pid);
 		s.setMajor(major);
 		s.setMinor(minor);
 		s.setDepartment(d);
 		s.setAdmissionStatus(sa);
 		
 		s.getEnrolled_courses().clear();
-		for (String cid : courses)
-		{
-			Course c = cservice.getById(cid);
-			s.getEnrolled_courses().add(c);
-		}
 		
-		// courseStudentUpdate(courses, s);
+		if (courses != null)
+		{
+			for (String cid : courses)
+			{
+				Course c = cservice.getById(cid);
+				s.getEnrolled_courses().add(c);
+			}
+		}
 		
 		sservice.update(s);
 		

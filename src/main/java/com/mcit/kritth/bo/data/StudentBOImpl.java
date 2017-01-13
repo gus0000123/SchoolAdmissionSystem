@@ -36,10 +36,18 @@ public class StudentBOImpl implements StudentBO
 	{
 		Student s = getById(o.getId());
 		
-		dao.updateBean(o);
+		Set<Course> oldCourses = s.getEnrolled_courses();
+		
+		s.setMajor(o.getMajor());
+		s.setMinor(o.getMinor());
+		s.setDepartment(o.getDepartment());
+		s.setAdmissionStatus(o.getAdmissionStatus());
+		s.setEnrolled_courses(o.getEnrolled_courses());
+		
+		dao.updateBean(s);
 		
 		// Check if course changed
-		updateCourses(s, o);
+		updateCourses(s, oldCourses);
 	}
 
 	@Override
@@ -54,26 +62,37 @@ public class StudentBOImpl implements StudentBO
 	@Override
 	public List<Student> getAll() { return dao.getAllBeans(); }
 	
-	private void updateCourses(Student oldStudent, Student newStudent)
+	private void updateCourses(Student newStudent, Set<Course> oldCourses)
 	{
 		CourseBO cservice = ApplicationContextProvider.getApplicationContext().getBean(CourseBO.class);
 		
-		// Delete student from old courses
-		for (Course c : oldStudent.getEnrolled_courses())
+		if (oldCourses != null)
 		{
-			if (!newStudent.getEnrolled_courses().contains(c))
+			// Delete student from old courses
+			for (Course c : oldCourses)
 			{
-				c.getStudents().remove(newStudent);
-				cservice.update(c);
+				if (!newStudent.getEnrolled_courses().contains(c))
+				{
+					c.getStudents().remove(newStudent);
+					cservice.update(c);
+				}
+			}
+			
+			// Add student to new course
+			for (Course c : newStudent.getEnrolled_courses())
+			{
+				if (!oldCourses.contains(c))
+				{
+					c.getStudents().add(newStudent);
+					cservice.update(c);
+				}
 			}
 		}
-		
-		// Add student to new course
-		for (Course c : newStudent.getEnrolled_courses())
+		else
 		{
-			if (!oldStudent.getEnrolled_courses().contains(c))
+			for (Course c : newStudent.getEnrolled_courses())
 			{
-				c.getStudents().add(newStudent);
+				c.getStudents().remove(newStudent);
 				cservice.update(c);
 			}
 		}
