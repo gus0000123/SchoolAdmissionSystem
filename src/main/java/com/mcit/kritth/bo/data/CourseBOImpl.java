@@ -10,15 +10,19 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.mcit.kritth.bo.template.CourseBO;
+import com.mcit.kritth.bo.template.CourseMarkBO;
 import com.mcit.kritth.bo.template.CourseWorkBO;
 import com.mcit.kritth.bo.template.EmployeeBO;
 import com.mcit.kritth.bo.template.StudentBO;
+import com.mcit.kritth.bo.template.StudentGradeBO;
 import com.mcit.kritth.dao.template.CourseDAO;
 import com.mcit.kritth.model.data.Course;
+import com.mcit.kritth.model.data.CourseMark;
 import com.mcit.kritth.model.data.CourseWork;
 import com.mcit.kritth.model.data.Department;
 import com.mcit.kritth.model.data.Employee;
 import com.mcit.kritth.model.data.Student;
+import com.mcit.kritth.model.data.StudentGrade;
 import com.mcit.kritth.spring.ApplicationContextProvider;
 
 @Service("courseService")
@@ -79,6 +83,60 @@ public class CourseBOImpl implements CourseBO
 	@Override
 	public List<Course> getAll() { return dao.getAllBeans(); }
 
+	private void updateStudentCourseMark(Course c, Student s)
+	{
+		StudentGradeBO sgservice = ApplicationContextProvider.getApplicationContext().getBean(StudentGradeBO.class);
+		CourseMarkBO cmservice = ApplicationContextProvider.getApplicationContext().getBean(CourseMarkBO.class);
+		
+		if (s.getEnrolled_courses().contains(c))
+		{
+			StudentGrade studentGrade = null;
+			
+			for (StudentGrade sg: s.getMarks())
+			{
+				if (sg.getCourse().equals(c))
+				{
+					studentGrade = sg;
+					break;
+				}
+			}
+			
+			// This is only for adding procedure, delete will be handled in courseworkbo
+			if (studentGrade != null)
+			{
+				for (CourseWork cw : c.getCourse_works())
+				{
+					boolean found = false;
+					
+					for (CourseMark cm : studentGrade.getCourseMarks())
+					{
+						if (cm.getCoursework().equals(cw))
+						{
+							found = true;
+							break;
+						}
+					}
+					
+					// If new then add, else do nothing
+					if (!found)
+					{
+						CourseMark cm = new CourseMark();
+						
+						cm.setMark(0);
+						cm.setCoursework(cw);
+						cm.setStudent(s);
+						
+						cmservice.insert(cm);
+						
+						studentGrade.getCourseMarks().add(cm);
+						
+						sgservice.update(studentGrade);
+					}
+				}
+			}
+		}
+	}
+	
 	private void updateStudents(Course newCourse, Set<Student> oldStudents)
 	{
 		StudentBO sservice = ApplicationContextProvider.getApplicationContext().getBean(StudentBO.class);
@@ -102,6 +160,7 @@ public class CourseBOImpl implements CourseBO
 				{
 					s.getEnrolled_courses().add(newCourse);
 					sservice.update(s);
+					updateStudentCourseMark(newCourse, s);
 				}
 			}
 		}

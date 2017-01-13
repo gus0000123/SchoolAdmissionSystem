@@ -10,14 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mcit.kritth.bo.template.CourseBO;
 import com.mcit.kritth.bo.template.StudentBO;
+import com.mcit.kritth.bo.template.StudentGradeBO;
 import com.mcit.kritth.dao.template.StudentDAO;
 import com.mcit.kritth.model.data.Course;
-import com.mcit.kritth.model.data.CourseWork;
-import com.mcit.kritth.model.data.Department;
-import com.mcit.kritth.model.data.Employee;
-import com.mcit.kritth.model.data.Person;
 import com.mcit.kritth.model.data.Student;
-import com.mcit.kritth.model.data.StudentAdmissionStatus;
 import com.mcit.kritth.model.data.StudentGrade;
 import com.mcit.kritth.spring.ApplicationContextProvider;
 
@@ -62,6 +58,49 @@ public class StudentBOImpl implements StudentBO
 	@Override
 	public List<Student> getAll() { return dao.getAllBeans(); }
 	
+	// this is only created/delete when course is added or removed
+	private void updateStudentGrade(Student s, Course c)
+	{
+		StudentGradeBO sgservice = ApplicationContextProvider.getApplicationContext().getBean(StudentGradeBO.class);
+		StudentBO sservice = ApplicationContextProvider.getApplicationContext().getBean(StudentBO.class);
+		
+		if (!s.getEnrolled_courses().contains(c))
+		{
+			// Deleting student grades from this course
+			StudentGrade toDelete = null;
+			
+			for (StudentGrade sg : s.getMarks())
+			{
+				if (sg.getCourse().equals(c))
+				{
+					toDelete = sg;
+					break;
+				}
+			}
+			
+			if (toDelete != null)
+			{
+				s.getMarks().remove(toDelete);
+				sservice.update(s);
+				sgservice.delete(toDelete); // delete this will delete whole hierarchy
+			}
+		}
+		else
+		{
+			// Adding the student grade 
+			StudentGrade sg = new StudentGrade();
+			
+			sg.setStudent(s);
+			sg.setCourse(c);
+			
+			sgservice.insert(sg);
+			
+			s.getMarks().add(sg);
+			
+			sservice.update(s);
+		}
+	}
+	
 	private void updateCourses(Student newStudent, Set<Course> oldCourses)
 	{
 		CourseBO cservice = ApplicationContextProvider.getApplicationContext().getBean(CourseBO.class);
@@ -75,6 +114,7 @@ public class StudentBOImpl implements StudentBO
 				{
 					c.getStudents().remove(newStudent);
 					cservice.update(c);
+					updateStudentGrade(newStudent, c);
 				}
 			}
 			
@@ -85,6 +125,7 @@ public class StudentBOImpl implements StudentBO
 				{
 					c.getStudents().add(newStudent);
 					cservice.update(c);
+					updateStudentGrade(newStudent, c);
 				}
 			}
 		}
