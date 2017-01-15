@@ -28,9 +28,6 @@ public class AnnouncementBOImpl implements AnnouncementBO
 	public void delete(Announcement o) { dao.removeBeanByPrimaryKey(o.getId()); }
 
 	@Override
-	public void deleteById(Serializable id) { dao.removeBeanByPrimaryKey(id); }
-
-	@Override
 	public Announcement getById(Serializable id) { return dao.getModelByPrimaryKey(id); }
 
 	@Override

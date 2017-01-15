@@ -206,7 +206,7 @@ public class APersonController
 		PersonBO service = ApplicationContextProvider.getApplicationContext().getBean("personService", PersonBO.class);
 		for (String id : selection)
 		{
-			service.deleteById(Integer.parseInt(id));
+			service.delete(service.getById(Integer.parseInt(id)));
 		}
 		
 		ModelAndView model = new ModelAndView(url);

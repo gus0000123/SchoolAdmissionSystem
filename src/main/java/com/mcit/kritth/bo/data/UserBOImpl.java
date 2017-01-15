@@ -28,9 +28,6 @@ public class UserBOImpl implements UserBO
 	public void delete(User o) { dao.removeBeanByPrimaryKey(o.getUser()); }
 
 	@Override
-	public void deleteById(Serializable id) { dao.removeBeanByPrimaryKey(id); }
-
-	@Override
 	public User getById(Serializable id) { return dao.getModelByPrimaryKey(id); }
 
 	@Override

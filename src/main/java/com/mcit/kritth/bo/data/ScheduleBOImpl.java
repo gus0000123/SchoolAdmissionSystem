@@ -28,9 +28,6 @@ public class ScheduleBOImpl implements ScheduleBO
 	public void delete(Schedule o) { dao.removeBeanByPrimaryKey(o.getId()); }
 
 	@Override
-	public void deleteById(Serializable id) { dao.removeBeanByPrimaryKey(id); }
-
-	@Override
 	public Schedule getById(Serializable id) { return dao.getModelByPrimaryKey(id); }
 
 	@Override

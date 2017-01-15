@@ -28,9 +28,6 @@ public class AuthorBOImpl implements AuthorBO
 	public void delete(Author o) { dao.removeBeanByPrimaryKey(o.getId()); }
 
 	@Override
-	public void deleteById(Serializable id) { dao.removeBeanByPrimaryKey(id); }
-
-	@Override
 	public Author getById(Serializable id) { return dao.getModelByPrimaryKey(id); }
 
 	@Override

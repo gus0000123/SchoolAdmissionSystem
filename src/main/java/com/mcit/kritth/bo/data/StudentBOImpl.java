@@ -9,10 +9,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mcit.kritth.bo.template.CourseBO;
+import com.mcit.kritth.bo.template.CourseMarkBO;
+import com.mcit.kritth.bo.template.DepartmentBO;
 import com.mcit.kritth.bo.template.StudentBO;
 import com.mcit.kritth.bo.template.StudentGradeBO;
 import com.mcit.kritth.dao.template.StudentDAO;
 import com.mcit.kritth.model.data.Course;
+import com.mcit.kritth.model.data.CourseMark;
+import com.mcit.kritth.model.data.CourseWork;
 import com.mcit.kritth.model.data.Student;
 import com.mcit.kritth.model.data.StudentGrade;
 import com.mcit.kritth.spring.ApplicationContextProvider;
@@ -47,10 +51,24 @@ public class StudentBOImpl implements StudentBO
 	}
 
 	@Override
-	public void delete(Student o) { dao.removeBeanByPrimaryKey(o.getId()); }
-
-	@Override
-	public void deleteById(Serializable id) { dao.removeBeanByPrimaryKey(id); }
+	public void delete(Student o)
+	{
+		DepartmentBO dservice = ApplicationContextProvider.getApplicationContext().getBean(DepartmentBO.class);
+		CourseBO cservice = ApplicationContextProvider.getApplicationContext().getBean(CourseBO.class);
+		
+		// Delete from department
+		o.getDepartment().getStudents().remove(o);
+		dservice.update(o.getDepartment());
+		
+		// Delete from course
+		for (Course c : o.getEnrolled_courses())
+		{
+			c.getStudents().remove(o);
+			cservice.update(c);
+		}
+		
+		dao.removeBeanByPrimaryKey(o.getId());
+	}
 
 	@Override
 	public Student getById(Serializable id) { return dao.getModelByPrimaryKey(id); }
@@ -92,6 +110,21 @@ public class StudentBOImpl implements StudentBO
 			
 			sg.setStudent(s);
 			sg.setCourse(c);
+			
+			// Adding course mark
+			CourseMarkBO cmservice = ApplicationContextProvider.getApplicationContext().getBean(CourseMarkBO.class);
+			for (CourseWork cw : c.getCourse_works())
+			{
+				CourseMark cm = new CourseMark();
+				
+				cm.setMark(0);
+				cm.setCoursework(cw);
+				cm.setStudent(s);
+				
+				cmservice.insert(cm);
+				
+				sg.getCourseMarks().add(cm);
+			}
 			
 			sgservice.insert(sg);
 			

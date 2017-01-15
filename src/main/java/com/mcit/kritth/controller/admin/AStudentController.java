@@ -101,7 +101,7 @@ public class AStudentController
 		}
 		else
 		{
-			sservice.deleteById(Integer.parseInt(id));
+			sservice.delete(sservice.getById(Integer.parseInt(id)));
 		}
 		
 		ModelAndView model = new ModelAndView(url);
@@ -119,7 +119,7 @@ public class AStudentController
 		
 		for (String id : selection)
 		{
-			sservice.deleteById(Integer.parseInt(id));
+			sservice.delete(sservice.getById(Integer.parseInt(id)));
 		}
 		
 		ModelAndView model = new ModelAndView(url);

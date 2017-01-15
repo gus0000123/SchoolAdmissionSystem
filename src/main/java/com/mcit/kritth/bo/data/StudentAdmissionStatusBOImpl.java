@@ -28,9 +28,6 @@ public class StudentAdmissionStatusBOImpl implements StudentAdmissionStatusBO
 	public void delete(StudentAdmissionStatus o) { dao.removeBeanByPrimaryKey(o.getStatus()); }
 
 	@Override
-	public void deleteById(Serializable id) { dao.removeBeanByPrimaryKey(id); }
-
-	@Override
 	public StudentAdmissionStatus getById(Serializable id) { return dao.getModelByPrimaryKey(id); }
 
 	@Override

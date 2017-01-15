@@ -28,9 +28,6 @@ public class StudentGradeBOImpl implements StudentGradeBO
 	public void delete(StudentGrade o) { dao.removeBeanByPrimaryKey(o.getGradeId()); }
 
 	@Override
-	public void deleteById(Serializable id) { dao.removeBeanByPrimaryKey(id); }
-
-	@Override
 	public StudentGrade getById(Serializable id) { return dao.getModelByPrimaryKey(id); }
 
 	@Override

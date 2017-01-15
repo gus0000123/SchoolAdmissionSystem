@@ -28,9 +28,6 @@ public class PersonBOImpl implements PersonBO
 	public void delete(Person o) { dao.removeBeanByPrimaryKey(o.getID()); }
 
 	@Override
-	public void deleteById(Serializable id) { dao.removeBeanByPrimaryKey(id); }
-
-	@Override
 	public Person getById(Serializable id) { return dao.getModelByPrimaryKey(id); }
 
 	@Override

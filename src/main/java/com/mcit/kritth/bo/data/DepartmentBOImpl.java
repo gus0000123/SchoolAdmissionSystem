@@ -28,9 +28,6 @@ public class DepartmentBOImpl implements DepartmentBO
 	public void delete(Department o) { dao.removeBeanByPrimaryKey(o.getDeptId()); }
 
 	@Override
-	public void deleteById(Serializable id) { dao.removeBeanByPrimaryKey(id); }
-
-	@Override
 	public Department getById(Serializable id) { return dao.getModelByPrimaryKey(id); }
 
 	@Override

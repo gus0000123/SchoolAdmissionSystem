@@ -66,10 +66,8 @@ public class TestStudentAdmissionStatusBO implements TestService
 	public void testDelete() {
 		String id = TestUtil.generateRandomString();
 		service.delete(instance);
-		service.deleteById(id);
 		when(instance.getStatus()).thenReturn(id);
 		verify(dao).removeBeanByPrimaryKey(instance.getStatus());
-		verify(dao).removeBeanByPrimaryKey(id);
 	}
 	
 }

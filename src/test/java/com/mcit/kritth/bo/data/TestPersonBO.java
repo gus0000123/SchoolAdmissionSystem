@@ -66,10 +66,8 @@ public class TestPersonBO implements TestService
 	public void testDelete() {
 		int id = TestUtil.generateRandomNumber();
 		service.delete(instance);
-		service.deleteById(id);
 		when(instance.getID()).thenReturn(id);
 		verify(dao).removeBeanByPrimaryKey(instance.getID());
-		verify(dao).removeBeanByPrimaryKey(id);
 	}
 	
 }

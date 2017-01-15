@@ -66,10 +66,8 @@ public class TestCourseWorkBO implements TestService
 	public void testDelete() {
 		int id = TestUtil.generateRandomNumber();
 		service.delete(instance);
-		service.deleteById(id);
 		when(instance.getCoursework_id()).thenReturn(id);
 		verify(dao).removeBeanByPrimaryKey(instance.getCoursework_id());
-		verify(dao).removeBeanByPrimaryKey(id);
 	}
 	
 }

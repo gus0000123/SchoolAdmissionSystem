@@ -28,9 +28,6 @@ public class SystemGroupBOImpl implements SystemGroupBO
 	public void delete(SystemGroup o) { dao.removeBeanByPrimaryKey(o.getId()); }
 
 	@Override
-	public void deleteById(Serializable id) { dao.removeBeanByPrimaryKey(id); }
-
-	@Override
 	public SystemGroup getById(Serializable id) { return dao.getModelByPrimaryKey(id); }
 
 	@Override

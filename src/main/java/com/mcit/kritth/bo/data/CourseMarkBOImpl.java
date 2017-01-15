@@ -28,9 +28,6 @@ public class CourseMarkBOImpl implements CourseMarkBO
 	public void delete(CourseMark o) { dao.removeBeanByPrimaryKey(o.getId()); }
 
 	@Override
-	public void deleteById(Serializable id) { dao.removeBeanByPrimaryKey(id); }
-
-	@Override
 	public CourseMark getById(Serializable id) { return dao.getModelByPrimaryKey(id); }
 
 	@Override

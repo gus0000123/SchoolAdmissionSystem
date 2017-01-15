@@ -28,9 +28,6 @@ public class ResourceBOImpl implements ResourceBO
 	public void delete(Resource o) { dao.removeBeanByPrimaryKey(o.getId()); }
 
 	@Override
-	public void deleteById(Serializable id) { dao.removeBeanByPrimaryKey(id); }
-
-	@Override
 	public Resource getById(Serializable id) { return dao.getModelByPrimaryKey(id); }
 
 	@Override

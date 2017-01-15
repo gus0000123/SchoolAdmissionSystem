@@ -28,9 +28,6 @@ public class MessageBOImpl implements MessageBO
 	public void delete(Message o) { dao.removeBeanByPrimaryKey(o.getId()); }
 
 	@Override
-	public void deleteById(Serializable id) { dao.removeBeanByPrimaryKey(id); }
-
-	@Override
 	public Message getById(Serializable id) { return dao.getModelByPrimaryKey(id); }
 
 	@Override

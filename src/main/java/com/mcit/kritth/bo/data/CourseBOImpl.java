@@ -1,7 +1,6 @@
 package com.mcit.kritth.bo.data;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.mcit.kritth.bo.template.CourseBO;
 import com.mcit.kritth.bo.template.CourseMarkBO;
-import com.mcit.kritth.bo.template.CourseWorkBO;
 import com.mcit.kritth.bo.template.EmployeeBO;
 import com.mcit.kritth.bo.template.StudentBO;
 import com.mcit.kritth.bo.template.StudentGradeBO;
@@ -19,7 +17,6 @@ import com.mcit.kritth.dao.template.CourseDAO;
 import com.mcit.kritth.model.data.Course;
 import com.mcit.kritth.model.data.CourseMark;
 import com.mcit.kritth.model.data.CourseWork;
-import com.mcit.kritth.model.data.Department;
 import com.mcit.kritth.model.data.Employee;
 import com.mcit.kritth.model.data.Student;
 import com.mcit.kritth.model.data.StudentGrade;
@@ -61,21 +58,25 @@ public class CourseBOImpl implements CourseBO
 	@Override
 	public void delete(Course o)
 	{
+		EmployeeBO eservice = ApplicationContextProvider.getApplicationContext().getBean(EmployeeBO.class);
+		
 		// Clear students
 		updateStudents(o, null);
-		/*
-		updateDepartment(o, null);
-		updateInstructor(o, null);
-		updateTA(o, null);
-		updateStudent(o, null);
-		updatePrerequisite(o, null);
-		*/
+		
+		// Remove instructor
+		o.getInstructor().getAssigned_courses().remove(o);
+		eservice.update(o.getInstructor());
+		
+		// Remove TA
+		for (Employee e : o.getTa())
+		{
+			e.getAssigned_courses().remove(o);
+			eservice.update(e);
+		}
+		
 		// does not need coursework as it is cascade.all
 		dao.removeBeanByPrimaryKey(o.getCourse_code());
 	}
-	
-	@Override
-	public void deleteById(Serializable id) { dao.removeBeanByPrimaryKey(id); }
 
 	@Override
 	public Course getById(Serializable id) { return dao.getModelByPrimaryKey(id); }

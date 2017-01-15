@@ -30,9 +30,6 @@ public class EmployeeBOImpl implements EmployeeBO
 	public void delete(Employee o) { dao.removeBeanByPrimaryKey(o.getId()); }
 
 	@Override
-	public void deleteById(Serializable id) { dao.removeBeanByPrimaryKey(id); }
-
-	@Override
 	public Employee getById(Serializable id) { return dao.getModelByPrimaryKey(id); }
 
 	@Override

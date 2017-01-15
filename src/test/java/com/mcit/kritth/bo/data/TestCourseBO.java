@@ -65,10 +65,8 @@ public class TestCourseBO implements TestService
 	public void testDelete() {
 		String id = "test";
 		service.delete(instance);
-		service.deleteById(id);
 		when(instance.getCourse_code()).thenReturn(id);
 		verify(dao).removeBeanByPrimaryKey(instance.getCourse_code());
-		verify(dao).removeBeanByPrimaryKey(id);
 	}
 	
 }
