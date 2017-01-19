@@ -26,8 +26,6 @@ public class Course
 	private int credit = 3;
 	private boolean is_active = true;
 	
-	// TODO: private Map<DayOfWeek, ScheduleTime> schedule;
-	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@NotNull
 	private Department department;
@@ -44,12 +42,6 @@ public class Course
 		joinColumns={@JoinColumn(name="course_id")},
 		inverseJoinColumns={@JoinColumn(name="pre_req_id")})
 	private Set<Course> prerequisite;
-	
-	@ManyToMany(fetch=FetchType.EAGER)
-	@JoinTable(name="as_course_ta",
-		joinColumns={@JoinColumn(name="course_id")},
-		inverseJoinColumns={@JoinColumn(name="employee_id")})
-	private Set<Employee> ta;
 	
 	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="as_registered_students",
@@ -90,13 +82,6 @@ public class Course
 	}
 	public void setInstructor(Employee instructor) {
 		this.instructor = instructor;
-	}
-	public Set<Employee> getTa() {
-		if (ta == null) ta = new HashSet<Employee>();
-		return ta;
-	}
-	public void setTa(Set<Employee> ta) {
-		this.ta = ta;
 	}
 	public int getCredit() {
 		return credit;

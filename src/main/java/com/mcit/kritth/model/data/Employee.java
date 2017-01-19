@@ -84,4 +84,17 @@ public class Employee
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
+	
+	@Override
+	public int hashCode() {
+		return ("employee:" + id).hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object e) {
+		if (e instanceof Employee)
+			return this.getId() == ((Employee) e).getId();
+		else
+			return false;
+	}
 }

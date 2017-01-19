@@ -199,7 +199,7 @@ public class APersonController
 	
 	@RequestMapping(value = "personDoDelete", method = RequestMethod.POST)
 	public ModelAndView doDeletePerson(
-			@RequestParam("selection") List<String> selection)
+			@RequestParam("selection") List<String> selection) throws Exception
 	{
 		String url = "forward:/personView";
 		

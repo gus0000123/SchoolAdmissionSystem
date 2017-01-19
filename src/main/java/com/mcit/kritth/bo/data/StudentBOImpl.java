@@ -100,7 +100,12 @@ public class StudentBOImpl implements StudentBO
 			{
 				s.getMarks().remove(toDelete);
 				sservice.update(s);
-				sgservice.delete(toDelete); // delete this will delete whole hierarchy
+				try
+				{
+					// delete this will delete whole hierarchy
+					sgservice.delete(toDelete);
+				}
+				catch (Exception e) { }
 			}
 		}
 		else

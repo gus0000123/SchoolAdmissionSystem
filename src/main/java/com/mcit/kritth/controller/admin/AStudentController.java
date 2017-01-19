@@ -76,7 +76,7 @@ public class AStudentController
 	public ModelAndView studentInitInsert(
 			@RequestParam("attachStudent") List<String> attachStudent,
 			@RequestParam("id") String id,
-			@RequestParam(value = "s_department") String department_id)
+			@RequestParam(value = "s_department") String department_id) throws Exception
 	{
 		String url = "forward:/personView";
 		
@@ -113,7 +113,7 @@ public class AStudentController
 	
 	@RequestMapping(value = "/studentDoDelete")
 	public ModelAndView doDeleteStudent(
-			@RequestParam("selection") List<String> selection)
+			@RequestParam("selection") List<String> selection) throws Exception
 	{
 		String url = "forward:/studentView";
 		

@@ -38,6 +38,7 @@ public class CourseBOImpl implements CourseBO
 		Course c = getById(o.getCourse_code());
 		
 		Set<Student> oldStudents = c.getStudents();
+		Employee oldInstructor = c.getInstructor();
 		
 		c.setClass_level(o.getClass_level());
 		c.setCourse_number(o.getCourse_number());
@@ -53,6 +54,9 @@ public class CourseBOImpl implements CourseBO
 		
 		// Check if student changed
 		updateStudents(c, oldStudents);
+		
+		// Update instructor
+		updateInstructor(c, oldInstructor, o.getInstructor());
 	}
 
 	@Override
@@ -66,13 +70,6 @@ public class CourseBOImpl implements CourseBO
 		// Remove instructor
 		o.getInstructor().getAssigned_courses().remove(o);
 		eservice.update(o.getInstructor());
-		
-		// Remove TA
-		for (Employee e : o.getTa())
-		{
-			e.getAssigned_courses().remove(o);
-			eservice.update(e);
-		}
 		
 		// does not need coursework as it is cascade.all
 		dao.removeBeanByPrimaryKey(o.getCourse_code());
@@ -172,6 +169,19 @@ public class CourseBOImpl implements CourseBO
 				s.getEnrolled_courses().remove(newCourse);
 				sservice.update(s);
 			}
+		}
+	}
+	
+	private void updateInstructor(Course c, Employee oldInstructor, Employee newInstructor)
+	{
+		EmployeeBO eservice = ApplicationContextProvider.getApplicationContext().getBean(EmployeeBO.class);
+		
+		if (!oldInstructor.equals(newInstructor))
+		{
+			oldInstructor.getAssigned_courses().remove(c);
+			eservice.update(oldInstructor);
+			newInstructor.getAssigned_courses().add(c);
+			eservice.update(newInstructor);
 		}
 	}
 }

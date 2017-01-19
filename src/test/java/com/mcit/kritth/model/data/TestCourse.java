@@ -27,7 +27,6 @@ public class TestCourse implements TestBean
 	private Employee instructor;
 	private CourseWork course_work;
 	private Course prerequisite;
-	private Employee ta;
 	private Student student;
 
 	@Before
@@ -47,7 +46,6 @@ public class TestCourse implements TestBean
 		instructor = new Employee();
 		course_work = new CourseWork();
 		prerequisite = new Course();
-		ta = new Employee();
 		student = new Student();
 	}
 
@@ -68,7 +66,6 @@ public class TestCourse implements TestBean
 		course.setInstructor(instructor);
 		course.setCourse_works(new HashSet<CourseWork>());
 		course.setPrerequisite(new HashSet<Course>());
-		course.setTa(new HashSet<Employee>());
 		course.setStudents(new HashSet<Student>());
 				
 		course_code = BeanUtil.getCourseCode(course);
@@ -88,7 +85,6 @@ public class TestCourse implements TestBean
 		assertNotNull(course.getInstructor());
 		assertNotNull(course.getCourse_works());
 		assertNotNull(course.getPrerequisite());
-		assertNotNull(course.getTa());
 		assertNotNull(course.getStudents());
 		assertNotNull(course.toString());
 		
@@ -96,12 +92,10 @@ public class TestCourse implements TestBean
 		course = new Course();
 		course.getCourse_works().add(course_work);
 		course.getPrerequisite().add(prerequisite);
-		course.getTa().add(ta);
 		course.getStudents().add(student);
 		
 		assertNotNull(course.getCourse_works());
 		assertNotNull(course.getPrerequisite());
-		assertNotNull(course.getTa());
 		assertNotNull(course.getStudents());
 	}
 }
