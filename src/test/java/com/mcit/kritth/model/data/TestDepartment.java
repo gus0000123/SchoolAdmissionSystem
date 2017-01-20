@@ -30,6 +30,8 @@ public class TestDepartment implements TestBean
 		dept_id = TestUtil.generateRandomNumber();
 		budget = TestUtil.generateRandomNumber();
 		dept_code = new DepartmentCode();
+		dept_code.setDept_code("test");
+		dept_code.setDept_name("test");
 		student = new Student();
 		employee = new Employee();
 		dean = new Employee();

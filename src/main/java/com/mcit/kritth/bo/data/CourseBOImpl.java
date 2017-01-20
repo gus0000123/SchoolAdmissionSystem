@@ -62,14 +62,16 @@ public class CourseBOImpl implements CourseBO
 	@Override
 	public void delete(Course o)
 	{
-		EmployeeBO eservice = ApplicationContextProvider.getApplicationContext().getBean(EmployeeBO.class);
-		
 		// Clear students
 		updateStudents(o, null);
 		
 		// Remove instructor
-		o.getInstructor().getAssigned_courses().remove(o);
-		eservice.update(o.getInstructor());
+		if (o.getInstructor() != null && o.getInstructor().getAssigned_courses().contains(o))
+		{
+			EmployeeBO eservice = ApplicationContextProvider.getApplicationContext().getBean(EmployeeBO.class);
+			o.getInstructor().getAssigned_courses().remove(o);
+			eservice.update(o.getInstructor());
+		}
 		
 		// does not need coursework as it is cascade.all
 		dao.removeBeanByPrimaryKey(o.getCourse_code());

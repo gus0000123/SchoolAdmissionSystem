@@ -57,8 +57,11 @@ public class StudentBOImpl implements StudentBO
 		CourseBO cservice = ApplicationContextProvider.getApplicationContext().getBean(CourseBO.class);
 		
 		// Delete from department
-		o.getDepartment().getStudents().remove(o);
-		dservice.update(o.getDepartment());
+		if (o.getDepartment().getStudents() != null && o.getDepartment().getStudents().size() > 0)
+		{
+			o.getDepartment().getStudents().remove(o);
+			dservice.update(o.getDepartment());
+		}
 		
 		// Delete from course
 		for (Course c : o.getEnrolled_courses())

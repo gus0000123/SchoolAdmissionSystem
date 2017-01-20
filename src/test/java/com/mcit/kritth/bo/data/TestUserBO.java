@@ -65,8 +65,8 @@ public class TestUserBO implements TestService
 	@Override
 	public void testDelete() {
 		String id = TestUtil.generateRandomString();
-		service.delete(instance);
 		when(instance.getUser()).thenReturn(id);
+		service.delete(instance);
 		verify(dao).removeBeanByPrimaryKey(instance.getUser());
 	}
 	

@@ -65,8 +65,8 @@ public class TestStudentGradeBO implements TestService
 	@Override
 	public void testDelete() {
 		int id = TestUtil.generateRandomNumber();
-		service.delete(instance);
 		when(instance.getGradeId()).thenReturn(id);
+		service.delete(instance);
 		verify(dao).removeBeanByPrimaryKey(instance.getGradeId());
 	}
 	

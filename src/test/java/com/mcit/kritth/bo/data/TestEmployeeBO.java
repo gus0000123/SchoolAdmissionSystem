@@ -11,6 +11,7 @@ import static org.mockito.Mockito.*;
 
 import com.mcit.kritth.bo.TestService;
 import com.mcit.kritth.dao.template.EmployeeDAO;
+import com.mcit.kritth.model.data.Department;
 import com.mcit.kritth.model.data.Employee;
 import com.mcit.kritth.util.TestUtil;
 
@@ -19,6 +20,8 @@ public class TestEmployeeBO implements TestService
 {
 	@Mock
 	private Employee instance;
+	@Mock
+	private Department d;
 	@Mock
 	private EmployeeDAO dao;
 	@InjectMocks
@@ -29,6 +32,7 @@ public class TestEmployeeBO implements TestService
 	public void init()
 	{
 		MockitoAnnotations.initMocks(this);
+		instance.setDepartment(d);
 	}
 
 	@Test
@@ -42,6 +46,8 @@ public class TestEmployeeBO implements TestService
 	@Test
 	@Override
 	public void testUpdate() {
+		when(service.getById(instance.getId())).thenReturn(instance);
+		when(instance.getDepartment()).thenReturn(d);
 		service.update(instance);
 		verify(dao).updateBean(instance);
 	}
@@ -65,9 +71,11 @@ public class TestEmployeeBO implements TestService
 	@Override
 	public void testDelete() {
 		int id = TestUtil.generateRandomNumber();
+		when(instance.getId()).thenReturn(id);
+		when(instance.getAssigned_courses()).thenReturn(null);
+		when(instance.getDepartment()).thenReturn(d);
 		try { service.delete(instance); }
 		catch (Exception e) { }
-		when(instance.getId()).thenReturn(id);
 		verify(dao).removeBeanByPrimaryKey(instance.getId());
 	}
 	

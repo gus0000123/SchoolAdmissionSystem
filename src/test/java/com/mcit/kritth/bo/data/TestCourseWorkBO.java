@@ -65,8 +65,8 @@ public class TestCourseWorkBO implements TestService
 	@Override
 	public void testDelete() {
 		int id = TestUtil.generateRandomNumber();
-		service.delete(instance);
 		when(instance.getCoursework_id()).thenReturn(id);
+		service.delete(instance);
 		verify(dao).removeBeanByPrimaryKey(instance.getCoursework_id());
 	}
 	

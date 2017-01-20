@@ -65,8 +65,8 @@ public class TestResourceTypeBO implements TestService
 	@Override
 	public void testDelete() {
 		String id = TestUtil.generateRandomString();
-		service.delete(instance);
 		when(instance.getName()).thenReturn(id);
+		service.delete(instance);
 		verify(dao).removeBeanByPrimaryKey(instance.getName());
 	}
 	
