@@ -1,6 +1,7 @@
 package com.mcit.kritth.controller.home;
 
 import org.hibernate.ObjectNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,12 +15,17 @@ import com.mcit.kritth.model.data.Employee;
 import com.mcit.kritth.model.data.Person;
 import com.mcit.kritth.model.data.Student;
 import com.mcit.kritth.model.data.User;
-import com.mcit.kritth.spring.ApplicationContextProvider;
 
 @Controller
 @SessionAttributes("user")
 public class HApplicationController
 {
+	@Autowired
+	private StudentBO studentService;
+	
+	@Autowired
+	private EmployeeBO employeeService;
+	
 	@RequestMapping(value = "/homeApplication", method = RequestMethod.POST)
 	public ModelAndView getApplicationContext(
 			@ModelAttribute User u)
@@ -29,7 +35,6 @@ public class HApplicationController
 		Person p = u.getPerson();
 		
 		// Get Student
-		StudentBO studentService = ApplicationContextProvider.getApplicationContext().getBean("studentService", StudentBO.class);
 		Student s = null;
 				
 		try
@@ -40,7 +45,6 @@ public class HApplicationController
 		catch (ObjectNotFoundException ex) { }
 		
 		// Get Employee
-		EmployeeBO employeeService = ApplicationContextProvider.getApplicationContext().getBean("employeeService", EmployeeBO.class);
 		Employee e = null;
 		
 		try

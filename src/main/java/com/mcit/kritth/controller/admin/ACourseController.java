@@ -1,11 +1,9 @@
 package com.mcit.kritth.controller.admin;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.ObjectNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,43 +11,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mcit.kritth.bo.template.CourseBO;
-import com.mcit.kritth.bo.template.CourseWorkBO;
 import com.mcit.kritth.bo.template.DepartmentBO;
 import com.mcit.kritth.bo.template.EmployeeBO;
 import com.mcit.kritth.bo.template.StudentBO;
 import com.mcit.kritth.model.data.Course;
-import com.mcit.kritth.model.data.CourseWork;
 import com.mcit.kritth.model.data.Department;
 import com.mcit.kritth.model.data.Employee;
 import com.mcit.kritth.model.data.Student;
-import com.mcit.kritth.spring.ApplicationContextProvider;
-import com.mcit.kritth.util.BidirectionalUtil;
 
 @Controller
 public class ACourseController
 {
+	@Autowired
 	private CourseBO cservice;
+	@Autowired
 	private DepartmentBO dservice;
+	@Autowired
 	private EmployeeBO eservice;
+	@Autowired
 	private StudentBO sservice;
-	private CourseWorkBO cwservice;
-	
-	private void init()
-	{
-		cservice = ApplicationContextProvider.getApplicationContext().getBean(CourseBO.class);
-		dservice = ApplicationContextProvider.getApplicationContext().getBean(DepartmentBO.class);
-		eservice = ApplicationContextProvider.getApplicationContext().getBean(EmployeeBO.class);
-		sservice = ApplicationContextProvider.getApplicationContext().getBean(StudentBO.class);
-		cwservice = ApplicationContextProvider.getApplicationContext().getBean(CourseWorkBO.class);
-	}
 	
 	@RequestMapping(value="/courseController", method=RequestMethod.POST)
 	public ModelAndView courseContentSelector(
 			@RequestParam(value="mode", required = false) String mode,
 			@RequestParam(value="actionPerformed", required = false) Boolean performed)
 	{
-		if (cservice == null) init();
-		
 		String url = "forward:/courseView";
 		
 		if (mode == null) mode = "view";

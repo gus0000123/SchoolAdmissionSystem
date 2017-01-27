@@ -8,8 +8,6 @@ package com.mcit.kritth.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.mcit.kritth.spring.ApplicationContextProvider;
 /**
  *
  * @author test
@@ -19,9 +17,7 @@ public class StartWebApp
 {
 	@RequestMapping("/")
     public ModelAndView init()
-    {
-		ApplicationContextProvider.getApplicationContext();
-		
+    {		
 		ModelAndView model = new ModelAndView("index");
         return model;
     }

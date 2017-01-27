@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,20 +17,18 @@ import com.mcit.kritth.model.data.Course;
 import com.mcit.kritth.model.data.CourseWork;
 import com.mcit.kritth.model.data.Student;
 import com.mcit.kritth.model.data.User;
-import com.mcit.kritth.spring.ApplicationContextProvider;
 
 @Controller
 @SessionAttributes("user")
 public class SOverviewController
 {
+	@Autowired
 	private StudentBO sservice;
 	
 	@RequestMapping(value = "/studentOverview", method = RequestMethod.POST)
 	public ModelAndView getOverviewContext(
 			@ModelAttribute User u)
-	{
-		if (sservice == null) sservice = ApplicationContextProvider.getApplicationContext().getBean(StudentBO.class);
-		
+	{		
 		Student student = sservice.getById(u.getPerson().getID());
 		
 		// Link

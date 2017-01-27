@@ -20,7 +20,6 @@ import com.mcit.kritth.model.data.CourseWork;
 import com.mcit.kritth.model.data.Employee;
 import com.mcit.kritth.model.data.Student;
 import com.mcit.kritth.model.data.StudentGrade;
-import com.mcit.kritth.spring.ApplicationContextProvider;
 
 @Service("courseService")
 @Transactional
@@ -28,6 +27,19 @@ public class CourseBOImpl implements CourseBO
 {
 	@Autowired
 	private CourseDAO dao;
+	
+	@Autowired
+	private EmployeeBO eservice;
+	
+	@Autowired
+	private StudentBO sservice;
+	
+	@Autowired
+	private StudentGradeBO sgservice;
+	
+	@Autowired
+	private CourseMarkBO cmservice;
+	
 	
 	@Override
 	public void insert(Course o) { dao.insertBean(o); }
@@ -68,7 +80,6 @@ public class CourseBOImpl implements CourseBO
 		// Remove instructor
 		if (o.getInstructor() != null && o.getInstructor().getAssigned_courses().contains(o))
 		{
-			EmployeeBO eservice = ApplicationContextProvider.getApplicationContext().getBean(EmployeeBO.class);
 			o.getInstructor().getAssigned_courses().remove(o);
 			eservice.update(o.getInstructor());
 		}
@@ -85,9 +96,6 @@ public class CourseBOImpl implements CourseBO
 
 	private void updateStudentCourseMark(Course c, Student s)
 	{
-		StudentGradeBO sgservice = ApplicationContextProvider.getApplicationContext().getBean(StudentGradeBO.class);
-		CourseMarkBO cmservice = ApplicationContextProvider.getApplicationContext().getBean(CourseMarkBO.class);
-		
 		if (s.getEnrolled_courses().contains(c))
 		{
 			StudentGrade studentGrade = null;
@@ -138,9 +146,7 @@ public class CourseBOImpl implements CourseBO
 	}
 	
 	private void updateStudents(Course newCourse, Set<Student> oldStudents)
-	{
-		StudentBO sservice = ApplicationContextProvider.getApplicationContext().getBean(StudentBO.class);
-		
+	{		
 		if (oldStudents != null)
 		{
 			// Delete course from old student
@@ -176,8 +182,6 @@ public class CourseBOImpl implements CourseBO
 	
 	private void updateInstructor(Course c, Employee oldInstructor, Employee newInstructor)
 	{
-		EmployeeBO eservice = ApplicationContextProvider.getApplicationContext().getBean(EmployeeBO.class);
-		
 		if (!oldInstructor.equals(newInstructor))
 		{
 			oldInstructor.getAssigned_courses().remove(c);

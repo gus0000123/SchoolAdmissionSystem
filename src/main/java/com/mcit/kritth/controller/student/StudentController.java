@@ -1,6 +1,7 @@
 package com.mcit.kritth.controller.student;
 
 import org.hibernate.ObjectNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,12 +13,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mcit.kritth.bo.template.StudentBO;
 import com.mcit.kritth.model.data.Student;
 import com.mcit.kritth.model.data.User;
-import com.mcit.kritth.spring.ApplicationContextProvider;
 
 @Controller
 @SessionAttributes("user")
 public class StudentController
 {
+	@Autowired
+	private StudentBO sservice;
+	
 	@RequestMapping(value = "/student", method = RequestMethod.POST)
 	public ModelAndView tabSeletor(
 			@ModelAttribute User user,
@@ -27,7 +30,6 @@ public class StudentController
 		
 		if (user != null && user.getPerson() != null)
 		{
-			StudentBO sservice = ApplicationContextProvider.getApplicationContext().getBean(StudentBO.class);
 			Student student = null;
 			
 			// Get student from database

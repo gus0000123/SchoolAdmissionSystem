@@ -3,6 +3,7 @@ package com.mcit.kritth.controller.admin;
 import java.util.List;
 
 import org.hibernate.ObjectNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,17 +20,27 @@ import com.mcit.kritth.model.data.Employee;
 import com.mcit.kritth.model.data.Person;
 import com.mcit.kritth.model.data.Student;
 import com.mcit.kritth.model.data.User;
-import com.mcit.kritth.spring.ApplicationContextProvider;
 
 @Controller
 public class APersonController
 {
+	@Autowired
+	private PersonBO service;
+	@Autowired
+	private DepartmentBO dservice;
+	@Autowired
+	private UserBO uservice;
+	@Autowired
+	private StudentBO sservice;
+	@Autowired
+	private EmployeeBO eservice;
+	
 	@RequestMapping(value = "/personController", method = RequestMethod.POST)
 	public ModelAndView personActionSelector(
 			@RequestParam(value = "mode", required = false) String mode,
 			@RequestParam(value = "actionPerformed", required = false) Boolean performed)
 	{
-		String url = "";
+		String url = ""; 
 		if (mode == null) { mode = "view"; }
 		if (performed == null) { performed = false; }
 		
@@ -63,9 +74,7 @@ public class APersonController
 	public ModelAndView viewPerson()
 	{
 		String url = "layout/adminApp";
-		
-		PersonBO pservice = ApplicationContextProvider.getApplicationContext().getBean("personService", PersonBO.class);
-		List<Person> list = pservice.getAll();
+		List<Person> list = service.getAll();
 		
 		ModelAndView model = new ModelAndView(url);
 		model.addObject("list", list);
@@ -75,8 +84,7 @@ public class APersonController
 	
 	private ModelAndView attachValues(int id, ModelAndView model)
 	{
-		DepartmentBO service = ApplicationContextProvider.getApplicationContext().getBean("departmentService", DepartmentBO.class);
-		List<Department> list = service.getAll();
+		List<Department> list = dservice.getAll();
 		model.addObject("department_list", list);
 		
 		// Fetch data
@@ -85,7 +93,6 @@ public class APersonController
 			// Try getting user
 			try
 			{
-				UserBO uservice = ApplicationContextProvider.getApplicationContext().getBean("userService", UserBO.class);
 				User u = uservice.getByPersonId(id);
 				model.addObject("user", u);
 			}
@@ -94,7 +101,6 @@ public class APersonController
 			// Try getting student
 			try
 			{
-				StudentBO sservice = ApplicationContextProvider.getApplicationContext().getBean("studentService", StudentBO.class);
 				Student s = sservice.getById(id);
 				model.addObject("student", s);
 			}
@@ -103,7 +109,6 @@ public class APersonController
 			// Try getting employee
 			try
 			{
-				EmployeeBO eservice = ApplicationContextProvider.getApplicationContext().getBean("employeeService", EmployeeBO.class);
 				Employee e = eservice.getById(id);
 				model.addObject("employee", e);
 			}
@@ -131,7 +136,6 @@ public class APersonController
 	{
 		String url = "layout/adminApp";
 		
-		PersonBO service = ApplicationContextProvider.getApplicationContext().getBean("personService", PersonBO.class);
 		Person p = service.getById(id);
 		
 		ModelAndView model = new ModelAndView(url);
@@ -163,7 +167,6 @@ public class APersonController
 	{
 		String url = "forward:/personView";
 		
-		PersonBO service = ApplicationContextProvider.getApplicationContext().getBean("personService", PersonBO.class);
 		Person p = new Person();
 		p.setFirstName(first_name);
 		p.setLastName(last_name);
@@ -184,7 +187,6 @@ public class APersonController
 	{
 		String url = "forward:/studentController";
 		
-		PersonBO service = ApplicationContextProvider.getApplicationContext().getBean("personService", PersonBO.class);
 		int iid = Integer.parseInt(id);
 		Person p = service.getById(iid);
 		p.setFirstName(first_name);
@@ -203,7 +205,6 @@ public class APersonController
 	{
 		String url = "forward:/personView";
 		
-		PersonBO service = ApplicationContextProvider.getApplicationContext().getBean("personService", PersonBO.class);
 		for (String id : selection)
 		{
 			service.delete(service.getById(Integer.parseInt(id)));

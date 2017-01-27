@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,18 +17,19 @@ import com.mcit.kritth.bo.template.PersonalBO;
 import com.mcit.kritth.model.data.Person;
 import com.mcit.kritth.model.data.User;
 import com.mcit.kritth.model.messenger.Personal;
-import com.mcit.kritth.spring.ApplicationContextProvider;
 
 @Controller
 @SessionAttributes("user")
 public class HOverviewController {
+	@Autowired
+	private PersonalBO service;
+	
 	@RequestMapping(value = "/homeOverview", method = RequestMethod.POST)
 	public ModelAndView getOverviewContext(
 			@ModelAttribute User u)
 	{
 		// Grabbing data
 		Person p = u.getPerson();
-		PersonalBO service = ApplicationContextProvider.getApplicationContext().getBean("personalService", PersonalBO.class);
 		
 		// Initialization
 		List<Personal> obj = service.getAllFromReceiverId(p.getID()); 

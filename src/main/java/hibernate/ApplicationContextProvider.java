@@ -1,4 +1,4 @@
-package com.mcit.kritth.spring;
+package hibernate;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +9,11 @@ import org.springframework.context.support.AbstractApplicationContext;
 
 import com.mcit.kritth.configuration.AppConfig;
 
+/**
+ * This class only uses for local hibernate insertion
+ * @author Kritth
+ *
+ */
 public class ApplicationContextProvider implements ApplicationContextAware
 {
 	@Autowired

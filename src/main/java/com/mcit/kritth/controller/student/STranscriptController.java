@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,20 +18,18 @@ import com.mcit.kritth.model.data.CourseMark;
 import com.mcit.kritth.model.data.Student;
 import com.mcit.kritth.model.data.StudentGrade;
 import com.mcit.kritth.model.data.User;
-import com.mcit.kritth.spring.ApplicationContextProvider;
 
 @Controller
 @SessionAttributes("user")
 public class STranscriptController
 {
+	@Autowired
 	private StudentBO sservice;
 	
 	@RequestMapping(value = "/studentTranscript", method = RequestMethod.POST)
 	public ModelAndView getOverviewContext(
 			@ModelAttribute User u)
-	{
-		if (sservice == null) sservice = ApplicationContextProvider.getApplicationContext().getBean(StudentBO.class);
-		
+	{		
 		Student student = sservice.getById(u.getPerson().getID());
 		
 		ModelAndView model = new ModelAndView("layout/studentApp");

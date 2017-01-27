@@ -1,5 +1,7 @@
 package com.mcit.kritth.model.data;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
@@ -65,5 +67,16 @@ public class TestEmployee implements TestBean
 		e.getAssigned_courses().add(new Course());
 		
 		assertNotNull(e.getAssigned_courses());
+	}
+	
+	@Test
+	public void testOverride()
+	{
+		assertEquals(e, e);
+		assertFalse(e.equals("String"));
+		
+		Employee e2 = new Employee();
+		e2.setId(-1);
+		assertFalse(e.equals(e2));
 	}
 }

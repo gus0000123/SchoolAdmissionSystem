@@ -1,5 +1,6 @@
 package com.mcit.kritth.controller.home;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,19 +14,22 @@ import com.mcit.kritth.bo.template.PersonBO;
 import com.mcit.kritth.bo.template.UserBO;
 import com.mcit.kritth.model.data.Person;
 import com.mcit.kritth.model.data.User;
-import com.mcit.kritth.spring.ApplicationContextProvider;
 import com.mcit.kritth.util.BeanUtil;
 
 @Controller
 @SessionAttributes("user")
 public class HLoginController
 {
+	@Autowired
+	private UserBO service;
+	@Autowired
+	private PersonBO pservice;
+	
 	@RequestMapping(value = "/login", method= {RequestMethod.POST})
 	public  ModelAndView login(
 			@RequestParam("user") String user,
 			@RequestParam("password") String password)
 	{
-		UserBO service = ApplicationContextProvider.getApplicationContext().getBean("userService", UserBO.class);
 		User u = service.getById(user);
 		
 		ModelAndView model;
@@ -75,8 +79,6 @@ public class HLoginController
 		
 		if (password.equals(cpassword))
 		{
-			PersonBO personService = ApplicationContextProvider.getApplicationContext().getBean("personService", PersonBO.class);
-			UserBO userService = ApplicationContextProvider.getApplicationContext().getBean("userService", UserBO.class);
 			
 			// Create person
 			Person p = new Person();
@@ -84,14 +86,14 @@ public class HLoginController
 			p.setMiddleName(middle_name);
 			p.setLastName(last_name);
 			p.setEmail(email);
-			personService.insert(p);
+			pservice.insert(p);
 						
 			// Create user
 			User u = new User();
 			u.setPerson(p);
 			u.setPassword(password);
 			u.setUser(BeanUtil.generateUserName(p));
-			userService.insert(u); 
+			service.insert(u); 
 			
 			model.addObject("page", "confirmation");
 			model.addObject("account_name", u.getUser());

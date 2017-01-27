@@ -19,7 +19,7 @@ public class HomeController
 			@ModelAttribute User user,
 			@RequestParam(value = "tab", required = false) String tab)
 	{
-		if (user != null && user.getPerson() != null)
+		if (user.getPerson() != null)
 		{			
 			String url = "";
 			

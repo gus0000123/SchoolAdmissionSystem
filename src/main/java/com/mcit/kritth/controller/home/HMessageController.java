@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,12 +18,14 @@ import com.mcit.kritth.bo.template.PersonalBO;
 import com.mcit.kritth.model.data.Person;
 import com.mcit.kritth.model.data.User;
 import com.mcit.kritth.model.messenger.Personal;
-import com.mcit.kritth.spring.ApplicationContextProvider;
 
 @Controller
 @SessionAttributes("user")
 public class HMessageController
 {
+	@Autowired
+	private PersonalBO service;
+	
 	@RequestMapping(value = "/homeMessage", method = RequestMethod.POST)
 	public ModelAndView getMessageContext(
 			@ModelAttribute User u,
@@ -36,7 +39,6 @@ public class HMessageController
 		Person p = u.getPerson();
 		List<Personal> list = null;
 		Personal message = null;
-		PersonalBO service = ApplicationContextProvider.getApplicationContext().getBean("personalService", PersonalBO.class);
 		
 		if (action == null || action.equals("")) { action = "other"; }
 		
@@ -108,8 +110,6 @@ public class HMessageController
 	{
 		if (selection != null && sub_tab != null)
 		{
-			PersonalBO service = ApplicationContextProvider.getApplicationContext().getBean("personalService", PersonalBO.class);
-			
 			switch(sub_tab)
 			{
 				case "trash":

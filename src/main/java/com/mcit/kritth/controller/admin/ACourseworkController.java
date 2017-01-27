@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import org.hibernate.ObjectNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,26 +16,19 @@ import com.mcit.kritth.bo.template.CourseBO;
 import com.mcit.kritth.bo.template.CourseWorkBO;
 import com.mcit.kritth.model.data.Course;
 import com.mcit.kritth.model.data.CourseWork;
-import com.mcit.kritth.spring.ApplicationContextProvider;
 
 @Controller
 public class ACourseworkController
 {
+	@Autowired
 	private CourseWorkBO cwservice;
+	@Autowired
 	private CourseBO cservice;
-	
-	private void init()
-	{
-		cwservice = ApplicationContextProvider.getApplicationContext().getBean(CourseWorkBO.class);
-		cservice = ApplicationContextProvider.getApplicationContext().getBean(CourseBO.class);
-	}
 	
 	@RequestMapping(value="/courseworkController", method = RequestMethod.POST)
 	public ModelAndView courseworkContentSelector(
 			@RequestParam(value = "mode", required=false) String mode)
-	{
-		if (cwservice == null) init();
-		
+	{		
 		String url = "forward:/courseStartEdit";
 		
 		if (mode == null) mode = "other";

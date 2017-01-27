@@ -1,19 +1,22 @@
 package com.mcit.kritth.util;
 
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.mcit.kritth.bo.template.UserBO;
 import com.mcit.kritth.model.data.Course;
 import com.mcit.kritth.model.data.Person;
 import com.mcit.kritth.model.data.User;
-import com.mcit.kritth.spring.ApplicationContextProvider;
 
 public class BeanUtil
 {
+	@Autowired
+	private static UserBO service;
+	
 	public static String generateUserName(Person p)
 	{
 		String user = p.getFirstName() + "." + p.getLastName();
-		
-		UserBO service = ApplicationContextProvider.getApplicationContext().getBean("userService", UserBO.class);
 		
 		List<User> list = (List<User>) service.getAll();
 		int counter = 1;

@@ -1,5 +1,7 @@
 package com.mcit.kritth.model.data;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.HashSet;
@@ -97,5 +99,15 @@ public class TestCourse implements TestBean
 		assertNotNull(course.getCourse_works());
 		assertNotNull(course.getPrerequisite());
 		assertNotNull(course.getStudents());
+	}
+	
+	@Test
+	public void testOverrideMethod()
+	{
+		assertEquals(course, course);
+		assertFalse(course.equals("String"));
+		Course course2 = new Course();
+		course2.setClass_level(-1);
+		assertFalse(course.equals(course2));
 	}
 }

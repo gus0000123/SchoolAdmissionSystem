@@ -19,7 +19,6 @@ import com.mcit.kritth.model.data.CourseMark;
 import com.mcit.kritth.model.data.CourseWork;
 import com.mcit.kritth.model.data.Student;
 import com.mcit.kritth.model.data.StudentGrade;
-import com.mcit.kritth.spring.ApplicationContextProvider;
 
 @Service("studentService")
 @Transactional
@@ -27,6 +26,18 @@ public class StudentBOImpl implements StudentBO
 {
 	@Autowired
 	private StudentDAO dao;
+	
+	@Autowired
+	private DepartmentBO dservice;
+	
+	@Autowired
+	private CourseBO cservice;
+	
+	@Autowired
+	private StudentGradeBO sgservice;
+	
+	@Autowired
+	private CourseMarkBO cmservice;
 	
 	@Override
 	public void insert(Student o) { dao.insertBean(o); }
@@ -53,9 +64,6 @@ public class StudentBOImpl implements StudentBO
 	@Override
 	public void delete(Student o)
 	{
-		DepartmentBO dservice = ApplicationContextProvider.getApplicationContext().getBean(DepartmentBO.class);
-		CourseBO cservice = ApplicationContextProvider.getApplicationContext().getBean(CourseBO.class);
-		
 		// Delete from department
 		if (o.getDepartment().getStudents() != null && o.getDepartment().getStudents().size() > 0)
 		{
@@ -81,10 +89,7 @@ public class StudentBOImpl implements StudentBO
 	
 	// this is only created/delete when course is added or removed
 	private void updateStudentGrade(Student s, Course c)
-	{
-		StudentGradeBO sgservice = ApplicationContextProvider.getApplicationContext().getBean(StudentGradeBO.class);
-		StudentBO sservice = ApplicationContextProvider.getApplicationContext().getBean(StudentBO.class);
-		
+	{		
 		if (!s.getEnrolled_courses().contains(c))
 		{
 			// Deleting student grades from this course
@@ -102,7 +107,7 @@ public class StudentBOImpl implements StudentBO
 			if (toDelete != null)
 			{
 				s.getMarks().remove(toDelete);
-				sservice.update(s);
+				update(s);
 				try
 				{
 					// delete this will delete whole hierarchy
@@ -120,7 +125,6 @@ public class StudentBOImpl implements StudentBO
 			sg.setCourse(c);
 			
 			// Adding course mark
-			CourseMarkBO cmservice = ApplicationContextProvider.getApplicationContext().getBean(CourseMarkBO.class);
 			for (CourseWork cw : c.getCourse_works())
 			{
 				CourseMark cm = new CourseMark();
@@ -138,14 +142,12 @@ public class StudentBOImpl implements StudentBO
 			
 			s.getMarks().add(sg);
 			
-			sservice.update(s);
+			update(s);
 		}
 	}
 	
 	private void updateCourses(Student newStudent, Set<Course> oldCourses)
 	{
-		CourseBO cservice = ApplicationContextProvider.getApplicationContext().getBean(CourseBO.class);
-		
 		if (oldCourses != null)
 		{
 			// Delete student from old courses

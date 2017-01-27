@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import com.mcit.kritth.bo.template.*;
 import com.mcit.kritth.model.data.*;
 import com.mcit.kritth.model.messenger.*;
-import com.mcit.kritth.spring.ApplicationContextProvider;
 import com.mcit.kritth.util.BeanUtil;
 
 public class HibernateInsertScript

@@ -12,7 +12,6 @@ import com.mcit.kritth.bo.template.EmployeeBO;
 import com.mcit.kritth.dao.template.EmployeeDAO;
 import com.mcit.kritth.model.data.Department;
 import com.mcit.kritth.model.data.Employee;
-import com.mcit.kritth.spring.ApplicationContextProvider;
 
 @Service("employeeService")
 @Transactional
@@ -20,6 +19,9 @@ public class EmployeeBOImpl implements EmployeeBO
 {
 	@Autowired
 	private EmployeeDAO dao;
+	
+	@Autowired
+	private DepartmentBO dservice;
 	
 	@Override
 	public void insert(Employee o) { dao.insertBean(o); }
@@ -41,7 +43,6 @@ public class EmployeeBOImpl implements EmployeeBO
 		// Update department
 		if (!oldDept.equals(e.getDepartment()))
 		{
-			DepartmentBO dservice = ApplicationContextProvider.getApplicationContext().getBean(DepartmentBO.class);
 			oldDept.getEmployees().remove(e);
 			dservice.update(oldDept);
 			e.getDepartment().getEmployees().add(e);

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.ObjectNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,32 +19,25 @@ import com.mcit.kritth.model.data.Course;
 import com.mcit.kritth.model.data.Department;
 import com.mcit.kritth.model.data.Student;
 import com.mcit.kritth.model.data.StudentAdmissionStatus;
-import com.mcit.kritth.spring.ApplicationContextProvider;
 
 @Controller
 public class AStudentController
 {
+	@Autowired
 	private CourseBO cservice;
+	@Autowired
 	private StudentBO sservice;
+	@Autowired
 	private DepartmentBO dservice;
+	@Autowired
 	private StudentAdmissionStatusBO saservice;
+	@Autowired
 	private PersonBO pservice;
-	
-	private void init()
-	{
-		cservice = ApplicationContextProvider.getApplicationContext().getBean(CourseBO.class);
-		sservice = ApplicationContextProvider.getApplicationContext().getBean(StudentBO.class);
-		dservice = ApplicationContextProvider.getApplicationContext().getBean(DepartmentBO.class);
-		saservice = ApplicationContextProvider.getApplicationContext().getBean(StudentAdmissionStatusBO.class);
-		pservice = ApplicationContextProvider.getApplicationContext().getBean(PersonBO.class);
-	}
 	
 	@RequestMapping(value = "/studentController")
 	public ModelAndView studentActionSelector(
 			@RequestParam(value = "studentAction", required = false) String action)
 	{
-		if (cservice == null) init();
-		
 		String url = "forward:/studentView";
 		
 		if (action == null) action = "view";
@@ -160,14 +154,8 @@ public class AStudentController
 		model.addObject("s_minor", s.getMinor());
 		model.addObject("s_start_date", s.getStartDate());
 		model.addObject("student", s);
-		
-		StudentAdmissionStatusBO saservice = ApplicationContextProvider.getApplicationContext().getBean("studentAdmissionStatusService", StudentAdmissionStatusBO.class);
 		model.addObject("student_status_list", saservice.getAll());
-		
-		DepartmentBO dservice = ApplicationContextProvider.getApplicationContext().getBean("departmentService", DepartmentBO.class);
 		model.addObject("department_list", dservice.getAll());
-		
-		CourseBO cservice = ApplicationContextProvider.getApplicationContext().getBean("courseService", CourseBO.class);
 		model.addObject("all_courses", cservice.getAll());
 		
 		model.addObject("tab", "student");

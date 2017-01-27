@@ -63,6 +63,11 @@
 	    <artifactId>spring-web</artifactId>
 	    <version>4.3.4.RELEASE</version>
 	</dependency>
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-test</artifactId>
+	    <version>4.3.4.RELEASE</version>
+	</dependency>
 	<!-- END Spring -->
     
     <!-- JSTL -->
@@ -116,6 +121,19 @@
 		<version>6.0</version>
 		<scope>provided</scope>
 	</dependency>
+	
+	<!-- Javaee API -->
+	<dependency>
+	    <groupId>javax</groupId>
+	    <artifactId>javaee-web-api</artifactId>
+	    <version>7.0</version>
+	    <scope>provided</scope>
+	</dependency>
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>javax.servlet-api</artifactId>
+	    <version>3.1.0</version>
+	</dependency>
   </dependencies>
   <build>
     <finalName>SchoolAdmissionSystem</finalName>
@@ -128,6 +146,16 @@
 	          <source>1.8</source>
 	          <target>1.8</target>
 	        </configuration>
+		</plugin>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-war-plugin</artifactId>
+			<version>2.4</version>
+			<configuration>
+				<warSourceDirectory>src/main/webapp</warSourceDirectory>
+				<warName>SchoolAdmissionSystem</warName>
+				<failOnMissingWebXml>false</failOnMissingWebXml>
+			</configuration>
 		</plugin>
     </plugins>
   </build>

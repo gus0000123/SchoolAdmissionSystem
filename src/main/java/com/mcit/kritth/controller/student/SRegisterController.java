@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.ObjectNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,14 +19,16 @@ import com.mcit.kritth.bo.template.StudentBO;
 import com.mcit.kritth.model.data.Course;
 import com.mcit.kritth.model.data.Department;
 import com.mcit.kritth.model.data.User;
-import com.mcit.kritth.spring.ApplicationContextProvider;
 
 @Controller
 @SessionAttributes("user")
 public class SRegisterController
 {
+	@Autowired
 	private StudentBO sservice;
+	@Autowired
 	private DepartmentBO dservice;
+	@Autowired
 	private CourseBO cservice;
 	
 	@RequestMapping(value = "/studentCourseRegister", method = RequestMethod.POST)
@@ -33,7 +36,6 @@ public class SRegisterController
 			@ModelAttribute User user,
 			@RequestParam(value = "mode", required = false) String mode)
 	{
-		if (sservice == null) initServices();
 		if (mode == null) mode = "list";
 		
 		String url = "layout/studentApp";
@@ -81,13 +83,6 @@ public class SRegisterController
 		model.addObject("course_list", getCourseByDepartment(department));
 		
 		return model;
-	}
-	
-	private void initServices()
-	{
-		sservice = ApplicationContextProvider.getApplicationContext().getBean(StudentBO.class);
-		dservice = ApplicationContextProvider.getApplicationContext().getBean(DepartmentBO.class);
-		cservice = ApplicationContextProvider.getApplicationContext().getBean(CourseBO.class);
 	}
 	
 	private List<Department> getDepartments()
