@@ -182,7 +182,7 @@ public class CourseBOImpl implements CourseBO
 	
 	private void updateInstructor(Course c, Employee oldInstructor, Employee newInstructor)
 	{
-		if (!oldInstructor.equals(newInstructor))
+		if (newInstructor != null && !oldInstructor.equals(newInstructor))
 		{
 			oldInstructor.getAssigned_courses().remove(c);
 			eservice.update(oldInstructor);
