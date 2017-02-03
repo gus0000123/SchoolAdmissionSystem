@@ -3,6 +3,7 @@ package com.mcit.kritth.bo.data;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +29,7 @@ public class DepartmentBOImpl implements DepartmentBO
 	public void delete(Department o) { dao.removeBeanByPrimaryKey(o.getDeptId()); }
 
 	@Override
+	@Transactional(noRollbackFor = ObjectNotFoundException.class)
 	public Department getById(Serializable id) { return dao.getModelByPrimaryKey(id); }
 
 	@Override

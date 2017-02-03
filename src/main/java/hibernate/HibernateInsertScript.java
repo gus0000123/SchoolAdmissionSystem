@@ -72,7 +72,7 @@ public class HibernateInsertScript
         
         // User
         User u = new User();
-        u.setUser(BeanUtil.generateUserName(p));
+        u.setUsername(ApplicationContextProvider.getApplicationContext().getBean("userService", UserBO.class).getNewUsername(p));
         u.setPassword("pass");
         u.setPerson(p);
         ApplicationContextProvider.getApplicationContext().getBean("userService", UserBO.class).insert(u);
@@ -195,7 +195,7 @@ public class HibernateInsertScript
         ApplicationContextProvider.getApplicationContext().getBean("personService", PersonBO.class).insert(p2);
         
         User u2 = new User();
-        u2.setUser(BeanUtil.generateUserName(p2));
+        u2.setUsername(ApplicationContextProvider.getApplicationContext().getBean("userService", UserBO.class).getNewUsername(p2));
         u2.setPassword("test");
         u2.setPerson(p2);
         ApplicationContextProvider.getApplicationContext().getBean("userService", UserBO.class).insert(u2);

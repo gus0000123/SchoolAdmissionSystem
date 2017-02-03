@@ -2,6 +2,7 @@ package com.mcit.kritth.controller.home;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,7 +15,6 @@ import com.mcit.kritth.bo.template.PersonBO;
 import com.mcit.kritth.bo.template.UserBO;
 import com.mcit.kritth.model.data.Person;
 import com.mcit.kritth.model.data.User;
-import com.mcit.kritth.util.BeanUtil;
 
 @Controller
 @SessionAttributes("user")
@@ -27,16 +27,15 @@ public class HLoginController
 	
 	@RequestMapping(value = "/login", method= {RequestMethod.POST})
 	public  ModelAndView login(
-			@RequestParam("user") String user,
-			@RequestParam("password") String password)
+			@ModelAttribute("attemptLogin") User attempt)
 	{
-		User u = service.getById(user);
+		User u = service.getById(attempt.getUsername());
 		
 		ModelAndView model;
 		
 		if (u != null)
 		{
-			if (u.getPassword().equals(password))
+			if (u.getPassword().equals(attempt.getPassword()))
 			{
 				model = new ModelAndView("forward:/home");
 				model.addObject("user", u);
@@ -45,12 +44,16 @@ public class HLoginController
 			{
 				model = new ModelAndView("index");
 				model.addObject("error", "password");
+				model.addObject("attempt", new User());
+				model.addObject("register_person", new Person());
 			}
 		}
 		else
 		{
 			model = new ModelAndView("index");
 			model.addObject("error", "user");
+			model.addObject("attempt", new User());
+			model.addObject("register_person", new Person());
 		}
 		
 		return model;
@@ -68,41 +71,42 @@ public class HLoginController
 	
 	@RequestMapping(value = "/registerUser", method = {RequestMethod.POST})
 	public ModelAndView registerUser(
-			@RequestParam("first_name") String first_name,
-			@RequestParam("middle_name") String middle_name,
-			@RequestParam("last_name") String last_name,
-			@RequestParam("email") String email,
+			@ModelAttribute("register_person") Person person,
 			@RequestParam("password") String password,
 			@RequestParam("cpassword") String cpassword)
 	{
 		ModelAndView model = new ModelAndView("index");
 		
+		User attempt;
+		
 		if (password.equals(cpassword))
 		{
 			
 			// Create person
-			Person p = new Person();
-			p.setFirstName(first_name);
-			p.setMiddleName(middle_name);
-			p.setLastName(last_name);
-			p.setEmail(email);
-			pservice.insert(p);
+			pservice.insert(person);
 						
 			// Create user
 			User u = new User();
-			u.setPerson(p);
+			u.setPerson(person);
 			u.setPassword(password);
-			u.setUser(BeanUtil.generateUserName(p));
-			service.insert(u); 
+			u.setUsername(service.getNewUsername(person));
+			service.insert(u);
+			
+			attempt = u;
 			
 			model.addObject("page", "confirmation");
-			model.addObject("account_name", u.getUser());
+			model.addObject("account_name", u.getUsername());
 		}
 		else
 		{
+			attempt = new User();
+			
 			model.addObject("page", "register");
 			model.addObject("error", "password");
 		}
+		
+		model.addObject("attempt", attempt);
+		model.addObject("register_person", new Person());
 		
 		return model;
 	}

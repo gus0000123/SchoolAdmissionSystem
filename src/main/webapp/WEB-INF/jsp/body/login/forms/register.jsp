@@ -1,5 +1,6 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div>
-	<form id="register-form" action="registerUser" method="post">
+	<form:form id="register-form" action="registerUser" method="post" commandName="register_person">
 		<table id="register-table" class="middle-table">
 			<thead>
 				<tr>
@@ -12,36 +13,36 @@
 				<tr>
 					<td>
 						<span id="register-first-name-error" class="error-text">Please input correct information.</span>
-						<input id="register-first-name" type="text" placeholder="First name" name="first_name" required>
+						<form:input id="register-first-name" type="text" placeholder="First name" path="firstName" />
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<input id="register-middle-name" type="text" placeholder="Middle name" name="middle_name" required>
+						<form:input id="register-middle-name" type="text" placeholder="Middle name" path="middleName" />
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<span id="register-last-name-error" class="error-text">Please input correct information.</span>
-						<input id="register-last-name" type="text" placeholder="Last name" name="last_name" required>
+						<form:input id="register-last-name" type="text" placeholder="Last name" path="lastName" />
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<span id="register-email-error" class="error-text">Please input correct information.</span>
-						<input id="register-email" type="email" placeholder="E-mail address" name="email" required>
+						<form:input id="register-email" type="email" placeholder="E-mail address" path="email" />
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<span id="register-password-error" class="error-text">Please input correct information.</span>
-						<input id="register-password" type="password" placeholder="Password" name="password" required>
+						<input id="register-password" type="password" placeholder="Password" name="password" required />
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<span id="register-confirm-password-error" class="error-text">Please put matching password.</span>
-						<input id="register-confirm-password" type="password" placeholder="Confirm password" name="cpassword" required>
+						<input id="register-confirm-password" type="password" placeholder="Confirm password" name="cpassword" required />
 					</td>
 				</tr>
 				<tr>
@@ -66,5 +67,5 @@
 				</tr>
 			</tfoot>
 		</table>
-	</form>
+	</form:form>
 </div>

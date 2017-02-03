@@ -3,6 +3,7 @@ package com.mcit.kritth.bo.data;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +29,7 @@ public class CourseMarkBOImpl implements CourseMarkBO
 	public void delete(CourseMark o) { dao.removeBeanByPrimaryKey(o.getId()); }
 
 	@Override
+	@Transactional(noRollbackFor = ObjectNotFoundException.class)
 	public CourseMark getById(Serializable id) { return dao.getModelByPrimaryKey(id); }
 
 	@Override

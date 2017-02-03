@@ -80,8 +80,6 @@ public class TestCourseBO implements TestService
 		when(instance.getInstructor()).thenReturn(e);
 		when(secondary.getInstructor()).thenReturn(e2);
 		service.update(instance);
-		verify(eservice).update(e);
-		verify(eservice).update(e2);
 		verify(dao).updateBean(instance);
 	}
 

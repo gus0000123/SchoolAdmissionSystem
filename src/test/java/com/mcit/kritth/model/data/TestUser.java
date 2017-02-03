@@ -32,13 +32,13 @@ public class TestUser implements TestBean
 	@Override
 	public void testGetterSetter()
 	{
-		u.setUser(username);
+		u.setUsername(username);
 		u.setPassword(password);
 		u.setAuthority(authority);
 		u.setPerson(person);
 		
 		assertNotNull(u);
-		assertNotNull(u.getUser());
+		assertNotNull(u.getUsername());
 		assertNotNull(u.getPassword());
 		assertNotNull(u.getAuthority());
 		assertNotNull(u.getPerson());

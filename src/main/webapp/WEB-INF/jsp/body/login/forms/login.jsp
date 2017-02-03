@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div>
-	<form id="login-form" action="login" method="post">
+	<form:form id="login-form" action="login" method="post" commandName="attempt">
 		<table id="login-table" class="middle-table">
 			<thead>
 				<tr>
@@ -17,10 +18,10 @@
 						</c:if>
 						<c:choose>
 							<c:when test="${ empty account_name }">
-								<input id="login-user" type="text" placeholder="Username" name="user">
+								<form:input id="login-user" placeholder="Username" path="username" />
 							</c:when>
 							<c:otherwise>
-								<input id="login-user" type="text" placeholder="Username" name="user" value="${ account_name }">
+								<form:input id="login-user" placeholder="Username" path="username" value="${ account_name }" />
 							</c:otherwise>
 						</c:choose>
 					</td>
@@ -30,7 +31,7 @@
 						<c:if test="${ error eq 'password' }">
 							<span id="login-password-error" class="error-text">Please input correct password.</span>
 						</c:if>
-						<input id="login-password" type="password" placeholder="Password" name="password">
+						<form:input id="login-password" type="password" placeholder="Password" path="password" />
 					</td>
 				</tr>
 				<tr>
@@ -53,5 +54,5 @@
 				</tr>
 			</tfoot>
 		</table>
-	</form>
+	</form:form>
 </div>

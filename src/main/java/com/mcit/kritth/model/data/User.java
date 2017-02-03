@@ -19,12 +19,12 @@ public class User
 	
 	public User() { }
 	
-	public String getUser() { return this.username; }
+	public String getUsername() { return this.username; }
 	public String getPassword() { return this.password; }
 	public Person getPerson() { return this.person; }
 	public int getAuthority() { return this.authority; }
 	
-	public void setUser(String user) { this.username = user; }
+	public void setUsername(String user) { this.username = user; }
 	public void setPassword(String password) { this.password = password; }
 	public void setPerson(Person p) { this.person = p; }
 	public void setAuthority(int auth) { this.authority = auth; }

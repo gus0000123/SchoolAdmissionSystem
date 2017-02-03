@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
@@ -89,6 +90,7 @@ public class CourseBOImpl implements CourseBO
 	}
 
 	@Override
+	@Transactional(noRollbackFor = ObjectNotFoundException.class)
 	public Course getById(Serializable id) { return dao.getModelByPrimaryKey(id); }
 
 	@Override

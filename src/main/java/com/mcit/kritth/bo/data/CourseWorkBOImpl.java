@@ -3,6 +3,7 @@ package com.mcit.kritth.bo.data;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,32 +30,9 @@ public class CourseWorkBOImpl implements CourseWorkBO
 	public void delete(CourseWork o) { dao.removeBeanByPrimaryKey(o.getCoursework_id()); }
 
 	@Override
+	@Transactional(noRollbackFor = ObjectNotFoundException.class)
 	public CourseWork getById(Serializable id) { return dao.getModelByPrimaryKey(id); }
 
 	@Override
 	public List<CourseWork> getAll() { return dao.getAllBeans(); }
-
-	@Override
-	public boolean updateCourse(CourseWork obj, Course objToAdd)
-	{
-		/*
-		CourseBO cservice = ApplicationContextProvider.getApplicationContext().getBean(CourseBO.class);
-		
-		if (objToAdd != null)
-		{
-			if (obj.getCourse().equals(objToAdd))
-			{
-				if (objToAdd.getCourse_works().contains(obj)) cservice.updateCourseWork(objToAdd, obj);
-				obj.setCourse(null);
-				delete(obj);
-				return true;
-			}
-		}
-		else
-		{
-			return false; //return updateCourseList(obj, null);
-		}
-		*/
-		return false;
-	}
 }
