@@ -31,7 +31,7 @@ public class ACourseController
 	@Autowired
 	private StudentBO sservice;
 	
-	@RequestMapping(value="/courseController", method=RequestMethod.POST)
+	@RequestMapping(value="/course", method=RequestMethod.POST)
 	public ModelAndView courseContentSelector(
 			@RequestParam(value="mode", required = false) String mode,
 			@RequestParam(value="actionPerformed", required = false) Boolean performed)

@@ -1,5 +1,6 @@
-package com.mcit.kritth.controller.home;
+package com.mcit.kritth.controller;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,7 +19,7 @@ import com.mcit.kritth.model.data.User;
 
 @Controller
 @SessionAttributes("user")
-public class HLoginController
+public class LoginController
 {
 	@Autowired
 	private UserBO service;
@@ -29,15 +30,16 @@ public class HLoginController
 	public  ModelAndView login(
 			@ModelAttribute("attemptLogin") User attempt)
 	{
-		User u = service.getById(attempt.getUsername());
-		
+		User u;
 		ModelAndView model;
 		
-		if (u != null)
+		try
 		{
+			u = service.getById(attempt.getUsername());
+			
 			if (u.getPassword().equals(attempt.getPassword()))
 			{
-				model = new ModelAndView("forward:/home");
+				model = new ModelAndView("forward:/admin");
 				model.addObject("user", u);
 			}
 			else
@@ -48,7 +50,7 @@ public class HLoginController
 				model.addObject("register_person", new Person());
 			}
 		}
-		else
+		catch (ObjectNotFoundException ex)
 		{
 			model = new ModelAndView("index");
 			model.addObject("error", "user");
@@ -69,7 +71,7 @@ public class HLoginController
 		return new ModelAndView("redirect:/");
 	}
 	
-	@RequestMapping(value = "/registerUser", method = {RequestMethod.POST})
+	@RequestMapping(value = "/register", method = {RequestMethod.POST})
 	public ModelAndView registerUser(
 			@ModelAttribute("register_person") Person person,
 			@RequestParam("password") String password,

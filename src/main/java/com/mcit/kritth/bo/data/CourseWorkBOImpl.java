@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mcit.kritth.bo.template.CourseWorkBO;
 import com.mcit.kritth.dao.template.CourseWorkDAO;
-import com.mcit.kritth.model.data.Course;
 import com.mcit.kritth.model.data.CourseWork;
 
 @Service("courseWorkService")

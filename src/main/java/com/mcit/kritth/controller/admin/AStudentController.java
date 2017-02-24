@@ -3,7 +3,6 @@ package com.mcit.kritth.controller.admin;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mcit.kritth.bo.template.CourseBO;
 import com.mcit.kritth.bo.template.DepartmentBO;
-import com.mcit.kritth.bo.template.PersonBO;
 import com.mcit.kritth.bo.template.StudentAdmissionStatusBO;
 import com.mcit.kritth.bo.template.StudentBO;
 import com.mcit.kritth.model.data.Course;
@@ -31,21 +29,16 @@ public class AStudentController
 	private DepartmentBO dservice;
 	@Autowired
 	private StudentAdmissionStatusBO saservice;
-	@Autowired
-	private PersonBO pservice;
 	
-	@RequestMapping(value = "/studentController")
+	@RequestMapping(value = "/student")
 	public ModelAndView studentActionSelector(
 			@RequestParam(value = "studentAction", required = false) String action)
 	{
-		String url = "forward:/studentView";
+		String url = "forward:/student/view";
 		
 		if (action == null) action = "view";
 		switch(action)
 		{ 
-			case "insert":
-				url = "forward:/studentDoInsert";
-				break;
 			case "to_edit":
 				url = "forward:/studentStartEdit";
 				break;
@@ -53,67 +46,38 @@ public class AStudentController
 				url = "forward:/studentDoEdit";
 				break;
 			case "delete":
-				url = "forward:/studentDoDelete";
+				url = "forward:/student/delete";
 				break;
 			case "view":
 			default:
-				url = "forward:/studentView";
+				url = "forward:/student/view";
 				break;
 		}
+		
+		System.out.println("Forward to " + url);
 		
 		ModelAndView model = new ModelAndView(url);
 		
 		return model;
 	}
 	
-	@RequestMapping(value = "/studentDoInsert")
-	public ModelAndView studentInitInsert(
-			@RequestParam("attachStudent") List<String> attachStudent,
-			@RequestParam("id") String id,
-			@RequestParam(value = "s_department") String department_id) throws Exception
+	@RequestMapping(value = "/student/delete")
+	public ModelAndView doDeleteStudent(
+			@RequestParam(value = "selection", required = false) List<String> selection) throws Exception
 	{
-		String url = "forward:/personView";
+		String url = "forward:/student/view";
 		
-		if (attachStudent.size() > 0 && attachStudent.get(0).equals("attach"))
+		// Delete if it does not exist
+		if (selection != null)
 		{
-			Student student = null;
-			
-			try
+			for (String id : selection)
 			{
-				student = sservice.getById(Integer.parseInt(id));
-				student.setDepartment(dservice.getById(Integer.parseInt(department_id)));
-				sservice.update(student);
-			}
-			catch (ObjectNotFoundException ex)
-			{
-				student = new Student();
-				student.setAdmissionStatus(saservice.getById("Pending"));
-				student.setPerson(pservice.getById(Integer.parseInt(id)));
-				student.setDepartment(dservice.getById(Integer.parseInt(department_id)));
-				sservice.insert(student);
+				sservice.delete(sservice.getById(Integer.parseInt(id)));
 			}
 		}
 		else
 		{
-			sservice.delete(sservice.getById(Integer.parseInt(id)));
-		}
-		
-		ModelAndView model = new ModelAndView(url);
-		model.addObject("tab", "person");
-		model.addObject("mode", "view");
-		
-		return model;
-	}
-	
-	@RequestMapping(value = "/studentDoDelete")
-	public ModelAndView doDeleteStudent(
-			@RequestParam("selection") List<String> selection) throws Exception
-	{
-		String url = "forward:/studentView";
-		
-		for (String id : selection)
-		{
-			sservice.delete(sservice.getById(Integer.parseInt(id)));
+			url = "forward:/person/view";
 		}
 		
 		ModelAndView model = new ModelAndView(url);
@@ -122,7 +86,7 @@ public class AStudentController
 		return model;
 	}
 	
-	@RequestMapping(value = "/studentView")
+	@RequestMapping(value = "/student/view")
 	public ModelAndView studentList()
 	{
 		String url = "layout/adminApp";

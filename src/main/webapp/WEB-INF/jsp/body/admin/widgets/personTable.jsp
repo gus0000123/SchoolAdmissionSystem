@@ -37,7 +37,9 @@
 			<tfoot>
 				<tr>
 					<td colspan="4">
-						<button class="bottom-button" onclick="addPerson(event);">Add</button>
+						<!--  cut this out for now
+							<button class="bottom-button" onclick="addPerson(event);">Add</button>
+						-->
 						<button class="bottom-button" onclick="launchForm(event, 'delete-person-form');">Remove</button>
 					</td>
 				</tr>

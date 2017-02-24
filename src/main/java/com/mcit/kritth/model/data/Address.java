@@ -3,8 +3,10 @@ package com.mcit.kritth.model.data;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import com.mcit.kritth.model.Bean;
+
 @Embeddable
-public class Address
+public class Address implements Bean
 {
 	@Column(name="street_address")
 	private String streetAddress;
@@ -60,5 +62,17 @@ public class Address
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	@Override
+	public void copy(Bean b) {
+		if (b instanceof Address)
+		{
+			setStreetAddress(((Address) b).getStreetAddress());
+			setCity(((Address) b).getCity());
+			setState(((Address) b).getState());
+			setPostal(((Address) b).getPostal());
+			setCountry(((Address) b).getCountry());
+		}
 	}
 }

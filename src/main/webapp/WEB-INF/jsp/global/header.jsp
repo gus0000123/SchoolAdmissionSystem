@@ -8,18 +8,6 @@
 				</td>
 				<td>
 					<div id="header-menu">
-						<div id="mail-btn" class="header-btn">
-							<form id="goToMessageIcon" action="home" method="post">
-								<input type="hidden" name="tab" value="message" />
-								<img src="<c:url value="resources/images/mail-icon.jpg" />" onclick="launchForm(event, 'goToMessageIcon');">
-							</form>
-						</div>
-						<div id="announcement-btn" class="header-btn">
-							<img src="<c:url value="resources/images/announcement-icon.png" />">
-						</div>
-						<div id="help-btn" class="header-btn">
-							<img src="<c:url value="resources/images/help-icon.png" />">
-						</div>
 						<div id="signout-btn" class="header-btn">
 							<form id="signout" action="logout" method="post">
 								<img src="<c:url value="resources/images/signout-icon.png" />"

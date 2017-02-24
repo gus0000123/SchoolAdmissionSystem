@@ -9,7 +9,7 @@
 		<tbody id="employee-body" style="width: 100%;">
 			<tr>
 				<td style="width: 150px; text-align:right;">
-					<input id="employeeCheckBox" type="checkbox" name="attachEmployee" onclick="toggleForm('employee')" />
+					<input id="employeeCheckBox" type="checkbox" name="e_attach" value="attach" onclick="toggleForm('employee')" />
 					<input id="userAction" type="hidden" name="employeeAction" value="" />
 				</td>
 				<td style="width: calc(100% - 150px);">

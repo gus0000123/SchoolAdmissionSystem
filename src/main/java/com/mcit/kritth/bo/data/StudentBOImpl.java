@@ -64,14 +64,7 @@ public class StudentBOImpl implements StudentBO
 
 	@Override
 	public void delete(Student o)
-	{
-		// Delete from department
-		if (o.getDepartment().getStudents() != null && o.getDepartment().getStudents().size() > 0)
-		{
-			o.getDepartment().getStudents().remove(o);
-			dservice.update(o.getDepartment());
-		}
-		
+	{		
 		// Delete from course
 		for (Course c : o.getEnrolled_courses())
 		{

@@ -21,9 +21,6 @@ public class EmployeeBOImpl implements EmployeeBO
 	@Autowired
 	private EmployeeDAO dao;
 	
-	@Autowired
-	private DepartmentBO dservice;
-	
 	@Override
 	public void insert(Employee o) { dao.insertBean(o); }
 
@@ -32,33 +29,19 @@ public class EmployeeBOImpl implements EmployeeBO
 	{
 		Employee e = getById(o.getId());
 		
-		Department oldDept = e.getDepartment();
-		
 		e.setSalary(o.getSalary());
 		e.setRank(o.getRank());
 		e.setPerson(o.getPerson());
 		e.setDepartment(o.getDepartment());
 		
 		dao.updateBean(e);
-		
-		// Update department
-		if (!oldDept.equals(e.getDepartment()))
-		{
-			oldDept.getEmployees().remove(e);
-			dservice.update(oldDept);
-			e.getDepartment().getEmployees().add(e);
-			dservice.update(e.getDepartment());
-		}
 	}
 
 	@Override
 	public void delete(Employee o) throws Exception
 	{
 		if (o.getAssigned_courses() == null || o.getAssigned_courses().size() == 0)
-		{
-			// Delete employee from employees list
-			o.getDepartment().getEmployees().remove(o);
-			
+		{			
 			dao.removeBeanByPrimaryKey(o.getId());
 		}
 		else

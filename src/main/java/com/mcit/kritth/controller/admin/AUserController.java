@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class AUserController
 {
-	@RequestMapping(value = "/userController")
+	@RequestMapping(value = "/user")
 	public ModelAndView userActionSelector()
 	{
 		String url = "forward:/studentController";

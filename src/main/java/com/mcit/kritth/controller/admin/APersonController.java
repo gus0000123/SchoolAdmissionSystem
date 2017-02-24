@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,13 +14,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mcit.kritth.bo.template.DepartmentBO;
 import com.mcit.kritth.bo.template.EmployeeBO;
 import com.mcit.kritth.bo.template.PersonBO;
+import com.mcit.kritth.bo.template.StudentAdmissionStatusBO;
 import com.mcit.kritth.bo.template.StudentBO;
-import com.mcit.kritth.bo.template.UserBO;
 import com.mcit.kritth.model.data.Department;
 import com.mcit.kritth.model.data.Employee;
 import com.mcit.kritth.model.data.Person;
 import com.mcit.kritth.model.data.Student;
-import com.mcit.kritth.model.data.User;
 
 @Controller
 public class APersonController
@@ -29,13 +29,13 @@ public class APersonController
 	@Autowired
 	private DepartmentBO dservice;
 	@Autowired
-	private UserBO uservice;
-	@Autowired
 	private StudentBO sservice;
+	@Autowired
+	private StudentAdmissionStatusBO saservice;
 	@Autowired
 	private EmployeeBO eservice;
 	
-	@RequestMapping(value = "/personController", method = RequestMethod.POST)
+	@RequestMapping(value = "/person", method = RequestMethod.POST)
 	public ModelAndView personActionSelector(
 			@RequestParam(value = "mode", required = false) String mode,
 			@RequestParam(value = "actionPerformed", required = false) Boolean performed)
@@ -47,21 +47,23 @@ public class APersonController
 		switch(mode)
 		{
 			case "edit":
-				if (!performed) url = "forward:/personStartEdit";
-				else url = "forward:/personDoEdit";
+				if (!performed) url = "forward:/person/edit";
+				else url = "forward:/person/edit/perform";
 				break;
 			case "insert":
-				if (!performed) url = "forward:/personStartInsert";
-				else url = "forward:/personDoInsert";
+				if (!performed) url = "forward:/person/insert";
+				else url = "forward:/person/insert/perform";
 				break;
 			case "delete":
-				url = "forward:/personDoDelete";
+				url = "forward:/person/delete";
 				break;
 			case "view":
 			default:
-				url = "forward:/personView";
+				url = "forward:/person/view";
 				break;
 		}
+		
+		System.out.println("Forward to " + url);
 		
 		ModelAndView model = new ModelAndView(url);
 		model.addObject("tab", "person");
@@ -70,7 +72,7 @@ public class APersonController
 		return model;
 	}
 	
-	@RequestMapping(value = "/personView", method = RequestMethod.POST)
+	@RequestMapping(value = "/person/view", method = RequestMethod.POST)
 	public ModelAndView viewPerson()
 	{
 		String url = "layout/adminApp";
@@ -90,14 +92,6 @@ public class APersonController
 		// Fetch data
 		if (id >= 0)
 		{
-			// Try getting user
-			try
-			{
-				User u = uservice.getByPersonId(id);
-				model.addObject("user", u);
-			}
-			catch (ObjectNotFoundException e) { }
-			
 			// Try getting student
 			try
 			{
@@ -119,95 +113,151 @@ public class APersonController
 	}
 	
 	// TODO: Add all parameters
-	@RequestMapping(value = "personStartInsert", method = RequestMethod.POST)
+	@RequestMapping(value = "/person/insert", method = RequestMethod.POST)
 	public ModelAndView initInsertPerson()
 	{
 		String url = "layout/adminApp";
 		
 		ModelAndView model = new ModelAndView(url);
 		
+		model.addObject("person", new Person());
+		
 		return attachValues(-1, model); 
 	}
 	
-	// TODO: Add all parameters
-	@RequestMapping(value = "/personStartEdit", method = RequestMethod.POST)
+	@RequestMapping(value = "/person/edit", method = RequestMethod.POST)
 	public ModelAndView initEditPerson(
 			@RequestParam("id") Integer id)
 	{
 		String url = "layout/adminApp";
 		
-		Person p = service.getById(id);
+		Person p;
+		try	{ p = service.getById(id); }
+		catch (ObjectNotFoundException ex) { return new ModelAndView("forward:/person/view"); }
 		
 		ModelAndView model = new ModelAndView(url);
-		model.addObject("p_id", p.getID());
-		model.addObject("p_first_name", p.getFirstName());
-		model.addObject("p_middle_name", p.getMiddleName());
-		model.addObject("p_last_name", p.getLastName());
-		if (p.getAddress() != null)
-		{
-			model.addObject("p_street_address", p.getAddress().getStreetAddress());
-			model.addObject("p_city", p.getAddress().getCity());
-			model.addObject("p_state", p.getAddress().getState());
-			model.addObject("p_country", p.getAddress().getCountry());
-			model.addObject("p_postal", p.getAddress().getPostal());
-		}
-		model.addObject("p_tel_no", p.getTelNo());
-		model.addObject("p_email", p.getEmail());
-		model.addObject("p_gender", p.getGender());
-		model.addObject("p_sin", p.getSin());
-		
+		model.addObject("person", p);
 		return attachValues(id, model);
 	}
 	
-	@RequestMapping(value = "personDoInsert", method = RequestMethod.POST)
+	@RequestMapping(value = "/person/insert/perform", method = RequestMethod.POST)
 	public ModelAndView doInsertPerson(
-			@RequestParam("p_first_name") String first_name,
-			@RequestParam("p_last_name") String last_name,
-			@RequestParam("p_email") String email)
+			@ModelAttribute("person") Person person)
 	{
-		String url = "forward:/personView";
-		
-		Person p = new Person();
-		p.setFirstName(first_name);
-		p.setLastName(last_name);
-		p.setEmail(email);
-		service.insert(p);
+		String url = "forward:/person/view";
+		service.insert(person);
 		
 		ModelAndView model = new ModelAndView(url);
 		
 		return model;
 	}
 	
-	@RequestMapping(value = "personDoEdit", method = RequestMethod.POST)
+	@RequestMapping(value = "/person/edit/perform", method = RequestMethod.POST)
 	public ModelAndView doEditPerson(
-			@RequestParam("id") String id,
-			@RequestParam("p_first_name") String first_name,
-			@RequestParam("p_last_name") String last_name,
-			@RequestParam("p_email") String email)
+			@ModelAttribute("person") Person person)
 	{
-		String url = "forward:/studentController";
+		String url = "forward:/person/edit/employee";
 		
-		int iid = Integer.parseInt(id);
-		Person p = service.getById(iid);
-		p.setFirstName(first_name);
-		p.setLastName(last_name);
-		p.setEmail(email);
-		service.update(p);
+		Person p = service.getById(person.getID());
+		p.copy(person);
+		
+		try { service.update(p); }
+		catch (Exception e) { e.printStackTrace(); }
 		
 		ModelAndView model = new ModelAndView(url);
 		
 		return model;
 	}
 	
-	@RequestMapping(value = "personDoDelete", method = RequestMethod.POST)
+	@RequestMapping(value="/person/edit/employee", method = RequestMethod.POST)
+	public ModelAndView doEditEmployee(
+			@ModelAttribute("person") Person person,
+			@RequestParam(value = "e_attach", required = false) List<String> attach,
+			@RequestParam(value = "e_department") String department_id) throws Exception
+	{
+		String url = "forward:/person/edit/student";
+		
+		if (attach != null && attach.size() > 0 && attach.get(0).equals("attach"))
+		{
+			Employee employee = null;
+			
+			try
+			{
+				employee = eservice.getById(person.getID());
+				employee.setDepartment(dservice.getById(Integer.parseInt(department_id)));
+				eservice.update(employee);
+			}
+			catch (ObjectNotFoundException ex)
+			{
+				employee = new Employee();
+				employee.setPerson(service.getById(person.getID()));
+				employee.setDepartment(dservice.getById(Integer.parseInt(department_id)));
+				eservice.insert(employee);
+			}
+		}
+		else
+		{
+			eservice.delete(eservice.getById(person.getID()));
+		}
+		
+		ModelAndView model = new ModelAndView(url);
+		
+		return model;
+	}
+	
+	@RequestMapping(value="/person/edit/student", method = RequestMethod.POST)
+	public ModelAndView doEditStudent(
+			@ModelAttribute("person") Person person,
+			@RequestParam(value = "s_attach", required = false) List<String> attachStudent,
+			@RequestParam(value = "s_department") String department_id) throws Exception
+	{
+		String url = "forward:/person/view";
+		
+		if (attachStudent != null && attachStudent.size() > 0 && attachStudent.get(0).equals("attach"))
+		{
+			Student student = null;
+			
+			try
+			{
+				student = sservice.getById(person.getID());
+				student.setDepartment(dservice.getById(Integer.parseInt(department_id)));
+				sservice.update(student);
+			}
+			catch (ObjectNotFoundException ex)
+			{
+				student = new Student();
+				student.setAdmissionStatus(saservice.getById("Pending"));
+				student.setPerson(service.getById(person.getID()));
+				student.setDepartment(dservice.getById(Integer.parseInt(department_id)));
+				sservice.insert(student);
+			}
+		}
+		else
+		{
+			sservice.delete(sservice.getById(person.getID()));
+		}
+		
+		ModelAndView model = new ModelAndView(url);
+		
+		model.addObject("tab", "person");
+		model.addObject("mode", "view");
+		
+		return model;
+	}
+	
+	@RequestMapping(value = "/person/delete", method = RequestMethod.POST)
 	public ModelAndView doDeletePerson(
 			@RequestParam("selection") List<String> selection) throws Exception
 	{
-		String url = "forward:/personView";
+		String url = "forward:/person/view";
 		
 		for (String id : selection)
 		{
-			service.delete(service.getById(Integer.parseInt(id)));
+			try
+			{
+				Person p = service.getById(Integer.parseInt(id));
+				service.delete(p);
+			} catch (Exception e) { e.printStackTrace(); }
 		}
 		
 		ModelAndView model = new ModelAndView(url);

@@ -25,7 +25,7 @@ public class ACourseworkController
 	@Autowired
 	private CourseBO cservice;
 	
-	@RequestMapping(value="/courseworkController", method = RequestMethod.POST)
+	@RequestMapping(value="/coursework", method = RequestMethod.POST)
 	public ModelAndView courseworkContentSelector(
 			@RequestParam(value = "mode", required=false) String mode)
 	{		

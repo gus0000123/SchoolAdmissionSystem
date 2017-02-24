@@ -1,6 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div>
-	<form:form id="register-form" action="registerUser" method="post" commandName="register_person">
+	<form:form id="register-form" action="register" method="post" commandName="register_person">
 		<table id="register-table" class="middle-table">
 			<thead>
 				<tr>

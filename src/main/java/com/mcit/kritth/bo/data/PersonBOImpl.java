@@ -49,21 +49,21 @@ public class PersonBOImpl implements PersonBO
 			User user = uservice.getByPersonId(o.getID());
 			uservice.delete(user);
 		}
-		catch (Exception ex) { }
+		catch (Exception ex) { ex.printStackTrace(); }
 		
 		try 
 		{
 			Student student = sservice.getById(o.getID());
 			sservice.delete(student);
 		}
-		catch (Exception ex) { }
+		catch (Exception ex) { ex.printStackTrace(); }
 		
 		try
 		{
 			Employee e = eservice.getById(o.getID());
 			eservice.delete(e);
 		}
-		catch (Exception ex) { }
+		catch (Exception ex) { ex.printStackTrace(); }
 		
 		dao.removeBeanByPrimaryKey(o.getID());
 	}

@@ -28,17 +28,17 @@ public class AdminController
 		switch(tab)
 		{
 			case "student":
-				url = "forward:/studentController";
+				url = "forward:/student";
 				break;
 			case "course":
-				url = "forward:/courseController";
+				url = "forward:/course";
 				break;
 			case "coursework":
-				url = "forward:/courseworkController";
+				url = "forward:/coursework";
 				break;
 			case "person":
 			default:
-				url = "forward:/personController";
+				url = "forward:/person";
 				break;
 		}
 		

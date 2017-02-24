@@ -1,10 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/global/tableList.css" />">
 <div>
-	<form id="person-admin-modify-form" action="admin" method="post">
+	<form:form id="person-admin-modify-form" action="admin" method="post" commandName="person">
 		<jsp:include page="../forms/person_main_modify.jsp" />
 		<c:if test="${ mode ne 'insert' }">
-			<jsp:include page="../forms/person_user_modify.jsp" />
 			<jsp:include page="../forms/person_student_modify.jsp" />
 			<jsp:include page="../forms/person_employee_modify.jsp" />
 		</c:if>
@@ -17,7 +17,7 @@
 			</c:choose>
 		</button>
 		<button class="bottom-button" onclick="returnToView(event)">Back</button>
-	</form>
+	</form:form>
 	<form id="return-to-person-view" action="admin" method="post">
 		<input type="hidden" name="tab" value="person" />
 	</form>

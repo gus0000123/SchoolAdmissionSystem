@@ -5,11 +5,12 @@ import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import com.mcit.kritth.model.Bean;
 import com.mcit.kritth.util.BeanUtil;
 
 @Entity
 @Table(name="Courses", uniqueConstraints=@UniqueConstraint(columnNames={"course_code"}))
-public class Course
+public class Course implements Bean
 {
 	@Id
 	private String course_code;		// Use BeanUtil.getCourseCode
@@ -162,5 +163,21 @@ public class Course
 	public int hashCode()
 	{
 		return ("course:" + this.class_level + "" +  this.course_number + "" +  this.section + ":" + this.course_name).hashCode();
+	}
+
+	@Override
+	public void copy(Bean b) {
+		if (b instanceof Course)
+		{
+			this.setCourse_name(((Course) b).getCourse_name());
+			this.setCourse_description(((Course) b).getCourse_description());
+			this.setCapacity(((Course) b).getCapacity());
+			this.setPrerequisite(((Course) b).getPrerequisite());
+			this.setInstructor(((Course) b).getInstructor());
+			this.setCredit(((Course) b).getCredit());
+			this.setStudents(((Course) b).getStudents());
+			this.setIs_active(((Course) b).isIs_active());
+			this.setCourse_works(((Course) b).getCourse_works());
+		}
 	}
 }

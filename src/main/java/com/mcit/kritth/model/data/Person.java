@@ -3,9 +3,11 @@ package com.mcit.kritth.model.data;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.mcit.kritth.model.Bean;
+
 @Entity
 @Table(name = "Person")
-public class Person
+public class Person implements Bean
 {
 	@Id
 	@SequenceGenerator(name="per_id_gen", sequenceName="person_id_seq")
@@ -125,5 +127,20 @@ public class Person
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	@Override
+	public void copy(Bean b) {
+		if (b instanceof Person)
+		{
+			this.setSin(((Person) b).getSin());
+			this.setGender(((Person) b).getGender());
+			this.setEmail(((Person) b).getEmail());
+			this.setFirstName(((Person) b).getFirstName());
+			this.setLastName(((Person) b).getLastName());
+			this.setTelNo(((Person) b).getTelNo());
+			this.setMiddleName(((Person) b).getMiddleName());
+			// Address is handled explicitly
+		}
 	}
 }
