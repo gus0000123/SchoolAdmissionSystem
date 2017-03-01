@@ -41,14 +41,14 @@ public class TestDepartment implements TestBean
 	{
 		department.setDeptId(dept_id);
 		department.setBudget(budget);
-		department.setCode(dept_code);
+		department.setDept_code(dept_code);
 		department.setDean(dean);
 		department.setFounding_date(founding_date);
 		
 		assertNotNull(department);
 		assertNotNull(department.getDeptId());
 		assertNotNull(department.getBudget());
-		assertNotNull(department.getCode());
+		assertNotNull(department.getDept_code());
 		assertNotNull(department.getDean());
 		assertNotNull(department.getFounding_date());
 		assertNotNull(department.toString());
@@ -57,14 +57,14 @@ public class TestDepartment implements TestBean
 	@Test
 	public void testOverride()
 	{
-		department.setCode(dept_code);		
+		department.setDept_code(dept_code);		
 		assertEquals(department, department);
 		assertFalse(department.equals("String"));
 		Department dpt2 = new Department();
 		DepartmentCode dc2 = new DepartmentCode();
 		dc2.setDept_code("admin");
 		dc2.setDept_name("admin");
-		dpt2.setCode(dc2);
+		dpt2.setDept_code(dc2);
 		assertFalse(department.equals(dpt2));
 	}
 }

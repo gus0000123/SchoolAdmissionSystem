@@ -1,7 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/global/tableList.css" />">
 <div>
-	<form id="course-admin-modify-form" action="admin" method="post">
+	<form:form id="course-admin-modify-form" action="admin" method="post" commandName="course">
 		<jsp:include page="../forms/course_main_modify.jsp" />
 		<jsp:include page="../forms/course_employee_modify.jsp" />
 		<jsp:include page="../forms/course_student_modify.jsp" />
@@ -16,7 +17,7 @@
 			</c:choose>
 		</button>
 		<button class="bottom-button" onclick="returnToView(event)">Back</button>
-	</form>
+	</form:form>
 	<jsp:include page="courseCourseworkInsertion.jsp" />
 	<form id="return-to-course-view" action="admin" method="post">
 		<input type="hidden" name="tab" value="course" />

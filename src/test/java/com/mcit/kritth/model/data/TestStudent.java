@@ -57,9 +57,9 @@ public class TestStudent implements TestBean
 		s.setMinor(minor);
 		s.setCredit(credit);
 		s.setYear(year);
-		s.setStartDate(start_date);
+		s.setStart_date(start_date);
 		s.setDepartment(department);
-		s.setAdmissionStatus(admission_status);
+		s.setAdmission_status(admission_status);
 		s.setPerson(person);
 		s.setEnrolled_courses(enrolled_courses);
 		s.setMarks(marks);
@@ -70,9 +70,9 @@ public class TestStudent implements TestBean
 		assertNotNull(s.getMinor());
 		assertNotNull(s.getCredit());
 		assertNotNull(s.getYear());
-		assertNotNull(s.getStartDate());
+		assertNotNull(s.getStart_date());
 		assertNotNull(s.getDepartment());
-		assertNotNull(s.getAdmissionStatus());
+		assertNotNull(s.getAdmission_status());
 		assertNotNull(s.getPerson());
 		assertNotNull(s.getEnrolled_courses());
 		assertNotNull(s.getMarks());

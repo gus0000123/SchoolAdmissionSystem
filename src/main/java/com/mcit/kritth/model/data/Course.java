@@ -103,7 +103,6 @@ public class Course implements Bean
 		this.class_level = class_level;
 	}
 	public String getCourse_code() {
-		course_code = BeanUtil.getCourseCode(this);
 		return course_code;
 	}
 	public void setCourse_code(String course_code) {

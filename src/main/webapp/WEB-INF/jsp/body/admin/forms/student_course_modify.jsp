@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <div>
 	<table id="student-course-table">
 		<thead>
@@ -13,25 +15,14 @@
 				<td style="width: 15px;"></td>
 				<td style="width: calc(100%-15px);"></td>
 			</tr>
-			<c:forEach var="course" items="${ student.getEnrolled_courses() }">
-				<tr>
-					<td>
-						<input type="checkbox" name="s_course_selection" value="${ course.course_code }" checked />
-					</td>
-					<td>
-						<c:out value="${ course.course_code }" />:&nbsp;<c:out value="${ course.course_name }" />
-					</td>
-				</tr>
-			</c:forEach>
+			<tr>
+				<td rowspan="2" style="width: 100%;">
+					<spring:bind path="enrolled_courses">
+						<form:checkboxes path="enrolled_courses" items="${ all_courses }" itemLabel="course_code" itemValue="course_code" />
+					</spring:bind>
+				</td>
+			</tr>
 		</tbody>
-		<tfoot>
-			<tr>
-				<td><span id="limit-number">Limit: </span></td>
-			</tr>
-			<tr>
-				<td colspan="2"><div onclick="togglePopup();" style="cursor: pointer; font-weight: 600; font-style: italic;">+ Add more course</div></td>
-			</tr>
-		</tfoot>
 	</table>
 	
 	<script>

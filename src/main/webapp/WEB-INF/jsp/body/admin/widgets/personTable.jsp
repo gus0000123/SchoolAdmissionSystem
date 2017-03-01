@@ -13,7 +13,6 @@
 					</th>
 					<th style="width: 10%"><span>ID</span></th>
 					<th style="wdith: 50%"><span>Name</span></th>
-					<th><span>Roles</span></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -27,9 +26,6 @@
 						</td>
 						<td onclick="viewPerson(event, 'edit-person-form', ${ obj.getID() })"><span><c:out value="${ obj.getID() }" /></span></td>
 						<td onclick="viewPerson(event, 'edit-person-form', ${ obj.getID() })"><span><c:out value="${ obj.getFullName() }" /></span></td>
-						<td onclick="viewPerson(event, 'edit-person-form', ${ obj.getID() })">
-							<!-- Get if person has student/employee/user account -->
-						</td>
 					</tr>
 					<c:set var="i" scope="page" value="${ i + 1 }" />
 				</c:forEach>

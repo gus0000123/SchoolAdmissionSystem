@@ -1,14 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <div>
 	<table>
 		<thead>
 			<tr style="cursor: pointer;">
 				<th colspan="2">
 					Course Information
-					<!-- Course code -->
-					<c:if test="${ not empty course }">
-						<input type="hidden" name="c_course_code" value="${ course.course_code }" />
-					</c:if>
+					<form:input type="hidden" name="c_course_code" path="course_code" />
 				</th>
 			</tr>
 		</thead>
@@ -16,145 +15,56 @@
 			<!-- Class level -->
 			<tr>
 				<td style="width: 150px;"><label for="c_class_level">* Class Level:</label></td>
-				<td style="width: calc(100% - 150px);">
-					<c:choose>
-						<c:when test="${ empty course }">
-							<input name="c_class_level" type="number" min="0" max="9" value="0" />
-						</c:when>
-						<c:otherwise>
-							<input name="c_class_level" type="number" min="0" max="9" value="${ course.class_level }" />
-						</c:otherwise>
-					</c:choose>
-				</td>
+				<td style="width: calc(100% - 150px);"><form:input type="number" name="c_class_level" min="0" max="9" path="class_level" /></td>
 			</tr>
 			<!-- Course number -->
 			<tr>
 				<td><label for="c_course_number">* Course number:</label></td>
-				<td>
-					<c:choose>
-						<c:when test="${ empty course}">
-							<input name="c_course_number" type="number" min="0" max="99" value="0" />
-						</c:when>
-						<c:otherwise>
-							<input name="c_course_number" type="number" min="0" max="99" value="${ course.course_number }" />
-						</c:otherwise>
-					</c:choose>
-				</td>
+				<td><form:input type="number" name="c_course_number" min="0" max="9" path="course_number" /></td>
 			</tr>
 			<!-- Course section -->
 			<tr>
 				<td><label for="c_section">* Section:</label></td>
-				<td>
-					<c:choose>
-						<c:when test="${ empty course}">
-							<input name="c_section" type="number" min="0" max="9" value="0" />
-						</c:when>
-						<c:otherwise>
-							<input name="c_section" type="number" min="0" max="9" value="${ course.section }" />
-						</c:otherwise>
-					</c:choose>
-				</td>
+				<td><form:input type="number" name="c_section" min="0" max="9" path="section" /></td>
 			</tr>
 			<!-- Course name -->
 			<tr>
 				<td><label for="c_course_name">* Course name:</label></td>
-				<td>
-					<c:choose>
-						<c:when test="${ empty course}">
-							<input name="c_course_name" type="text" />
-						</c:when>
-						<c:otherwise>
-							<input name="c_course_name" type="text" value="${ course.course_name }" />
-						</c:otherwise>
-					</c:choose>
-				</td>
+				<td><form:input type="text" name="c_course_name" path="course_name" /></td>
 			</tr>
 			<!-- Course description -->
 			<tr>
 				<td><label for="c_course_description">Course description:</label></td>
-				<td>
-					<c:choose>
-						<c:when test="${ empty course && empty course.course_name }">
-							<input name="c_course_description" type="text" />
-						</c:when>
-						<c:otherwise>
-							<input name="c_course_description" type="text" value="${ course.course_description }" />
-						</c:otherwise>
-					</c:choose>
-				</td>
+				<td><form:input type="text" name="c_course_description" path="course_description" /></td>
 			</tr>
 			<!-- Course capacity -->
 			<tr>
 				<td><label for="c_capacity">Capacity:</label></td>
-				<td>
-					<c:choose>
-						<c:when test="${ empty course}">
-							<input name="c_capacity" type="number" min="0" max="999" />
-						</c:when>
-						<c:otherwise>
-							<input name="c_section" type="number" min="0" max="999" value="${ course.capacity }" />
-						</c:otherwise>
-					</c:choose>
-				</td>
+				<td><form:input type="number" name="c_capacity" min="0" max="999" path="capacity" /></td>
 			</tr>
 			<!-- Course credit -->
 			<tr>
 				<td><label for="c_credit">Credit:</label></td>
-				<td>
-					<c:choose>
-						<c:when test="${ empty course}">
-							<input name="c_credit" type="number" min="0" max="9" />
-						</c:when>
-						<c:otherwise>
-							<input name="c_credit" type="number" min="0" max="9" value="${ course.credit }" />
-						</c:otherwise>
-					</c:choose>
-				</td>
+				<td><form:input type="number" name="c_credit" min="0" max="9" path="credit" /></td>
 			</tr>
 			<!-- Course isActive? -->
 			<tr>
 				<td><label for="c_active">Is open:</label></td>
 				<td>
-					<c:choose>
-						<c:when test="${ empty course }">
-							<input name="c_active" type="checkbox" checked />
-						</c:when>
-						<c:otherwise>
-							<c:choose>
-								<c:when test="${ course.is_active eq true }">
-									<input name="c_active" type="checkbox" checked />
-								</c:when>
-								<c:otherwise>
-									<input name="c_active" type="checkbox" />
-								</c:otherwise>
-							</c:choose>
-						</c:otherwise>
-					</c:choose>
+					<spring:bind path="is_active">
+						<form:checkbox name="c_active" path="is_active" />
+					</spring:bind>
 				</td>
 			</tr>
 			<!-- Course department -->
 			<tr>
 				<td><label for="c_department">* Department:</label></td>
 				<td>
-					<select name="c_department">
-						<c:forEach var="department" items="${ department_list }">
-							<c:choose>
-								<c:when test="${ empty course || empty course.getDepartment() || course.getDepartment().getDeptId() ne department.getDeptId() }">
-									<option value="${ department.getDeptId() }">
-										<c:out value="${ department.getCode().getDept_name() }" />
-									</option>
-								</c:when>
-								<c:otherwise>
-									<option value="${ department.getDeptId() }" selected>
-										<c:out value="${ department.getCode().getDept_name() }" />
-									</option>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-					</select>
+					<form:select name="c_department" path="department">
+						<form:options items="${ department_list }" itemValue="dept_code.dept_name" itemLabel="dept_code.dept_name" />
+					</form:select>
 				</td>
 			</tr>
-			<!-- TODO: Course's pre-requisite (if time allowed) -->
 		</tbody>
 	</table>
 </div>

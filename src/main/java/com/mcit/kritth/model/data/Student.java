@@ -23,7 +23,7 @@ public class Student
 	@ManyToOne(fetch=FetchType.EAGER)
 	@NotNull
 	private Department department;
-	
+
 	@ManyToOne(fetch=FetchType.EAGER)
 	@NotNull
 	private StudentAdmissionStatus admission_status;
@@ -44,18 +44,16 @@ public class Student
 	
 	public Student() { }
 	
-	public StudentAdmissionStatus getAdmissionStatus() { return this.admission_status; }
 	public String getMajor() { return this.major; }
 	public String getMinor() { return this.minor; }
 	public int getCredit() { return this.credit; }
-	public Date getStartDate() { return this.start_date; }
+	public Date getStart_date() { return this.start_date; }
 	public Person getPerson() { return this.person; }
 	
-	public void setAdmissionStatus(StudentAdmissionStatus in) { this.admission_status = in; }
 	public void setMajor(String in) { this.major = in; }
 	public void setMinor(String in) { this.minor = in; }
 	public void setCredit(int in) { this.credit = in; }
-	public void setStartDate(Date in) { this.start_date = in; }
+	public void setStart_date(Date in) { this.start_date = in; }
 	public void setPerson(Person in) {
 		this.person = in;
 		this.id = this.person.getID();
@@ -125,5 +123,13 @@ public class Student
 			return this.getId() == ((Student) s).getId();
 		else
 			return false;
+	}
+
+	public StudentAdmissionStatus getAdmission_status() {
+		return admission_status;
+	}
+
+	public void setAdmission_status(StudentAdmissionStatus admission_status) {
+		this.admission_status = admission_status;
 	}
 }

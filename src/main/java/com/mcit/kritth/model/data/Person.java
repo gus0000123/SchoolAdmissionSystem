@@ -106,7 +106,7 @@ public class Person implements Bean
 				firstName + " ;" +
 				middleName + " ;" +
 				lastName + " ;" +
-				address.toString() + " ;" +
+				(address != null ? address.toString() + " ;" : "") +
 				telNo + " ;" +
 				email + " ;" +
 				gender + " ;" +

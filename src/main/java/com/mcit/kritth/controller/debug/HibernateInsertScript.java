@@ -71,12 +71,12 @@ public class HibernateInsertScript
         
         // Department
     	Department d = new Department();
-    	d.setCode(dc);
+    	d.setDept_code(dc);
     	d.setBudget(100000);
     	dservice.insert(d);
     	
     	Department d2 = new Department();
-    	d2.setCode(dc2);
+    	d2.setDept_code(dc2);
     	d2.setBudget(100000);
     	dservice.insert(d2);
     	
@@ -90,7 +90,7 @@ public class HibernateInsertScript
         
         // Student
         Student s = new Student();
-        s.setAdmissionStatus(sa);
+        s.setAdmission_status(sa);
         s.setCredit(10);
         s.setPerson(p);
         s.setDepartment(d);

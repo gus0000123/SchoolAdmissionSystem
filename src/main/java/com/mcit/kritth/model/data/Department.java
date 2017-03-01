@@ -34,10 +34,10 @@ public class Department
 	public void setDeptId(int deptId) {
 		this.dept_id = deptId;
 	}
-	public DepartmentCode getCode() {
+	public DepartmentCode getDept_code() {
 		return dept_code;
 	}
-	public void setCode(DepartmentCode code) {
+	public void setDept_code(DepartmentCode code) {
 		this.dept_code = code;
 	}
 	public int getBudget() {

@@ -1,6 +1,7 @@
 package com.mcit.kritth.controller.admin;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +18,7 @@ public class AdminController
 	@RequestMapping(value = "/admin", method = RequestMethod.POST)
 	public ModelAndView tabSelector(
 			@ModelAttribute User u,
+			BindingResult result,
 			@RequestParam(value = "tab", required = false) String tab)
 	{
 		// User not available
@@ -41,6 +43,8 @@ public class AdminController
 				url = "forward:/person";
 				break;
 		}
+		
+		System.out.println("Go to " + url);
 		
 		return new ModelAndView(url);
 	}

@@ -17,19 +17,19 @@
 		</c:otherwise>
 	</c:choose>
 	<c:choose>
-		<c:when test="${ tab eq 'department' }">
-			<button class="active">Department</button>
-		</c:when>
-		<c:otherwise>
-			<button onclick="goToPage('department')">Department</button>
-		</c:otherwise>
-	</c:choose>
-	<c:choose>
 		<c:when test="${ tab eq 'course' }">
 			<button class="active">Course</button>
 		</c:when>
 		<c:otherwise>
 			<button onclick="goToPage('course')">Course</button>
+		</c:otherwise>
+	</c:choose>
+	<c:choose>
+		<c:when test="${ tab eq 'department' }">
+			<button class="active">Department</button>
+		</c:when>
+		<c:otherwise>
+			<button onclick="goToPage('department')">Department</button>
 		</c:otherwise>
 	</c:choose>
 	<!-- hidden form -->

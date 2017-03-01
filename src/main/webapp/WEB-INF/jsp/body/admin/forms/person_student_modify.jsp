@@ -28,12 +28,12 @@
 									<c:choose>
 										<c:when test="${ empty student || empty student.getDepartment() || student.getDepartment().getDeptId() ne department.getDeptId() }">
 											<option value="${ department.getDeptId() }">
-												<c:out value="${ department.getCode().getDept_name() }" />
+												<c:out value="${ department.getDept_code().getDept_name() }" />
 											</option>
 										</c:when>
 										<c:otherwise>
 											<option value="${ department.getDeptId() }" selected>
-												<c:out value="${ department.getCode().getDept_name() }" />
+												<c:out value="${ department.getDept_code().getDept_name() }" />
 											</option>
 										</c:otherwise>
 									</c:choose>

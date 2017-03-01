@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mcit.kritth.bo.template.CourseBO;
 import com.mcit.kritth.bo.template.CourseMarkBO;
-import com.mcit.kritth.bo.template.DepartmentBO;
 import com.mcit.kritth.bo.template.StudentBO;
 import com.mcit.kritth.bo.template.StudentGradeBO;
 import com.mcit.kritth.dao.template.StudentDAO;
@@ -27,9 +26,6 @@ public class StudentBOImpl implements StudentBO
 {
 	@Autowired
 	private StudentDAO dao;
-	
-	@Autowired
-	private DepartmentBO dservice;
 	
 	@Autowired
 	private CourseBO cservice;
@@ -53,7 +49,7 @@ public class StudentBOImpl implements StudentBO
 		s.setMajor(o.getMajor());
 		s.setMinor(o.getMinor());
 		s.setDepartment(o.getDepartment());
-		s.setAdmissionStatus(o.getAdmissionStatus());
+		s.setAdmission_status(o.getAdmission_status());
 		s.setEnrolled_courses(o.getEnrolled_courses());
 		
 		dao.updateBean(s);

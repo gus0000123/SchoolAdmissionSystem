@@ -8,10 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mcit.kritth.bo.template.DepartmentBO;
 import com.mcit.kritth.bo.template.EmployeeBO;
 import com.mcit.kritth.dao.template.EmployeeDAO;
-import com.mcit.kritth.model.data.Department;
 import com.mcit.kritth.model.data.Employee;
 
 @Service("employeeService")

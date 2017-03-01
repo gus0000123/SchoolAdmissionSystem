@@ -33,7 +33,7 @@ public class TestUtil
 		DepartmentCode dc = new DepartmentCode();
 		dc.setDept_code(generateRandomString());
 		dc.setDept_name(generateRandomString());
-		d.setCode(dc);
+		d.setDept_code(dc);
 		
 		return d;
 	}

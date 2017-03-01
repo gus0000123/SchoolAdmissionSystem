@@ -63,7 +63,7 @@ public class APersonController
 				break;
 		}
 		
-		System.out.println("Forward to " + url);
+		System.out.println("Go to " + url);
 		
 		ModelAndView model = new ModelAndView(url);
 		model.addObject("tab", "person");
@@ -226,7 +226,7 @@ public class APersonController
 			catch (ObjectNotFoundException ex)
 			{
 				student = new Student();
-				student.setAdmissionStatus(saservice.getById("Pending"));
+				student.setAdmission_status(saservice.getById("Pending"));
 				student.setPerson(service.getById(person.getID()));
 				student.setDepartment(dservice.getById(Integer.parseInt(department_id)));
 				sservice.insert(student);
@@ -247,7 +247,7 @@ public class APersonController
 	
 	@RequestMapping(value = "/person/delete", method = RequestMethod.POST)
 	public ModelAndView doDeletePerson(
-			@RequestParam("selection") List<String> selection) throws Exception
+			@RequestParam(value = "selection", required = false) List<String> selection) throws Exception
 	{
 		String url = "forward:/person/view";
 		

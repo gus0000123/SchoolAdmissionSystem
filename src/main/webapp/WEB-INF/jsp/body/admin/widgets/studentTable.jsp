@@ -27,7 +27,7 @@
 						</td>
 						<td onclick="viewStudent(event, 'edit-student-form', ${ obj.getPerson().getID() })"><span><c:out value="${ obj.getPerson().getID() }" /></span></td>
 						<td onclick="viewStudent(event, 'edit-student-form', ${ obj.getPerson().getID() })"><span><c:out value="${ obj.getPerson().getFullName() }" /></span></td>
-						<td onclick="viewStudent(event, 'edit-student-form', ${ obj.getPerson().getID() })"><span><c:out value="${ obj.getDepartment().getCode().getDept_name() }" /></span></td>
+						<td onclick="viewStudent(event, 'edit-student-form', ${ obj.getPerson().getID() })"><span><c:out value="${ obj.getDepartment().getDept_code().getDept_name() }" /></span></td>
 					</tr>
 					<c:set var="i" scope="page" value="${ i + 1 }" />
 				</c:forEach>

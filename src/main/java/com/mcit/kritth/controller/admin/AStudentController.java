@@ -1,20 +1,30 @@
 package com.mcit.kritth.controller.admin;
 
+import java.beans.PropertyEditorSupport;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mcit.kritth.bo.template.CourseBO;
 import com.mcit.kritth.bo.template.DepartmentBO;
+import com.mcit.kritth.bo.template.PersonBO;
 import com.mcit.kritth.bo.template.StudentAdmissionStatusBO;
 import com.mcit.kritth.bo.template.StudentBO;
 import com.mcit.kritth.model.data.Course;
 import com.mcit.kritth.model.data.Department;
+import com.mcit.kritth.model.data.Person;
 import com.mcit.kritth.model.data.Student;
 import com.mcit.kritth.model.data.StudentAdmissionStatus;
 
@@ -29,6 +39,74 @@ public class AStudentController
 	private DepartmentBO dservice;
 	@Autowired
 	private StudentAdmissionStatusBO saservice;
+	@Autowired
+	private PersonBO pservice;
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder)
+	{
+		binder.registerCustomEditor(Department.class, "department", new PropertyEditorSupport() {
+			@Override
+			public void setAsText(String text)
+			{
+				List<Department> list = dservice.getAll();
+				for (Department d : list)
+				{
+					if (d.getDept_code().getDept_name().equals(text))
+					{
+						setValue(d);
+						return;
+					}
+				}
+			}
+		});
+		binder.registerCustomEditor(StudentAdmissionStatus.class, "admission_status", new PropertyEditorSupport() {
+			@Override
+			public void setAsText(String text)
+			{
+				setValue(saservice.getById(text));
+			}
+		});
+		binder.registerCustomEditor(Person.class, "person", new PropertyEditorSupport() {
+			@Override
+			public String getAsText()
+			{
+				Person p = (Person) this.getValue();
+				return "" + p.getID();
+			}
+			
+			@Override
+			public void setAsText(String text)
+			{
+				setValue(pservice.getById(Integer.parseInt(text)));
+			}
+		});
+		binder.registerCustomEditor(Set.class, "enrolled_courses", new PropertyEditorSupport() {
+			@Override
+			public String getAsText()
+			{
+				Set<Course> courses = (Set<Course>) this.getValue();
+				String result = "";
+				for (Course c : courses)
+				{
+					result += c.getCourse_code() + ",";
+				}
+				return result;
+			}
+			
+			@Override
+			public void setAsText(String text)
+			{
+				String[] list = text.split(",");
+				Set<Course> courses = new HashSet<>();
+				for (int i = 0; i < list.length; i++)
+				{
+					courses.add(cservice.getById(list[i]));
+				}
+				setValue(courses);
+			}
+		});
+	}
 	
 	@RequestMapping(value = "/student")
 	public ModelAndView studentActionSelector(
@@ -40,10 +118,10 @@ public class AStudentController
 		switch(action)
 		{ 
 			case "to_edit":
-				url = "forward:/studentStartEdit";
+				url = "forward:/student/edit";
 				break;
 			case "edit":
-				url = "forward:/studentDoEdit";
+				url = "forward:/student/edit/perform";
 				break;
 			case "delete":
 				url = "forward:/student/delete";
@@ -54,7 +132,7 @@ public class AStudentController
 				break;
 		}
 		
-		System.out.println("Forward to " + url);
+		System.out.println("Go to " + url);
 		
 		ModelAndView model = new ModelAndView(url);
 		
@@ -75,13 +153,8 @@ public class AStudentController
 				sservice.delete(sservice.getById(Integer.parseInt(id)));
 			}
 		}
-		else
-		{
-			url = "forward:/person/view";
-		}
 		
 		ModelAndView model = new ModelAndView(url);
-		model.addObject("mode", "view");
 		
 		return model;
 	}
@@ -103,7 +176,7 @@ public class AStudentController
 		return model;
 	}
 	
-	@RequestMapping(value = "/studentStartEdit")
+	@RequestMapping(value = "/student/edit")
 	public ModelAndView studentStartEdit(
 			@RequestParam("id") String sid)
 	{
@@ -113,56 +186,21 @@ public class AStudentController
 		Student s = sservice.getById(id);
 		
 		ModelAndView model = new ModelAndView(url);
-		model.addObject("p_id", id);
-		model.addObject("s_major", s.getMajor());
-		model.addObject("s_minor", s.getMinor());
-		model.addObject("s_start_date", s.getStartDate());
 		model.addObject("student", s);
 		model.addObject("student_status_list", saservice.getAll());
 		model.addObject("department_list", dservice.getAll());
 		model.addObject("all_courses", cservice.getAll());
-		
 		model.addObject("tab", "student");
 		return model;
 	}
 	
-	@RequestMapping(value = "/studentDoEdit")
+	@RequestMapping(value = "/student/edit/perform", method = RequestMethod.POST)
 	public ModelAndView studentDoEdit(
-			@RequestParam("id") String id,
-			@RequestParam("s_major") String major,
-			@RequestParam("s_minor") String minor,
-			@RequestParam("s_department") String department_id,
-			@RequestParam("s_admission_status") String status,
-			@RequestParam(value = "s_course_selection", required = false) List<String> courses)
+			@ModelAttribute("student") Student student,
+			BindingResult result)
 	{
-		String url = "forward:/studentView";
-		
-		int pid = Integer.parseInt(id);
-		int did = Integer.parseInt(department_id);
-		
-		Student s = new Student();
-		
-		Department d = dservice.getById(did);
-		StudentAdmissionStatus sa = saservice.getById(status);
-		
-		s.setId(pid);
-		s.setMajor(major);
-		s.setMinor(minor);
-		s.setDepartment(d);
-		s.setAdmissionStatus(sa);
-		
-		s.getEnrolled_courses().clear();
-		
-		if (courses != null)
-		{
-			for (String cid : courses)
-			{
-				Course c = cservice.getById(cid);
-				s.getEnrolled_courses().add(c);
-			}
-		}
-		
-		sservice.update(s);
+		String url = "forward:/student/view";
+		sservice.update(student);
 		
 		ModelAndView model = new ModelAndView(url);
 		
