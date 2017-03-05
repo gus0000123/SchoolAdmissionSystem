@@ -7,12 +7,19 @@
 		</div>
 		<div class="column" style="width: calc(99% - 300px);">
 			<c:choose>
-				<c:when test="${ mode eq 'view' }">
-					<jsp:include page="../widgets/courseTable.jsp" />
+				<c:when test="${ tab eq  'course' }">
+					<c:choose>
+						<c:when test="${ mode eq 'view' }">
+							<jsp:include page="../widgets/courseTable.jsp" />
+						</c:when>
+						<c:otherwise>
+							<jsp:include page="../widgets/courseModify.jsp" />
+						</c:otherwise>
+					</c:choose>
 				</c:when>
-				<c:otherwise>
-					<jsp:include page="../widgets/courseModify.jsp" />
-				</c:otherwise>
+				<c:when test="${ tab eq 'coursework' }">
+					<jsp:include page="../widgets/courseWorkModify.jsp" />
+				</c:when>
 			</c:choose>
 		</div>
 	</div>

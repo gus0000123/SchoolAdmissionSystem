@@ -46,9 +46,6 @@ public class HibernateInsertScript
 	@Autowired
 	private  CourseMarkBO cmservice;
 	
-	@Autowired
-	private  StudentGradeBO sgservice;
-	
 	@RequestMapping(value = "/debug/insert", method= {RequestMethod.GET})
 	public ModelAndView debugScript(String[] args)
 	{		
@@ -149,18 +146,14 @@ public class HibernateInsertScript
         eservice.update(e);
         
         // Course Work
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy-HH:mm");
-        
         CourseWork cw = new CourseWork();
         cw.setContribution(0.7);
         cw.setCoursework_description("test");
         cw.setCoursework_name("Assignment 1");
         cw.setMax_mark(30);
         cw.setCourse(c);
-        try {
-			cw.setDeadline(sdf.parse("31/12/2099-23:30"));
-		} catch (ParseException e1) { }
         cwservice.insert(cw);
+        cw = cwservice.getById(1);
         
         CourseWork cw2 = new CourseWork();
         cw2.setContribution(0.1);
@@ -168,10 +161,8 @@ public class HibernateInsertScript
         cw2.setCoursework_name("Assignment 2");
         cw2.setMax_mark(30);
         cw2.setCourse(c);
-        try {
-			cw2.setDeadline(sdf.parse("31/12/2100-23:30"));
-		} catch (ParseException e1) { }
         cwservice.insert(cw2);
+        cw2 = cwservice.getById(2);
         
         CourseWork cw3 = new CourseWork();
         cw3.setContribution(0.9);
@@ -179,46 +170,13 @@ public class HibernateInsertScript
         cw3.setCoursework_name("Assignment 1");
         cw3.setMax_mark(30);
         cw3.setCourse(c2);
-        try {
-			cw3.setDeadline(sdf.parse("31/12/2099-23:30"));
-		} catch (ParseException e1) { }
         cwservice.insert(cw3);
+        cw3 = cwservice.getById(3);
         
-        c.getCourse_works().add(cw);
-        c.getCourse_works().add(cw2);
-        cservice.update(c);
+        s.getEnrolled_courses().add(c);
+        sservice.update(s);
         
-        c2.getCourse_works().add(cw3);
-        cservice.update(c2);
-        
-        // Course Mark
-        CourseMark cm = new CourseMark();
-        cm.setMark(20);
-        cm.setCoursework(cw);
-        cm.setStudent(s);
-        cmservice.insert(cm);
-        
-        CourseMark cm2 = new CourseMark();
-        cm2.setMark(20);
-        cm2.setCoursework(cw3);
-        cm2.setStudent(s);
-        cmservice.insert(cm2);
-        
-        // Student Grade
-        StudentGrade sg = new StudentGrade();
-        sg.getCourseMarks().add(cm);
-        sg.setStudent(s);
-        sg.setCourse(c);
-        sgservice.insert(sg);
-        
-        StudentGrade sg2 = new StudentGrade();
-        sg2.getCourseMarks().add(cm2);
-        sg2.setStudent(s);
-        sg2.setCourse(c2);
-        sgservice.insert(sg2);
-        
-        s.getMarks().add(sg);
-        s.getMarks().add(sg2);
+        s.getEnrolled_courses().add(c2);
         sservice.update(s);
         
         // Create second person and user to test messages
@@ -235,10 +193,6 @@ public class HibernateInsertScript
         u2.setPassword("test");
         u2.setPerson(p2);
         uservice.insert(u2);
-        
-        s.getEnrolled_courses().add(c);
-        s.getEnrolled_courses().add(c2);
-        sservice.update(s);
         
         ModelAndView model = new ModelAndView("redirect:/");
         

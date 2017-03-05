@@ -8,9 +8,8 @@ import javax.validation.constraints.NotNull;
 public class CourseMark
 {
 	@Id
-	@SequenceGenerator(name="cm_id_gen", sequenceName="course_marks_id_seq")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="cm_id_gen")					
-	private int id;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)	
+	private int coursemark_id;
 	@NotNull							
 	private int mark;
 	
@@ -23,13 +22,7 @@ public class CourseMark
 	private Student student;
 	
 	public CourseMark() { }
-										
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+
 
 	public CourseWork getCoursework() {
 		return coursework;
@@ -53,5 +46,27 @@ public class CourseMark
 
 	public void setMark(int mark) {
 		this.mark = mark;
+	}
+	
+	public int getCoursemark_id() {
+		return coursemark_id;
+	}
+
+
+	public void setCoursemark_id(int coursemark_id) {
+		this.coursemark_id = coursemark_id;
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return (new Integer(this.coursemark_id)).hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj instanceof CourseMark) return this.coursemark_id == ((CourseMark) obj).getCoursemark_id();
+		else return false;
 	}
 }

@@ -39,8 +39,8 @@ public class Student
 		inverseJoinColumns={@JoinColumn(name="course_id")})
 	private Set<Course> enrolled_courses;
 	
-	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
-	private Set<StudentGrade> marks;
+	@OneToMany(cascade={CascadeType.REMOVE}, fetch=FetchType.EAGER)
+	private Set<CourseMark> marks;
 	
 	public Student() { }
 	
@@ -70,12 +70,12 @@ public class Student
 				start_date.toString();
 	}
 	
-	public Set<StudentGrade> getMarks() {
-		if (marks == null) marks = new HashSet<StudentGrade>();
+	public Set<CourseMark> getMarks() {
+		if (marks == null) marks = new HashSet<CourseMark>();
 		return marks;
 	}
 
-	public void setMarks(Set<StudentGrade> marks) {
+	public void setMarks(Set<CourseMark> marks) {
 		this.marks = marks;
 	}
 

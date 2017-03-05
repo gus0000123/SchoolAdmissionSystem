@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div>
 	<table>
 		<thead>
@@ -9,22 +10,11 @@
 			<tr>
 				<td style="width: 150px;"><label for="c_instructor">* Instructor:</label></td>
 				<td style="width: calc(100% - 150px);">
-					<select name="c_instructor">
+					<form:select name="c_instructor" path="instructor">
 						<c:forEach var="instructor" items="${ instructor_list }">
-							<c:choose>
-								<c:when test="${ empty course || empty course.getInstructor() }">
-									<option value="${ instructor.getPerson().getID() }">
-										<c:out value="${ instructor.getPerson().getFullName() }" /><!-- need to change this to better format -->
-									</option>
-								</c:when>
-								<c:otherwise>
-									<option value="${ instructor.getPerson().getID() }" selected>	
-										<c:out value="${ instructor.getPerson().getFullName() }" />
-									</option>
-								</c:otherwise>
-							</c:choose>
+							<form:option value="${ instructor.id }"><c:out value="${ instructor.person.getFullName() }" /></form:option>
 						</c:forEach>
-					</select>
+					</form:select>
 				</td>
 			</tr>
 			<!-- TODO: Course's teaching assistance if time allowed -->

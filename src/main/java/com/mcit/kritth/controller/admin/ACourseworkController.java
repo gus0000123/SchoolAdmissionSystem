@@ -1,12 +1,10 @@
 package com.mcit.kritth.controller.admin;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mcit.kritth.bo.template.CourseBO;
 import com.mcit.kritth.bo.template.CourseWorkBO;
-import com.mcit.kritth.model.data.Course;
 import com.mcit.kritth.model.data.CourseWork;
 
 @Controller
@@ -27,7 +24,9 @@ public class ACourseworkController
 	
 	@RequestMapping(value="/coursework", method = RequestMethod.POST)
 	public ModelAndView courseworkContentSelector(
-			@RequestParam(value = "mode", required=false) String mode)
+			@RequestParam(value = "course_code") String code,
+			@RequestParam(value = "mode", required=false) String mode,
+			@RequestParam(value = "actionPerformed", required=false) boolean performed)
 	{		
 		String url = "forward:/courseStartEdit";
 		
@@ -36,59 +35,52 @@ public class ACourseworkController
 		switch(mode)
 		{
 			case "insert":
-				url = "forward:/courseworkDoInsert";
+				if (!performed) url = "forward:/coursework/insert";
+				else url = "forward:/coursework/insert/perform";
 				break;
 			default:
+				url = "forward:/course/edit";
 				break;
 		}
 		
+		System.out.println("Go to " + url);
+		
 		ModelAndView model = new ModelAndView(url);
-		model.addObject("tab", "course");
-		model.addObject("mode", "edit");
+		if (url.equals("forward:/course/edit")) model.addObject("course_code", code);
+		return model;
+	}
+	
+	@RequestMapping(value="/coursework/insert", method=RequestMethod.POST)
+	public ModelAndView courseworkStartInsert(
+			@RequestParam("course_code") String course_id)
+	{
+		String url = "layout/adminApp";
+		
+		ModelAndView model = new ModelAndView(url);
+		model.addObject("coursework", new CourseWork());
+		model.addObject("tab", "coursework");
+		model.addObject("mode", "insert");
+		model.addObject("course", cservice.getById(course_id));
 		
 		return model;
 	}
 	
-	@RequestMapping(value="/courseworkDoInsert", method=RequestMethod.POST)
+	@RequestMapping(value="/coursework/insert/perform", method=RequestMethod.POST)
 	public ModelAndView courseworkDoInsert(
-			@RequestParam("cw_coursework_name") String coursework_name,
-			@RequestParam("cw_coursework_description") String coursework_description,
-			@RequestParam("cw_contribution") Integer contribution,
-			@RequestParam("cw_max_mark") Integer max_mark,
-			@RequestParam("cw_deadline") String deadline_date,
-			@RequestParam("cw_deadline_time") String deadline_time,
-			@RequestParam("course_code") String course_code)
+			@RequestParam("course_code") String course_id,
+			@ModelAttribute("coursework") CourseWork coursework)
 	{
-		String url = "forward:/courseStartEdit";
+		String url = "forward:/course/edit";
+		
+		coursework.setCourse(cservice.getById(course_id));
+		coursework.setCreation_date(new Date());
+		cwservice.insert(coursework);
 		
 		ModelAndView model = new ModelAndView(url);
+		model.addObject("course_code", course_id);
+		model.addObject("tab", "course");
+		model.addObject("mode", "edit");
 		
-		CourseWork cw = new CourseWork();
-		cw.setCoursework_name(coursework_name);
-		cw.setCoursework_description(coursework_description);
-		cw.setContribution(((double) contribution) / 100.0);
-		cw.setMax_mark(max_mark);
-		String deadline = deadline_date + "/" + deadline_time;
-		DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy/hh:mm");
-		try {
-			cw.setDeadline(dateFormat.parse(deadline));
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
-		
-		try {
-			Course c = cservice.getById(course_code);
-			cw.setCourse(c);
-			cwservice.insert(cw);
-			c.getCourse_works().add(cw);
-			cservice.update(c);
-		} catch (ObjectNotFoundException ex) {
-			model.addObject("error", "Cannot find specified course");
-			ex.printStackTrace();
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
 		return model;
 	}
 }

@@ -197,7 +197,9 @@ public class APersonController
 		}
 		else
 		{
-			eservice.delete(eservice.getById(person.getID()));
+			try { eservice.delete(eservice.getById(person.getID())); }
+			catch (ObjectNotFoundException ex) { }
+			
 		}
 		
 		ModelAndView model = new ModelAndView(url);
@@ -234,7 +236,8 @@ public class APersonController
 		}
 		else
 		{
-			sservice.delete(sservice.getById(person.getID()));
+			try { sservice.delete(sservice.getById(person.getID())); }
+			catch (ObjectNotFoundException ex) { }
 		}
 		
 		ModelAndView model = new ModelAndView(url);

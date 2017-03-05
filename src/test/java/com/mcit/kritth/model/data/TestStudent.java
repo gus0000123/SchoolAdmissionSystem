@@ -27,7 +27,7 @@ public class TestStudent implements TestBean
 	private StudentAdmissionStatus admission_status;
 	private Person person;
 	private Set<Course> enrolled_courses;
-	private Set<StudentGrade> marks;
+	private Set<CourseMark> marks;
 	
 	@Before
 	@Override
@@ -81,7 +81,7 @@ public class TestStudent implements TestBean
 		s = new Student();
 		
 		s.getEnrolled_courses().add(new Course());
-		s.getMarks().add(new StudentGrade());
+		s.getMarks().add(new CourseMark());
 		
 		assertNotNull(s.getEnrolled_courses());
 		assertNotNull(s.getMarks());

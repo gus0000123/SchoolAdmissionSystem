@@ -10,8 +10,8 @@ import javax.validation.constraints.NotNull;
 public class CourseWork
 {
 	@Id
-	@SequenceGenerator(name="cw_id_gen", sequenceName="course_works_id_seq")
-	@GeneratedValue (strategy=GenerationType.SEQUENCE, generator="cw_id_gen")				
+	@GeneratedValue(generator="COURSEWORK_SEQ_GEN",strategy=GenerationType.SEQUENCE)
+	@SequenceGenerator(sequenceName="coursework_sequence_name",name="COURSEWORK_SEQ_GEN",allocationSize=1)
 	private int coursework_id;
 	@NotNull							
 	private String coursework_name;
@@ -24,9 +24,6 @@ public class CourseWork
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creation_date = new Date();
-	@NotNull
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date deadline;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@NotNull 					
@@ -87,14 +84,6 @@ public class CourseWork
 
 	public void setCreation_date(Date creation_date) {
 		this.creation_date = creation_date;
-	}
-
-	public Date getDeadline() {
-		return deadline;
-	}
-
-	public void setDeadline(Date deadline) {
-		this.deadline = deadline;
 	}
 	
 	@Override

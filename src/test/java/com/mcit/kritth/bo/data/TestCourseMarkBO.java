@@ -65,9 +65,9 @@ public class TestCourseMarkBO implements TestService
 	@Override
 	public void testDelete() {
 		int id = TestUtil.generateRandomNumber();
-		when(instance.getId()).thenReturn(id);
+		when(instance.getCoursemark_id()).thenReturn(id);
 		service.delete(instance);
-		verify(dao).removeBeanByPrimaryKey(instance.getId());
+		verify(dao).removeBeanByPrimaryKey(instance.getCoursemark_id());
 	}
 	
 }

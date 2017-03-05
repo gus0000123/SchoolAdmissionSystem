@@ -22,7 +22,9 @@ import com.mcit.kritth.bo.template.DepartmentBO;
 import com.mcit.kritth.bo.template.PersonBO;
 import com.mcit.kritth.bo.template.StudentAdmissionStatusBO;
 import com.mcit.kritth.bo.template.StudentBO;
+import com.mcit.kritth.bo.template.CourseMarkBO;
 import com.mcit.kritth.model.data.Course;
+import com.mcit.kritth.model.data.CourseMark;
 import com.mcit.kritth.model.data.Department;
 import com.mcit.kritth.model.data.Person;
 import com.mcit.kritth.model.data.Student;
@@ -41,6 +43,8 @@ public class AStudentController
 	private StudentAdmissionStatusBO saservice;
 	@Autowired
 	private PersonBO pservice;
+	@Autowired
+	private CourseMarkBO cmservice;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder)
@@ -104,6 +108,30 @@ public class AStudentController
 					courses.add(cservice.getById(list[i]));
 				}
 				setValue(courses);
+			}
+		});
+		binder.registerCustomEditor(Set.class, "marks", new PropertyEditorSupport() {
+			@Override
+			public String getAsText()
+			{
+				Set<CourseMark> cms = (Set<CourseMark>) this.getValue();
+				String result = "";
+				for (CourseMark cm : cms)
+				{
+					result += cm.getCoursemark_id() + ",";
+				}
+				return result;
+			}
+			@Override
+			public void setAsText(String text)
+			{
+				String[] list = text.split(",");
+				Set<CourseMark> cms = new HashSet<>();
+				for (int i = 0; i < list.length; i++)
+				{
+					cms.add(cmservice.getById(Integer.parseInt(list[i])));
+				}
+				setValue(cms);
 			}
 		});
 	}
@@ -190,6 +218,7 @@ public class AStudentController
 		model.addObject("student_status_list", saservice.getAll());
 		model.addObject("department_list", dservice.getAll());
 		model.addObject("all_courses", cservice.getAll());
+		model.addObject("all_marks", s.getMarks().toArray(new CourseMark[s.getMarks().size()]));
 		model.addObject("tab", "student");
 		return model;
 	}

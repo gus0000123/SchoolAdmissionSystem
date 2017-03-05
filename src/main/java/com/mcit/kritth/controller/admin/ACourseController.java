@@ -8,6 +8,7 @@ import java.util.Set;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mcit.kritth.bo.template.CourseBO;
+import com.mcit.kritth.bo.template.CourseWorkBO;
 import com.mcit.kritth.bo.template.DepartmentBO;
 import com.mcit.kritth.bo.template.EmployeeBO;
 import com.mcit.kritth.bo.template.StudentBO;
 import com.mcit.kritth.model.data.Course;
+import com.mcit.kritth.model.data.CourseWork;
 import com.mcit.kritth.model.data.Department;
 import com.mcit.kritth.model.data.Employee;
 import com.mcit.kritth.model.data.Student;
@@ -37,6 +40,8 @@ public class ACourseController
 	private EmployeeBO eservice;
 	@Autowired
 	private StudentBO sservice;
+	@Autowired
+	private CourseWorkBO cwservice;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder)
@@ -54,6 +59,15 @@ public class ACourseController
 						return;
 					}
 				}
+			}
+		});
+		binder.registerCustomEditor(Employee.class, "instructor", new PropertyEditorSupport() {
+			@Override
+			public void setAsText(String text)
+			{
+				int id = Integer.parseInt(text);
+				Employee instructor = eservice.getById(id);
+				setValue(instructor);
 			}
 		});
 		binder.registerCustomEditor(Set.class, "students", new PropertyEditorSupport() {
@@ -76,9 +90,34 @@ public class ACourseController
 				Set<Student> students = new HashSet<>();
 				for (int i = 0; i < list.length; i++)
 				{
-					students.add(sservice.getById(list[i]));
+					students.add(sservice.getById(Integer.parseInt(list[i])));
 				}
 				setValue(students);
+			}
+		});
+		binder.registerCustomEditor(Set.class, "course_works", new PropertyEditorSupport() {
+			@Override
+			public String getAsText()
+			{
+				Set<CourseWork> courseworks = (Set<CourseWork>) this.getValue();
+				String result = "";
+				for (CourseWork cw : courseworks)
+				{
+					result += cw.getCoursework_id() + ",";
+				}
+				return result;
+			}
+			
+			@Override
+			public void setAsText(String text)
+			{
+				String[] list = text.split(",");
+				Set<CourseWork> courseworks = new HashSet<>();
+				for (int i = 0; i < list.length; i++)
+				{
+					courseworks.add(cwservice.getById(Integer.parseInt(list[i])));
+				}
+				setValue(courseworks);
 			}
 		});
 	}
@@ -116,6 +155,8 @@ public class ACourseController
 		model.addObject("tab", "course");
 		model.addObject("mode", mode);
 		
+		System.out.println("Go to " + url);
+		
 		return model;
 	}
 	
@@ -136,34 +177,47 @@ public class ACourseController
 	private ModelAndView attachValues(String course_code, ModelAndView model)
 	{
 		// Get course if available
+		Course course = null;
 		if (course_code != null)
 		{
 			try
 			{
-				Course course = cservice.getById(course_code);
+				course = cservice.getById(course_code);
 				model.addObject("course", course);
 			}
 			catch (ObjectNotFoundException e)
 			{ 
 				model.addObject("course", new Course());
+				model.addObject("mode", "insert");
 			}
 		}
+		else
+		{
+			model.addObject("course", new Course());
+		}
 		
-		// Get all departments
 		try
 		{
 			List<Department> dlist = dservice.getAll();
 			model.addObject("department_list", dlist);
-		}
-		catch (ObjectNotFoundException e) { }
-		
-		// Get all instructor
-		try
-		{
+			
 			List<Employee> all_employees = eservice.getAll();
 			model.addObject("instructor_list", all_employees);
+			
+			if (course != null)
+			{
+				Student[] students = course.getStudents().toArray(new Student[course.getStudents().size()]);
+				model.addObject("all_students", students);
+				
+				System.out.println("Course has " + course.getCourse_works().size());
+				CourseWork[] courseworks = course.getCourse_works().toArray(new CourseWork[course.getCourse_works().size()]);
+				model.addObject("all_courseworks", courseworks);
+			}
 		}
-		catch (ObjectNotFoundException e) { }
+		catch (ObjectNotFoundException e)
+		{
+			model = new ModelAndView("forward:/course/view");
+		}
 		
 		return model;
 	}
@@ -174,7 +228,7 @@ public class ACourseController
 		String url = "layout/adminApp";
 		
 		ModelAndView model = new ModelAndView(url);
-		model.addObject("course", new Course());
+		model.addObject("mode", "insert");
 		return attachValues(null, model);
 	}
 	
@@ -185,7 +239,7 @@ public class ACourseController
 		String url = "layout/adminApp";
 		
 		ModelAndView model = new ModelAndView(url);
-		
+		model.addObject("mode", "edit");
 		return attachValues(course_code, model);
 	}
 	
@@ -200,6 +254,8 @@ public class ACourseController
 		try { cservice.insert(course); } // In case course_code is the same, do nothing for now
 		catch (Exception e) { e.printStackTrace(); }
 		
+		System.out.println("Here");
+		
 		ModelAndView model = new ModelAndView(url);
 		
 		return model;
@@ -207,7 +263,8 @@ public class ACourseController
 	
 	@RequestMapping(value="/course/edit/perform", method=RequestMethod.POST)
 	public ModelAndView courseDoEdit(
-			@ModelAttribute("course") Course course)
+			@ModelAttribute("course") Course course,
+			BindingResult result)
 	{
 		String url = "forward:/course/view";
 		

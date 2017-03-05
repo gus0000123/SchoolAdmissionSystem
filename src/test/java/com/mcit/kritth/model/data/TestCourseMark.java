@@ -31,13 +31,13 @@ public class TestCourseMark implements TestBean
 	@Override
 	public void testGetterSetter()
 	{
-		course_mark.setId(id);
+		course_mark.setCoursemark_id(id);
 		course_mark.setMark(mark);
 		course_mark.setCoursework(coursework);
 		course_mark.setStudent(student);
 		
 		assertNotNull(course_mark);
-		assertNotNull(course_mark.getId());
+		assertNotNull(course_mark.getCoursemark_id());
 		assertNotNull(course_mark.getMark());
 		assertNotNull(course_mark.getCoursework());
 		assertNotNull(course_mark.getStudent());

@@ -26,7 +26,7 @@ public class CourseMarkBOImpl implements CourseMarkBO
 	public void update(CourseMark o) { dao.updateBean(o); }
 
 	@Override
-	public void delete(CourseMark o) { dao.removeBeanByPrimaryKey(o.getId()); }
+	public void delete(CourseMark o) { dao.removeBeanByPrimaryKey(o.getCoursemark_id()); }
 
 	@Override
 	@Transactional(noRollbackFor = ObjectNotFoundException.class)

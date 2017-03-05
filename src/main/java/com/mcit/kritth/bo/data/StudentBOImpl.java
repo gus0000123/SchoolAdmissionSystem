@@ -1,6 +1,7 @@
 package com.mcit.kritth.bo.data;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -12,13 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mcit.kritth.bo.template.CourseBO;
 import com.mcit.kritth.bo.template.CourseMarkBO;
 import com.mcit.kritth.bo.template.StudentBO;
-import com.mcit.kritth.bo.template.StudentGradeBO;
 import com.mcit.kritth.dao.template.StudentDAO;
 import com.mcit.kritth.model.data.Course;
 import com.mcit.kritth.model.data.CourseMark;
 import com.mcit.kritth.model.data.CourseWork;
 import com.mcit.kritth.model.data.Student;
-import com.mcit.kritth.model.data.StudentGrade;
 
 @Service("studentService")
 @Transactional
@@ -29,9 +28,6 @@ public class StudentBOImpl implements StudentBO
 	
 	@Autowired
 	private CourseBO cservice;
-	
-	@Autowired
-	private StudentGradeBO sgservice;
 	
 	@Autowired
 	private CourseMarkBO cmservice;
@@ -51,6 +47,7 @@ public class StudentBOImpl implements StudentBO
 		s.setDepartment(o.getDepartment());
 		s.setAdmission_status(o.getAdmission_status());
 		s.setEnrolled_courses(o.getEnrolled_courses());
+		s.setMarks(o.getMarks());
 		
 		dao.updateBean(s);
 		
@@ -80,60 +77,62 @@ public class StudentBOImpl implements StudentBO
 	
 	// this is only created/delete when course is added or removed
 	private void updateStudentGrade(Student s, Course c)
-	{		
+	{	
+		// Delete if not contain
 		if (!s.getEnrolled_courses().contains(c))
 		{
-			// Deleting student grades from this course
-			StudentGrade toDelete = null;
+			Set<CourseMark> cmlistToDelete = new HashSet<>();
+			List<CourseMark> cmlist = cmservice.getAll();
 			
-			for (StudentGrade sg : s.getMarks())
+			for (CourseMark cm : cmlist)
 			{
-				if (sg.getCourse().equals(c))
+				if (cm.getCoursework().getCourse().equals(c)
+						&& cm.getStudent().equals(s))
 				{
-					toDelete = sg;
-					break;
+					cmlistToDelete.add(cm);
 				}
 			}
 			
-			if (toDelete != null)
+			for (CourseMark cm : cmlistToDelete)
 			{
-				s.getMarks().remove(toDelete);
-				update(s);
-				try
-				{
-					// delete this will delete whole hierarchy
-					sgservice.delete(toDelete);
-				}
-				catch (Exception e) { }
+				System.out.println("Deleting cm " + cm.getCoursemark_id() + " for cw " + cm.getCoursework().getCoursework_id());
+				s.getMarks().remove(cm);
+				try { cmservice.delete(cm); }
+				catch (Exception e) { e.printStackTrace(); }
 			}
+			
+			dao.updateBean(s);
 		}
 		else
 		{
-			// Adding the student grade 
-			StudentGrade sg = new StudentGrade();
-			
-			sg.setStudent(s);
-			sg.setCourse(c);
-			
 			// Adding course mark
 			for (CourseWork cw : c.getCourse_works())
 			{
-				CourseMark cm = new CourseMark();
+				boolean found = false;
+				for (CourseMark scm : s.getMarks())
+				{
+					if (scm.getCoursework().getCoursework_id() == cw.getCoursework_id())
+					{
+						found = true;
+						break;
+					}
+					
+				}
 				
-				cm.setMark(0);
-				cm.setCoursework(cw);
-				cm.setStudent(s);
-				
-				cmservice.insert(cm);
-				
-				sg.getCourseMarks().add(cm);
+				if (!found)
+				{
+					CourseMark cm = new CourseMark();
+					
+					cm.setMark(0);
+					cm.setCoursework(cw);
+					cm.setStudent(s);
+					
+					cmservice.insert(cm);
+					
+					s.getMarks().add(cm);
+				}
 			}
-			
-			sgservice.insert(sg);
-			
-			s.getMarks().add(sg);
-			
-			update(s);
+			dao.updateBean(s);
 		}
 	}
 	
@@ -142,20 +141,25 @@ public class StudentBOImpl implements StudentBO
 		if (oldCourses != null)
 		{
 			// Delete student from old courses
-			for (Course c : oldCourses)
+			if (oldCourses.size() > 0)
 			{
-				if (!newStudent.getEnrolled_courses().contains(c))
+				System.out.println("Deleting old courses");
+				for (Course c : oldCourses)
 				{
-					c.getStudents().remove(newStudent);
-					cservice.update(c);
-					updateStudentGrade(newStudent, c);
+					if (!newStudent.getEnrolled_courses().contains(c))
+					{
+						System.out.println("Processing old course " + c.getCourse_code());
+						c.getStudents().remove(newStudent);
+						cservice.update(c);
+						updateStudentGrade(newStudent, c);
+					}
 				}
 			}
 			
 			// Add student to new course
 			for (Course c : newStudent.getEnrolled_courses())
 			{
-				if (!oldCourses.contains(c))
+				if (oldCourses.size() == 0 || !oldCourses.contains(c))
 				{
 					c.getStudents().add(newStudent);
 					cservice.update(c);

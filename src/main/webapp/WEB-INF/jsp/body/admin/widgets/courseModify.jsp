@@ -10,19 +10,23 @@
 		<input type="hidden" name="actionPerformed" value=true />
 		<input type="hidden" name="mode" value="${ mode }" />
 		<input type="hidden" name="tab" value="course" />
+		<c:if test="${ mode eq 'edit' }">
+			<button class="bottom-button" onclick="launchForm(event, 'insert-coursework-form')">Add coursework</button>
+		</c:if>
 		<button class="bottom-button" onclick="launchForm(event, 'course-admin-modify-form')">
 			<c:choose>
 				<c:when test="${ mode eq 'insert' }">Insert</c:when>
 				<c:otherwise>Edit</c:otherwise>
 			</c:choose>
 		</button>
-		<button class="bottom-button" onclick="returnToView(event)">Back</button>
+		<button class="bottom-button" onclick="launchForm(event, 'return-to-course-view')">Back</button>
 	</form:form>
-	<jsp:include page="courseCourseworkInsertion.jsp" />
 	<form id="return-to-course-view" action="admin" method="post">
 		<input type="hidden" name="tab" value="course" />
 	</form>
-	<script>
-		function returnToView(e) { launchForm(e, 'return-to-course-view'); }
-	</script>
+	<form id="insert-coursework-form" action="admin" method="post">
+		<input type="hidden" name="tab" value="coursework" />
+		<input type="hidden" name="mode" value="insert" />
+		<input type="hidden" name="course_code" value="${ course.course_code }" />
+	</form>
 </div>

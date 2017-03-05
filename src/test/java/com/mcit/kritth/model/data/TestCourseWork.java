@@ -48,7 +48,6 @@ public class TestCourseWork implements TestBean
 		course_work.setContribution(contribution);
 		course_work.setMax_mark(max_mark);
 		course_work.setCreation_date(creation_date);
-		course_work.setDeadline(deadline);
 		course_work.setCourse(course);
 		
 		assertNotNull(course_work);
@@ -58,7 +57,6 @@ public class TestCourseWork implements TestBean
 		assertNotNull(course_work.getContribution());
 		assertNotNull(course_work.getMax_mark());
 		assertNotNull(course_work.getCreation_date());
-		assertNotNull(course_work.getDeadline());
 		assertNotNull(course_work.getCourse());
 		assertNotNull(course_work.toString());
 	}

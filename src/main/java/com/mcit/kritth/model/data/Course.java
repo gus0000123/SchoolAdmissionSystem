@@ -35,7 +35,7 @@ public class Course implements Bean
 	@NotNull
 	private Employee instructor;
 
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(cascade=CascadeType.REMOVE, fetch=FetchType.EAGER)
 	private Set<CourseWork> course_works;
 	
 	@ManyToMany(fetch=FetchType.EAGER)

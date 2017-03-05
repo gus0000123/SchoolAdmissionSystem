@@ -11,16 +11,15 @@ import org.springframework.stereotype.Service;
 
 import com.mcit.kritth.bo.template.CourseBO;
 import com.mcit.kritth.bo.template.CourseMarkBO;
+import com.mcit.kritth.bo.template.CourseWorkBO;
 import com.mcit.kritth.bo.template.EmployeeBO;
 import com.mcit.kritth.bo.template.StudentBO;
-import com.mcit.kritth.bo.template.StudentGradeBO;
 import com.mcit.kritth.dao.template.CourseDAO;
 import com.mcit.kritth.model.data.Course;
 import com.mcit.kritth.model.data.CourseMark;
 import com.mcit.kritth.model.data.CourseWork;
 import com.mcit.kritth.model.data.Employee;
 import com.mcit.kritth.model.data.Student;
-import com.mcit.kritth.model.data.StudentGrade;
 
 @Service("courseService")
 @Transactional
@@ -36,11 +35,10 @@ public class CourseBOImpl implements CourseBO
 	private StudentBO sservice;
 	
 	@Autowired
-	private StudentGradeBO sgservice;
+	private CourseWorkBO cwservice;
 	
 	@Autowired
 	private CourseMarkBO cmservice;
-	
 	
 	@Override
 	public void insert(Course o) { dao.insertBean(o); }
@@ -51,6 +49,7 @@ public class CourseBOImpl implements CourseBO
 		Course c = getById(o.getCourse_code());
 		
 		Set<Student> oldStudents = c.getStudents();
+		Set<CourseWork> oldCourseWorks = c.getCourse_works();
 		Employee oldInstructor = c.getInstructor();
 		
 		c.setClass_level(o.getClass_level());
@@ -60,10 +59,15 @@ public class CourseBOImpl implements CourseBO
 		
 		c.getCourse_code();
 		
+		//c.setCourse_works(o.getCourse_works());
 		c.setInstructor(o.getInstructor());
 		c.setStudents(o.getStudents());
+		c.setCourse_works(o.getCourse_works());
 		
 		dao.updateBean(c);
+		
+		// Check if course works has changed
+		updateCourseWorks(c, oldCourseWorks);
 		
 		// Check if student changed
 		updateStudents(c, oldStudents);
@@ -95,53 +99,47 @@ public class CourseBOImpl implements CourseBO
 
 	@Override
 	public List<Course> getAll() { return dao.getAllBeans(); }
+	
+	private void updateCourseWorks(Course c, Set<CourseWork> old_course_works)
+	{
+		// Old coursework
+		for (CourseWork cw : old_course_works)
+		{
+			System.out.println("Check cw: " + cw.getCoursework_id());
+			if (!c.getCourse_works().contains(cw))
+			{
+				try { cwservice.delete(cw); }
+				catch (Exception e) { e.printStackTrace(); }
+			}
+		}
+	}
 
 	private void updateStudentCourseMark(Course c, Student s)
 	{
 		if (s.getEnrolled_courses().contains(c))
 		{
-			StudentGrade studentGrade = null;
-			
-			for (StudentGrade sg: s.getMarks())
+			boolean found = false;
+			for (CourseWork cw : c.getCourse_works())
 			{
-				if (sg.getCourse().equals(c))
+				for (CourseMark cm : s.getMarks())
 				{
-					studentGrade = sg;
-					break;
+					if (cm.getCoursework().equals(cw))
+					{
+						found = true;
+						break;
+					}
 				}
-			}
-			
-			// This is only for adding procedure, delete will be handled in courseworkbo
-			if (studentGrade != null)
-			{
-				for (CourseWork cw : c.getCourse_works())
+				
+				if (!found)
 				{
-					boolean found = false;
+					CourseMark cm = new CourseMark();
+					cm.setCoursework(cw);
+					cm.setMark(0);
+					cm.setStudent(s);
+					cmservice.insert(cm);
 					
-					for (CourseMark cm : studentGrade.getCourseMarks())
-					{
-						if (cm.getCoursework().equals(cw))
-						{
-							found = true;
-							break;
-						}
-					}
-					
-					// If new then add, else do nothing
-					if (!found)
-					{
-						CourseMark cm = new CourseMark();
-						
-						cm.setMark(0);
-						cm.setCoursework(cw);
-						cm.setStudent(s);
-						
-						cmservice.insert(cm);
-						
-						studentGrade.getCourseMarks().add(cm);
-						
-						sgservice.update(studentGrade);
-					}
+					s.getMarks().add(cm);
+					sservice.update(s);
 				}
 			}
 		}
