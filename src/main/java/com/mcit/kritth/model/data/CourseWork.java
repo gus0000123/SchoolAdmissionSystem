@@ -21,9 +21,6 @@ public class CourseWork
 	private double contribution;
 	@NotNull							
 	private int max_mark;
-	@NotNull
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date creation_date = new Date();
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@NotNull 					
@@ -76,14 +73,6 @@ public class CourseWork
 
 	public void setCourse(Course course) {
 		this.course = course;
-	}
-
-	public Date getCreation_date() {
-		return creation_date;
-	}
-
-	public void setCreation_date(Date creation_date) {
-		this.creation_date = creation_date;
 	}
 	
 	@Override

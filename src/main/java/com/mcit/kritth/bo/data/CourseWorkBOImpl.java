@@ -1,6 +1,7 @@
 package com.mcit.kritth.bo.data;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.ObjectNotFoundException;

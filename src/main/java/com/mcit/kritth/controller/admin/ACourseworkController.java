@@ -1,7 +1,5 @@
 package com.mcit.kritth.controller.admin;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -38,6 +36,10 @@ public class ACourseworkController
 				if (!performed) url = "forward:/coursework/insert";
 				else url = "forward:/coursework/insert/perform";
 				break;
+			case "edit":
+				if (!performed) url = "forward:/coursework/edit";
+				else url = "forward:/coursework/edit/perform";
+				break;
 			default:
 				url = "forward:/course/edit";
 				break;
@@ -73,8 +75,42 @@ public class ACourseworkController
 		String url = "forward:/course/edit";
 		
 		coursework.setCourse(cservice.getById(course_id));
-		coursework.setCreation_date(new Date());
 		cwservice.insert(coursework);
+		
+		ModelAndView model = new ModelAndView(url);
+		model.addObject("course_code", course_id);
+		model.addObject("tab", "course");
+		model.addObject("mode", "edit");
+		
+		return model;
+	}
+	
+	@RequestMapping(value="/coursework/edit", method=RequestMethod.POST)
+	public ModelAndView courseworkStartEdit(
+			@RequestParam("coursework_id") int cw_id)
+	{
+		String url = "layout/adminApp";
+		
+		CourseWork cw = cwservice.getById(cw_id);
+		
+		ModelAndView model = new ModelAndView(url);
+		model.addObject("coursework", cw);
+		model.addObject("tab", "coursework");
+		model.addObject("mode", "edit");
+		model.addObject("course", cw.getCourse());
+		
+		return model;
+	}
+	
+	@RequestMapping(value="/coursework/edit/perform", method=RequestMethod.POST)
+	public ModelAndView courseworkDoEdit(
+			@RequestParam("course_code") String course_id,
+			@ModelAttribute("coursework") CourseWork coursework)
+	{
+		String url = "forward:/course/edit";
+		
+		coursework.setCourse(cservice.getById(course_id));
+		cwservice.update(coursework);
 		
 		ModelAndView model = new ModelAndView(url);
 		model.addObject("course_code", course_id);

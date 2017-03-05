@@ -10,9 +10,6 @@
 		<input type="hidden" name="actionPerformed" value=true />
 		<input type="hidden" name="mode" value="${ mode }" />
 		<input type="hidden" name="tab" value="course" />
-		<c:if test="${ mode eq 'edit' }">
-			<button class="bottom-button" onclick="launchForm(event, 'insert-coursework-form')">Add coursework</button>
-		</c:if>
 		<button class="bottom-button" onclick="launchForm(event, 'course-admin-modify-form')">
 			<c:choose>
 				<c:when test="${ mode eq 'insert' }">Insert</c:when>
@@ -29,4 +26,23 @@
 		<input type="hidden" name="mode" value="insert" />
 		<input type="hidden" name="course_code" value="${ course.course_code }" />
 	</form>
+	<form id="edit-coursework-form" action="admin" method="post">
+		<input type="hidden" name="tab" value="coursework" />
+		<input type="hidden" name="mode" value="edit" />
+		<input type="hidden" name="course_code" value="${ course.course_code }" />
+		<input id="cw_id" type="hidden" name="coursework_id" />
+	</form>
+	<script>
+		function selectCourseWork(event, cwid) {
+			$('#cw_id').val(cwid);
+			$('#cw_text').val(cwid);
+			if ($('#editCwBtn').css('display') == 'none') {
+				$('#addCwBtn').css('display', 'none');
+				$('#editCwBtn').css('display', 'inline-block');
+			} else {
+				$('#addCwBtn').css('display', 'inline-block');
+				$('#editCwBtn').css('display', 'none');
+			}
+		}
+	</script>
 </div>

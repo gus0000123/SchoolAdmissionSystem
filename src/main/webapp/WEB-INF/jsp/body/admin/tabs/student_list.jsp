@@ -2,10 +2,7 @@
 <!-- Tab content for prospective student -->
 <div id="tab-container">
 	<div class="tab">
-		<div class="column" style="width: 300px;">
-			<jsp:include page="../widgets/searchTool.jsp" />
-		</div>
-		<div class="column" style="width: calc(99% - 300px);">
+		<div class="column" style="width: 100%">
 			<c:choose>
 				<c:when test="${ mode eq 'view' }">
 					<jsp:include page="../widgets/studentTable.jsp" />

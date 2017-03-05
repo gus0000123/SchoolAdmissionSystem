@@ -5,6 +5,7 @@
 	<input type="hidden" name="mode" value="${ mode }" />
 	<input type="hidden" name="course_code" value="${ course.course_code }" /> <!-- this name required for forwarding to course controller -->
 	<input type="hidden" name="actionPerformed" value="true" />
+	<form:input type="hidden" name="number" path="coursework_id" />
 	<table style="width: 100%;">
 		<thead>
 			<tr><th colspan="2">Information</th></tr>
@@ -20,7 +21,7 @@
 			</tr>
 			<tr>
 				<td>* Contribution</td>
-				<td><form:input type="number" name="cw_contribution" min="1" max="100" path="contribution" /></td>
+				<td><form:input type="number" name="cw_contribution" min="0" max="1" path="contribution" step="0.01" /></td>
 			</tr>
 			<tr>
 				<td>* Mark</td>
