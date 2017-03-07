@@ -23,7 +23,14 @@ public class CourseMarkBOImpl implements CourseMarkBO
 	public void insert(CourseMark o) { dao.insertBean(o); }
 
 	@Override
-	public void update(CourseMark o) { dao.updateBean(o); }
+	public void update(CourseMark o)
+	{
+		CourseMark cm = getById(o.getCoursemark_id());
+		cm.setCoursework(o.getCoursework());
+		cm.setMark(o.getMark());
+		cm.setStudent(o.getStudent());
+		dao.updateBean(cm);
+	}
 
 	@Override
 	public void delete(CourseMark o) { dao.removeBeanByPrimaryKey(o.getCoursemark_id()); }

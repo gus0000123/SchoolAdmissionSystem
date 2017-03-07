@@ -14,8 +14,9 @@
 	<form id="return-to-student-view" action="admin" method="post">
 		<input type="hidden" name="tab" value="student" />
 	</form>
-	<form id="go-to-edit-mark" action="admin" method="post">
+	<form id="student-coursemark-modify-form" action="admin" method="post">
 		<input type="hidden" name="tab" value="coursemark" />
+		<input type="hidden" name="mode" value="edit" />
 		<input type="hidden" name="student_id" value="${ student.id }" />
 	</form>
 	<script>

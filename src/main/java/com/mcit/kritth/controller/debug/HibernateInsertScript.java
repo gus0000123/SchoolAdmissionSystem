@@ -1,8 +1,5 @@
 package com.mcit.kritth.controller.debug;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,6 +51,11 @@ public class HibernateInsertScript
         sa.setStatus("Pending");
         sa.setDescription("testing");
         saservice.insert(sa);
+        
+        StudentAdmissionStatus sa2 = new StudentAdmissionStatus();
+        sa2.setStatus("Admitted");
+        sa2.setDescription("testing");
+        saservice.insert(sa2);
         
         // Department code
         DepartmentCode dc2 = new DepartmentCode();

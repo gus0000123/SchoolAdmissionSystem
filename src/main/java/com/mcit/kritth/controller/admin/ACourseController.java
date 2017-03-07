@@ -71,6 +71,7 @@ public class ACourseController
 			}
 		});
 		binder.registerCustomEditor(Set.class, "students", new PropertyEditorSupport() {
+			@SuppressWarnings("unchecked")
 			@Override
 			public String getAsText()
 			{
@@ -96,6 +97,7 @@ public class ACourseController
 			}
 		});
 		binder.registerCustomEditor(Set.class, "course_works", new PropertyEditorSupport() {
+			@SuppressWarnings("unchecked")
 			@Override
 			public String getAsText()
 			{
@@ -169,6 +171,7 @@ public class ACourseController
 		
 		ModelAndView model = new ModelAndView(url);
 		model.addObject("list", list);
+		model.addObject("tab", "course");
 		model.addObject("mode", "view");
 		
 		return model;

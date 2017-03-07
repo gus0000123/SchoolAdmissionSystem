@@ -86,6 +86,7 @@ public class AStudentController
 			}
 		});
 		binder.registerCustomEditor(Set.class, "enrolled_courses", new PropertyEditorSupport() {
+			@SuppressWarnings("unchecked")
 			@Override
 			public String getAsText()
 			{
@@ -111,6 +112,7 @@ public class AStudentController
 			}
 		});
 		binder.registerCustomEditor(Set.class, "marks", new PropertyEditorSupport() {
+			@SuppressWarnings("unchecked")
 			@Override
 			public String getAsText()
 			{
@@ -232,8 +234,6 @@ public class AStudentController
 		sservice.update(student);
 		
 		ModelAndView model = new ModelAndView(url);
-		
-		model.addObject("tab", "student");
 		return model;
 	}
 }

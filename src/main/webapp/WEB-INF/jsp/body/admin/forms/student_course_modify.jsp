@@ -19,5 +19,12 @@
 				</td>
 			</tr>
 		</tbody>
+		<tfoot>
+			<tr>
+				<td>
+					<button class="bottom-button" onclick="launchForm(event, 'student-coursemark-modify-form')">Edit Marks</button>
+				</td>
+			</tr>
+		</tfoot>
 	</table>
 </div>

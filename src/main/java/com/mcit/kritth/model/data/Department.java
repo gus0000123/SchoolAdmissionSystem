@@ -1,6 +1,5 @@
 package com.mcit.kritth.model.data;
 
-import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -14,8 +13,6 @@ public class Department
 	private int dept_id;
 	@NotNull
 	private int budget;
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date founding_date = new Date();
 	
 	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="dept_code")
@@ -45,12 +42,6 @@ public class Department
 	}
 	public void setBudget(int budget) {
 		this.budget = budget;
-	}
-	public Date getFounding_date() {
-		return founding_date;
-	}
-	public void setFounding_date(Date founding_date) {
-		this.founding_date = founding_date;
 	}
 	public Employee getDean() {
 		return dean;

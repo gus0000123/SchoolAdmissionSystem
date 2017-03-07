@@ -38,6 +38,9 @@ public class AdminController
 			case "coursework":
 				url = "forward:/coursework";
 				break;
+			case "coursemark":
+				url = "forward:/coursemark";
+				break;
 			case "person":
 			default:
 				url = "forward:/person";

@@ -3,7 +3,7 @@
 	<c:when test="${ tab eq 'person' }">
 		<title>Person management</title>
 	</c:when>
-	<c:when test="${ tab eq 'student' }">
+	<c:when test="${ tab eq 'student' or tab eq 'coursemark' }">
 		<title>Student management</title>
 	</c:when>
 	<c:when test="${ tab eq 'course' or tab eq 'coursework' }">

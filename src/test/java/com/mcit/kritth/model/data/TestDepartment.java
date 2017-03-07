@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Date;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,7 +17,6 @@ public class TestDepartment implements TestBean
 	private int budget;
 	private DepartmentCode dept_code;
 	private Employee dean;
-	private Date founding_date;
 	
 	@Before
 	@Override
@@ -32,7 +29,6 @@ public class TestDepartment implements TestBean
 		dept_code.setDept_code("test");
 		dept_code.setDept_name("test");
 		dean = new Employee();
-		founding_date = new Date();
 	}
 
 	@Test
@@ -43,14 +39,12 @@ public class TestDepartment implements TestBean
 		department.setBudget(budget);
 		department.setDept_code(dept_code);
 		department.setDean(dean);
-		department.setFounding_date(founding_date);
 		
 		assertNotNull(department);
 		assertNotNull(department.getDeptId());
 		assertNotNull(department.getBudget());
 		assertNotNull(department.getDept_code());
 		assertNotNull(department.getDean());
-		assertNotNull(department.getFounding_date());
 		assertNotNull(department.toString());
 	}
 	

@@ -18,6 +18,9 @@
 			<c:when test="${ tab eq 'coursework' }">
 				<jsp:include page="tabs/course_list.jsp" />
 			</c:when>
+			<c:when test="${ tab eq 'coursemark' }">
+				<jsp:include page="tabs/student_list.jsp" />
+			</c:when>
 			<c:otherwise>
 				<jsp:include page="tabs/person_list.jsp" />
 			</c:otherwise>
