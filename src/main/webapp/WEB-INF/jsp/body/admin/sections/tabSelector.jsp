@@ -24,6 +24,7 @@
 			<button onclick="goToPage('course')">Course</button>
 		</c:otherwise>
 	</c:choose>
+	<!-- 
 	<c:choose>
 		<c:when test="${ tab eq 'department' }">
 			<button class="active">Department</button>
@@ -31,7 +32,7 @@
 		<c:otherwise>
 			<button onclick="goToPage('department')">Department</button>
 		</c:otherwise>
-	</c:choose>
+	</c:choose> -->
 	<!-- hidden form -->
 	<form id="tabSubmitForm" action="admin" method="post">
 		<input id="tabSubmitField" type="hidden" name="tab" value="" />

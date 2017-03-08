@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import static org.mockito.Mockito.*;
@@ -41,10 +42,11 @@ public class TestCourseMarkBO implements TestService
 
 	@Test
 	@Override
-	public void testUpdate() {/*
+	public void testUpdate() {
+		Mockito.when(service.getById(instance.getCoursemark_id())).thenReturn(instance);
 		service.update(instance);
 		verify(dao).updateBean(instance);
-*/	}
+	}
 
 	@Test
 	@Override

@@ -32,6 +32,11 @@
 		<input type="hidden" name="course_code" value="${ course.course_code }" />
 		<input id="cw_id" type="hidden" name="coursework_id" />
 	</form>
+	<c:if test="${ mode eq 'edit' }">
+		<form id="notify-form" action="course/notify/" method="post">
+			<input type="hidden" name="course_id" value="${ course.course_code }" />
+		</form>
+	</c:if>
 	<script>
 		function selectCourseWork(event, cwid) {
 			$('#cw_id').val(cwid);

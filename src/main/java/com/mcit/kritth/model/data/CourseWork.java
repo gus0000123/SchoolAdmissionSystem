@@ -1,7 +1,5 @@
 package com.mcit.kritth.model.data;
 
-import java.util.Date;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 

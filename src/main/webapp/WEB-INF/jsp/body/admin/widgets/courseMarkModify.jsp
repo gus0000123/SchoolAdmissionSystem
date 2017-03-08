@@ -35,7 +35,7 @@
 				<tr>
 					<td colspan="3">
 						<input class="bottom-button" type="submit" value="Submit" onclick="launchForm(event, 'student-coursemark-modify-form')" />
-						<button class="bottom-button" onclick="launchForm(event, 'return-to-course-view')">Back</button>
+						<button class="bottom-button" onclick="launchForm(event, 'return-to-student-view')">Back</button>
 						<!-- Hidden value for controller -->
 						<input type="hidden" name="tab" value="coursemark" />
 						<input type="hidden" name="mode" value="edit" />

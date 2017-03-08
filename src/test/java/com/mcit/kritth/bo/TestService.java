@@ -7,5 +7,5 @@ public interface TestService
 	void testUpdate();
 	void testGet();
 	void testGetAll();
-	void testDelete();
+	void testDelete() throws Exception;
 }

@@ -16,27 +16,27 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.mcit.kritth.model.data.Course;
+import com.mcit.kritth.model.data.CourseWork;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestCourseDAO
+public class TestCourseWorkDAO
 {
 	@InjectMocks
-	private CourseDAOImpl dao;
+	private CourseWorkDAOImpl dao;
 	@Mock
 	private SessionFactory factory;
 	@Mock
 	private Session session;
 	@Mock
-	private Course course;
+	private CourseWork coursework;
 	@Mock
-	private List<Course> courselist;
+	private List<CourseWork> courseworklist;
 	
 	@Before
 	public void init()
 	{
 		MockitoAnnotations.initMocks(this);
-		dao = new CourseDAOImpl();
+		dao = new CourseWorkDAOImpl();
 		dao.setSessionFactory(factory);
 		Mockito.doReturn(session).when(factory).getCurrentSession();
 	}
@@ -44,18 +44,18 @@ public class TestCourseDAO
 	@Test
 	public void testBasic()
 	{
-		dao.insertBean(course);
-		verify(session).save(course);
+		dao.insertBean(coursework);
+		verify(session).save(coursework);
 		
-		dao.updateBean(course);
-		verify(session).saveOrUpdate(course);
+		dao.updateBean(coursework);
+		verify(session).saveOrUpdate(coursework);
 		
-		Mockito.doReturn("").when(course).getCourse_code();
-		Mockito.doReturn(course).when(session).load(Course.class, "");
-		dao.removeBeanByPrimaryKey(course.getCourse_code());
-		verify(session).delete(course);
+		Mockito.doReturn(0).when(coursework).getCoursework_id();
+		Mockito.doReturn(coursework).when(session).load(CourseWork.class, 0);
+		dao.removeBeanByPrimaryKey(coursework.getCoursework_id());
+		verify(session).delete(coursework);
 		
-		Mockito.doReturn(course).when(session).load(Course.class, "");
-		assertTrue(dao.getModelByPrimaryKey("") instanceof Course);
+		Mockito.doReturn(coursework).when(session).load(CourseWork.class, 0);
+		assertTrue(dao.getModelByPrimaryKey(0) instanceof CourseWork);
 	}
 }

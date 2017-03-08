@@ -25,6 +25,13 @@
 					</c:otherwise>
 				</c:choose>
 			</tbody>
+			<tfoot>
+				<tr>
+					<td>
+						<button class="bottom-button" onclick="launchForm(event, 'notify-form')">Notify students</button>	
+					</td>
+				</tr>
+			</tfoot>
 		</table>
 	</div>
 </c:if>

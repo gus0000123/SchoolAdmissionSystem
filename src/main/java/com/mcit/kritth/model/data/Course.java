@@ -6,8 +6,11 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import com.mcit.kritth.model.Bean;
-import com.mcit.kritth.util.BeanUtil;
 
+/***
+ * Course class containing the private information on course
+ * @author Kritth
+ */
 @Entity
 @Table(name="Courses", uniqueConstraints=@UniqueConstraint(columnNames={"course_code"}))
 public class Course implements Bean
@@ -49,7 +52,6 @@ public class Course implements Bean
 		joinColumns={@JoinColumn(name="course_id")},
 		inverseJoinColumns={@JoinColumn(name="student_id")})
 	private Set<Student> students;
-
 	
 	public Course() { }
 	

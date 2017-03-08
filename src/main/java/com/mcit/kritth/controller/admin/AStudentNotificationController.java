@@ -10,6 +10,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,8 +40,12 @@ public class AStudentNotificationController {
 		
 		for (Student student : course.getStudents())
 		{
-			User user = uservice.getByPersonId(student.getPerson().getID());
-			sendMailTo(user);
+			try
+			{
+				User user = uservice.getByPersonId(student.getPerson().getID());
+				sendMailTo(user);
+			}
+			catch (ObjectNotFoundException ex) { ex.printStackTrace(); }
 		}
 		
 		String url = "forward:/course/view";
@@ -73,8 +78,8 @@ public class AStudentNotificationController {
 				InternetAddress.parse(user.getPerson().getEmail()));
 			message.setSubject("MCIT Update Notification");
 			message.setText("Dear " + user.getPerson().getFullName() + ","
-				+ "\n\n This is automatic message to inform all students that there is new update to the mark in the course you participate. Please use the this link for more information."
-				+ "\n\n Regards,\nMCIT IT Team");
+				+ "\n\nThis is automatic message to inform all students that there is new update to the mark in the course you participate. Please use the this link for more information."
+				+ "\n\nRegards,\nMCIT IT Team");
  
 			Transport.send(message);
  

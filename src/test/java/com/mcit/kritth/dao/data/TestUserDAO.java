@@ -1,5 +1,6 @@
 package com.mcit.kritth.dao.data;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 
@@ -16,27 +17,30 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.mcit.kritth.model.data.Course;
+import com.mcit.kritth.model.data.Person;
+import com.mcit.kritth.model.data.User;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestCourseDAO
+public class TestUserDAO
 {
 	@InjectMocks
-	private CourseDAOImpl dao;
+	private UserDAOImpl dao;
 	@Mock
 	private SessionFactory factory;
 	@Mock
 	private Session session;
 	@Mock
-	private Course course;
+	private User user;
 	@Mock
-	private List<Course> courselist;
+	private Person person;
+	@Mock
+	private List<User> userlist;
 	
 	@Before
 	public void init()
 	{
 		MockitoAnnotations.initMocks(this);
-		dao = new CourseDAOImpl();
+		dao = new UserDAOImpl();
 		dao.setSessionFactory(factory);
 		Mockito.doReturn(session).when(factory).getCurrentSession();
 	}
@@ -44,18 +48,18 @@ public class TestCourseDAO
 	@Test
 	public void testBasic()
 	{
-		dao.insertBean(course);
-		verify(session).save(course);
+		dao.insertBean(user);
+		verify(session).save(user);
 		
-		dao.updateBean(course);
-		verify(session).saveOrUpdate(course);
+		dao.updateBean(user);
+		verify(session).saveOrUpdate(user);
 		
-		Mockito.doReturn("").when(course).getCourse_code();
-		Mockito.doReturn(course).when(session).load(Course.class, "");
-		dao.removeBeanByPrimaryKey(course.getCourse_code());
-		verify(session).delete(course);
+		Mockito.doReturn("").when(user).getUsername();
+		Mockito.doReturn(user).when(session).load(User.class, "");
+		dao.removeBeanByPrimaryKey(user.getUsername());
+		verify(session).delete(user);
 		
-		Mockito.doReturn(course).when(session).load(Course.class, "");
-		assertTrue(dao.getModelByPrimaryKey("") instanceof Course);
+		Mockito.doReturn(user).when(session).load(User.class, "");
+		assertTrue(dao.getModelByPrimaryKey("") instanceof User);
 	}
 }
