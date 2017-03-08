@@ -6,7 +6,7 @@
 		<table>
 			<thead>
 				<tr style="cursor: pointer;">
-					<th colspan="4">
+					<th colspan="3">
 						Course Marks
 					</th>
 				</tr>
@@ -16,18 +16,17 @@
 					<td>Course ID</td>
 					<td>Assignment name</td>
 					<td>Mark</td>
-					<td><!-- Empty for styling --></td>
 				</tr>
 				<c:forEach var="coursemark" items = "${ coursemarks.list }" varStatus="status">
 					<tr>
 						<td><c:out value="${ coursemark.coursework.course.course_code }" /></td>
 						<td><c:out value="${ coursemark.coursework.coursework_name }" /></td>
-						<td><input name="list[${ status.index }].mark" type="number" min="0" max="${ coursemark.coursework.max_mark }" value="${ coursemark.mark }" />&nbsp;/&nbsp;<c:out value="${ coursemark.coursework.max_mark }" /></td>
+						<td><form:input path="list[${ status.index }].mark" type="number" min="0" max="${ coursemark.coursework.max_mark }" value="${ coursemark.mark }" />&nbsp;/&nbsp;<c:out value="${ coursemark.coursework.max_mark }" /></td>
 						<td>
 							<!-- Hidden values for spring -->
-							<input name="list[${ status.index }].coursemark_id" type="hidden" value="${ coursemark.coursemark_id }" />
-							<input name="list[${ status.index }].coursework" type="hidden" value="${ coursemark.coursework.coursework_id }" />
-							<input name="list[${ status.index }].student" type="hidden" value="${ coursemark.student.id }" />
+							<form:input path="list[${ status.index }].coursemark_id" type="hidden" value="${ coursemark.coursemark_id }" />
+							<form:input path="list[${ status.index }].coursework" type="hidden" value="${ coursemark.coursework.coursework_id }" />
+							<form:input path="list[${ status.index }].student" type="hidden" value="${ coursemark.student.id }" />
 						</td>
 					</tr> 
 				</c:forEach>

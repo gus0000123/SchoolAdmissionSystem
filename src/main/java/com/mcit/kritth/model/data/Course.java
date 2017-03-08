@@ -168,6 +168,10 @@ public class Course implements Bean
 	public void copy(Bean b) {
 		if (b instanceof Course)
 		{
+			this.setClass_level(((Course) b).getClass_level());
+			this.setCourse_number(((Course) b).getCourse_number());
+			this.setSection(((Course) b).getSection());
+			this.setCourse_code(((Course) b).getCourse_code());
 			this.setCourse_name(((Course) b).getCourse_name());
 			this.setCourse_description(((Course) b).getCourse_description());
 			this.setCapacity(((Course) b).getCapacity());

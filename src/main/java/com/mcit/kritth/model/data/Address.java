@@ -65,6 +65,19 @@ public class Address implements Bean
 	}
 
 	@Override
+	public boolean equals(Object o)
+	{
+		if (o instanceof Address)
+		{
+			return o.toString().hashCode() == this.toString().hashCode();
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	@Override
 	public void copy(Bean b) {
 		if (b instanceof Address)
 		{

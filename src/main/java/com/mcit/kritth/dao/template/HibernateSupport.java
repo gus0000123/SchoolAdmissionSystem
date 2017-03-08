@@ -7,6 +7,7 @@ import java.util.List;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -16,6 +17,8 @@ public class HibernateSupport
 	private SessionFactory sessionFactory;
 	
 	public Session getSession() { return sessionFactory.getCurrentSession(); }
+	
+	public void setSessionFactory(SessionFactory session) { this.sessionFactory = session; }
 	
 	public void insert(Object o) { getSession().save(o); }
 	
@@ -35,7 +38,8 @@ public class HibernateSupport
 	public List loadAll(Class c)
 	{
 		String hql = "FROM " + c.getName();
-		List results = getSession().createQuery(hql).getResultList();
+		Query query = getSession().createQuery(hql);
+		List results = query.getResultList();
 		return results;
 	}
 	

@@ -130,6 +130,19 @@ public class Person implements Bean
 	}
 
 	@Override
+	public boolean equals(Object o)
+	{
+		if (o instanceof Person)
+		{
+			return ((Person) o).getID() == this.getID();
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	@Override
 	public void copy(Bean b) {
 		if (b instanceof Person)
 		{

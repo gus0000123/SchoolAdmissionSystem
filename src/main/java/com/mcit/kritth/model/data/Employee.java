@@ -93,7 +93,7 @@ public class Employee
 	@Override
 	public boolean equals(Object e) {
 		if (e instanceof Employee)
-			return this.getId() == ((Employee) e).getId();
+			return this.hashCode() == ((Employee) e).hashCode();
 		else
 			return false;
 	}

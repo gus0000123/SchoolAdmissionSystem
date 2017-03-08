@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -107,16 +108,18 @@ public class ACourseMarkController
 	@RequestMapping(value = "/coursemark/edit/perform", method = RequestMethod.POST)
 	public ModelAndView courseMarkDoEdit(
 			@RequestParam("student_id") String id,
-			@ModelAttribute("coursemarks") CourseMarkWrapper cmw)
+			@ModelAttribute("coursemarks") CourseMarkWrapper cmw,
+			BindingResult result)
 	{
 		String url = "forward:/student/view";
-		Student student = sservice.getById(Integer.parseInt(id));
 		
 		if (cmw != null && cmw.getList().size() > 0)
 		{
-			for (CourseMark cm : cmw.getList())
+			for (CourseMark coursemark : cmw.getList())
 			{
-				System.out.println(cm.getCoursemark_id());
+				CourseMark cm = cmservice.getById(coursemark.getCoursemark_id());
+				cm.setMark(coursemark.getMark());
+				cmservice.update(cm);
 			}
 		}
 		

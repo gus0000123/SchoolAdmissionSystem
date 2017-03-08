@@ -3,6 +3,7 @@ package com.mcit.kritth.model.data;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 
@@ -109,5 +110,10 @@ public class TestCourse implements TestBean
 		Course course2 = new Course();
 		course2.setClass_level(-1);
 		assertFalse(course.equals(course2));
+		course2.copy(course);
+		assertTrue(course.equals(course2));
+		Address a = new Address();
+		course.copy(a);
+		assertFalse(course.equals(a));
 	}
 }

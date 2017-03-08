@@ -1,6 +1,8 @@
 package com.mcit.kritth.model.data;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -66,5 +68,20 @@ public class TestPerson implements TestBean
 		
 		p.setMiddleName(null);
 		assertNotNull(p.getFullName());
+	}
+	
+	@Test
+	public void testOverride()
+	{
+		Person p2 = new Person();
+		p2.copy(p);
+		assertTrue(p.equals(p2));
+		p2.setID(-1);
+		assertFalse(p.equals(p2));
+		Address a = new Address();
+		p.copy(a);
+		assertFalse(p.equals("String"));
+		p2.setAddress(null);
+		assertTrue(p2.toString().length() > 0);
 	}
 }
