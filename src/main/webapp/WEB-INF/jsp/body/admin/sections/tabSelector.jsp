@@ -9,7 +9,7 @@
 		</c:otherwise>
 	</c:choose>
 	<c:choose>
-		<c:when test="${ tab eq 'student' }">
+		<c:when test="${ tab eq 'student' or tab eq 'coursemark' }">
 			<button class="active">Student</button>
 		</c:when>
 		<c:otherwise>
@@ -17,7 +17,7 @@
 		</c:otherwise>
 	</c:choose>
 	<c:choose>
-		<c:when test="${ tab eq 'course' }">
+		<c:when test="${ tab eq 'course' or tab eq 'coursework' }">
 			<button class="active">Course</button>
 		</c:when>
 		<c:otherwise>
