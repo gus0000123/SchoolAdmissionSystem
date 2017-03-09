@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mcit.kritth.bo.template.CourseBO;
 import com.mcit.kritth.bo.template.CourseMarkBO;
 import com.mcit.kritth.bo.template.CourseWorkBO;
+import com.mcit.kritth.bo.template.StudentBO;
 import com.mcit.kritth.dao.template.CourseWorkDAO;
 import com.mcit.kritth.model.data.CourseMark;
 import com.mcit.kritth.model.data.CourseWork;
@@ -27,6 +28,9 @@ public class CourseWorkBOImpl implements CourseWorkBO
 	
 	@Autowired
 	private CourseBO cservice;
+	
+	@Autowired
+	private StudentBO sservice;
 	
 	@Override
 	public void insert(CourseWork o)
@@ -59,7 +63,12 @@ public class CourseWorkBOImpl implements CourseWorkBO
 		{
 			if (cm.getCoursework().equals(o))
 			{
-				try { cmservice.delete(cm); } 
+				try
+				{
+					cm.getStudent().getMarks().remove(cm);
+					sservice.update(cm.getStudent());
+					cmservice.delete(cm);
+				} 
 				catch (Exception e) { e.printStackTrace(); }
 			}
 		}

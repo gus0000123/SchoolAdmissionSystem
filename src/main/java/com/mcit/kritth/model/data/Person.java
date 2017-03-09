@@ -98,7 +98,6 @@ public class Person implements Bean
 				+ (middleName != null ? middleName + " " : "")
 				+ lastName;
 	}
-	
 	@Override
 	public String toString()
 	{
@@ -153,7 +152,7 @@ public class Person implements Bean
 			this.setLastName(((Person) b).getLastName());
 			this.setTelNo(((Person) b).getTelNo());
 			this.setMiddleName(((Person) b).getMiddleName());
-			// Address is handled explicitly
+			this.setAddress(((Person) b).getAddress());
 		}
 	}
 }

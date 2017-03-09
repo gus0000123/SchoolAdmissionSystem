@@ -20,10 +20,7 @@ public class AdminController
 			@ModelAttribute User u,
 			BindingResult result,
 			@RequestParam(value = "tab", required = false) String tab)
-	{
-		// User not available
-		if (u == null) return new ModelAndView("redirect:/");
-		
+	{		
 		String url = "";
 		if (tab == null) tab = "person";
 		

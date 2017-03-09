@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<form:form action="admin" method="post" commandName="coursework">
+<form:form id="course-work-form" action="admin" method="post" commandName="coursework">
 	<input type="hidden" name="tab" value="coursework" />
 	<input type="hidden" name="mode" value="${ mode }" />
 	<input type="hidden" name="course_code" value="${ course.course_code }" /> <!-- this name required for forwarding to course controller -->
@@ -21,7 +21,7 @@
 			</tr>
 			<tr>
 				<td>* Contribution</td>
-				<td><form:input type="number" name="cw_contribution" min="0" max="1" path="contribution" step="0.01" /></td>
+				<td><form:input type="number" name="cw_contribution" min="0.01" max="1" path="contribution" step="0.01" /></td>
 			</tr>
 			<tr>
 				<td>* Mark</td>
@@ -33,10 +33,10 @@
 				<td colspan="2">
 					<c:choose>
 						<c:when test="${ mode eq 'insert' }">
-							<input class="bottom-button" type="submit" value="Insert" />
+							<input class="bottom-button" type="submit" value="Insert" onclick="launchForm(event, 'course-work-form')" />
 						</c:when>
 						<c:otherwise>
-							<input class="bottom-button" type="submit" value="Edit" />
+							<input class="bottom-button" type="submit" value="Edit" onclick="launchForm(event, 'course-work-form')" />
 						</c:otherwise>
 					</c:choose>
 					<button class="bottom-button" onclick="launchForm(event, 'return-to-course-view')">Back</button>

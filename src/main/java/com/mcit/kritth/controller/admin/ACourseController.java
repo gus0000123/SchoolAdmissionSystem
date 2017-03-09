@@ -212,7 +212,6 @@ public class ACourseController
 				Student[] students = course.getStudents().toArray(new Student[course.getStudents().size()]);
 				model.addObject("all_students", students);
 				
-				System.out.println("Course has " + course.getCourse_works().size());
 				CourseWork[] courseworks = course.getCourse_works().toArray(new CourseWork[course.getCourse_works().size()]);
 				model.addObject("all_courseworks", courseworks);
 			}
@@ -256,8 +255,6 @@ public class ACourseController
 		
 		try { cservice.insert(course); } // In case course_code is the same, do nothing for now
 		catch (Exception e) { e.printStackTrace(); }
-		
-		System.out.println("Here");
 		
 		ModelAndView model = new ModelAndView(url);
 		

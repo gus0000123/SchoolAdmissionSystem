@@ -40,7 +40,7 @@ public class APersonController
 			@RequestParam(value = "mode", required = false) String mode,
 			@RequestParam(value = "actionPerformed", required = false) Boolean performed)
 	{
-		String url = ""; 
+		String url = "";
 		if (mode == null) { mode = "view"; }
 		if (performed == null) { performed = false; }
 		
@@ -112,7 +112,6 @@ public class APersonController
 		return model;
 	}
 	
-	// TODO: Add all parameters
 	@RequestMapping(value = "/person/insert", method = RequestMethod.POST)
 	public ModelAndView initInsertPerson()
 	{

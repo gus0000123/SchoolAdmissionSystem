@@ -82,6 +82,13 @@ public class CourseBOImpl implements CourseBO
 		// Clear students
 		updateStudents(o, null);
 		
+		// Clear Courseworks
+		for (CourseWork cw : o.getCourse_works())
+		{
+			try { cwservice.delete(cw); }
+			catch (Exception e) { e.printStackTrace(); }
+		}
+		
 		// Remove instructor
 		if (o.getInstructor() != null && o.getInstructor().getAssigned_courses().contains(o))
 		{
@@ -89,7 +96,6 @@ public class CourseBOImpl implements CourseBO
 			eservice.update(o.getInstructor());
 		}
 		
-		// does not need coursework as it is cascade.all
 		dao.removeBeanByPrimaryKey(o.getCourse_code());
 	}
 
@@ -105,7 +111,6 @@ public class CourseBOImpl implements CourseBO
 		// Old coursework
 		for (CourseWork cw : old_course_works)
 		{
-			System.out.println("Check cw: " + cw.getCoursework_id());
 			if (!c.getCourse_works().contains(cw))
 			{
 				try { cwservice.delete(cw); }
@@ -118,9 +123,9 @@ public class CourseBOImpl implements CourseBO
 	{
 		if (s.getEnrolled_courses().contains(c))
 		{
-			boolean found = false;
 			for (CourseWork cw : c.getCourse_works())
 			{
+				boolean found = false;
 				for (CourseMark cm : s.getMarks())
 				{
 					if (cm.getCoursework().equals(cw))
@@ -166,8 +171,9 @@ public class CourseBOImpl implements CourseBO
 				{
 					s.getEnrolled_courses().add(newCourse);
 					sservice.update(s);
-					updateStudentCourseMark(newCourse, s);
 				}
+				
+				updateStudentCourseMark(newCourse, s);
 			}
 		}
 		else

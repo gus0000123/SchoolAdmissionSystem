@@ -27,63 +27,25 @@
 			</tr>
 			<tr>
 				<td><label for="p_street_address">Street address:</label></td>
-				<td>
-					<c:choose>
-						<c:when test="${ empty p_street_address }">
-							<input name="p_street_address" type="text" placeholder="Enter street address" />
-						</c:when>
-						<c:otherwise>
-							<input name="p_street_address" type="text" placeholder="Enter street address" value="${ p_street_address }" />
-						</c:otherwise>
-					</c:choose>
-				</td>
+				<td><form:input id="p_street_address" type="text" placeholder="Enter street address" path="address.streetAddress" /></td>
 			</tr>
 			<tr>
 				<td><label for="p_city">City:</label></td>
-				<td>
-					<c:choose>
-						<c:when test="${ empty p_city }">
-							<input name="p_city" type="text" placeholder="Enter city name" />
-						</c:when>
-						<c:otherwise>
-							<input name="p_city" type="text" placeholder="Enter city name" value="${ p_city }" />
-						</c:otherwise>
-					</c:choose>
-				</td>
+				<td><form:input id="p_city" type="text" placeholder="Enter city name" path="address.city" /></td>
 			</tr>
 			<tr>
 				<td><label for="p_state">State:</label></td>
-				<td>
-					<c:choose>
-						<c:when test="${ empty p_state }">
-							<input name="p_state" type="text" placeholder="Enter state" />
-						</c:when>
-						<c:otherwise>
-							<input name="p_state" type="text" placeholder="Enter state" value="${ p_state }" />
-						</c:otherwise>
-					</c:choose>
-				</td>
+				<td><form:input id="p_state" type="text" placeholder="Enter state" path="address.state" /></td>
 			</tr>
 			<tr>
 				<td><label for="p_country">Country</label></td>
 				<td>
-					<select name="p_country">
-						<jsp:include page="../../../global/countryDropdown.jsp" />
-					</select>
+					<jsp:include page="../../../global/countryDropdown.jsp" />
 				</td>
 			</tr>
 			<tr>
 				<td><label for="p_postal">Postal:</label></td>
-				<td>
-					<c:choose>
-						<c:when test="${ empty p_postal }">
-							<input name="p_postal" type="text" placeholder="Enter postal code" />
-						</c:when>
-						<c:otherwise>
-							<input name="p_postal" type="text" placeholder="Enter postal code" value="${ p_postal }" />
-						</c:otherwise>
-					</c:choose>
-				</td>
+				<td><form:input id="p_postal" type="text" placeholder="Enter postal code" path="address.postal" /></td>
 			</tr>	
 			<tr>
 				<td><label for="p_tel_no">Telephone:</label></td>

@@ -1,7 +1,7 @@
 package com.mcit.kritth.bo.data;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -16,9 +16,13 @@ import com.mcit.kritth.bo.template.StudentBO;
 import com.mcit.kritth.dao.template.StudentDAO;
 import com.mcit.kritth.model.data.Course;
 import com.mcit.kritth.model.data.CourseMark;
-import com.mcit.kritth.model.data.CourseWork;
 import com.mcit.kritth.model.data.Student;
 
+/**
+ * Student Service layer
+ * @author Kritth
+ *
+ */
 @Service("studentService")
 @Transactional
 public class StudentBOImpl implements StudentBO
@@ -47,12 +51,18 @@ public class StudentBOImpl implements StudentBO
 		s.setDepartment(o.getDepartment());
 		s.setAdmission_status(o.getAdmission_status());
 		s.setEnrolled_courses(o.getEnrolled_courses());
-		s.setMarks(o.getMarks());
 		
 		dao.updateBean(s);
 		
 		// Check if course changed
 		updateCourses(s, oldCourses);
+		
+		int coursework_amount = 0;
+		for (Course c : s.getEnrolled_courses()) { coursework_amount += c.getCourse_works().size(); }
+		if (coursework_amount > 0 && o.getMarks().size() > 0) { s.setMarks(o.getMarks()); }
+		if (coursework_amount == 0 && o.getMarks().size() == 0) { s.setMarks(o.getMarks()); }
+		
+		dao.updateBean(s);
 	}
 
 	@Override
@@ -65,6 +75,13 @@ public class StudentBOImpl implements StudentBO
 			cservice.update(c);
 		}
 		
+		// Delete course marks
+		for (CourseMark cm : o.getMarks())
+		{
+			try { cmservice.delete(cm); }
+			catch (Exception e) { e.printStackTrace(); }
+		}
+		
 		dao.removeBeanByPrimaryKey(o.getId());
 	}
 
@@ -75,67 +92,11 @@ public class StudentBOImpl implements StudentBO
 	@Override
 	public List<Student> getAll() { return dao.getAllBeans(); }
 	
-	// this is only created/delete when course is added or removed
-	private void updateStudentGrade(Student s, Course c)
-	{	
-		// Delete if not contain
-		if (!s.getEnrolled_courses().contains(c))
-		{
-			Set<CourseMark> cmlistToDelete = new HashSet<>();
-			List<CourseMark> cmlist = cmservice.getAll();
-			
-			for (CourseMark cm : cmlist)
-			{
-				if (cm.getCoursework().getCourse().equals(c)
-						&& cm.getStudent().equals(s))
-				{
-					cmlistToDelete.add(cm);
-				}
-			}
-			
-			for (CourseMark cm : cmlistToDelete)
-			{
-				System.out.println("Deleting cm " + cm.getCoursemark_id() + " for cw " + cm.getCoursework().getCoursework_id());
-				s.getMarks().remove(cm);
-				try { cmservice.delete(cm); }
-				catch (Exception e) { e.printStackTrace(); }
-			}
-			
-			dao.updateBean(s);
-		}
-		else
-		{
-			// Adding course mark
-			for (CourseWork cw : c.getCourse_works())
-			{
-				boolean found = false;
-				for (CourseMark scm : s.getMarks())
-				{
-					if (scm.getCoursework().getCoursework_id() == cw.getCoursework_id())
-					{
-						found = true;
-						break;
-					}
-					
-				}
-				
-				if (!found)
-				{
-					CourseMark cm = new CourseMark();
-					
-					cm.setMark(0);
-					cm.setCoursework(cw);
-					cm.setStudent(s);
-					
-					cmservice.insert(cm);
-					
-					s.getMarks().add(cm);
-				}
-			}
-			dao.updateBean(s);
-		}
-	}
-	
+	/**
+	 * Bidirectional update for student and courses
+	 * @param newStudent
+	 * @param oldCourses
+	 */
 	private void updateCourses(Student newStudent, Set<Course> oldCourses)
 	{
 		if (oldCourses != null)
@@ -143,15 +104,32 @@ public class StudentBOImpl implements StudentBO
 			// Delete student from old courses
 			if (oldCourses.size() > 0)
 			{
-				System.out.println("Deleting old courses");
 				for (Course c : oldCourses)
 				{
 					if (!newStudent.getEnrolled_courses().contains(c))
 					{
-						System.out.println("Processing old course " + c.getCourse_code());
 						c.getStudents().remove(newStudent);
 						cservice.update(c);
-						updateStudentGrade(newStudent, c);
+						
+						List<CourseMark> CourseMarkToRemove = new ArrayList<>();
+						for (CourseMark cm : newStudent.getMarks())
+						{
+							if (cm.getCoursework().getCourse().equals(c))
+							{
+								try
+								{
+									cmservice.delete(cm);
+									CourseMarkToRemove.add(cm);
+								}
+								catch (Exception e) { e.printStackTrace(); }
+							}
+						}
+						
+						for (CourseMark cm : CourseMarkToRemove)
+						{
+							newStudent.getMarks().remove(cm);
+						}
+						dao.updateBean(newStudent);
 					}
 				}
 			}
@@ -163,7 +141,6 @@ public class StudentBOImpl implements StudentBO
 				{
 					c.getStudents().add(newStudent);
 					cservice.update(c);
-					updateStudentGrade(newStudent, c);
 				}
 			}
 		}
