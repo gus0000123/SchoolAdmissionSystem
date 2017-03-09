@@ -11,13 +11,10 @@
 				<td style="width: 150px;"><label for="c_instructor">* Instructor:</label></td>
 				<td style="width: calc(100% - 150px);">
 					<form:select name="c_instructor" path="instructor">
-						<c:forEach var="instructor" items="${ instructor_list }">
-							<form:option value="${ instructor.id }"><c:out value="${ instructor.person.getFullName() }" /></form:option>
-						</c:forEach>
+						<form:options items="${ instructor_list }" itemValue="id" itemLabel="person.firstName" />
 					</form:select>
 				</td>
 			</tr>
-			<!-- TODO: Course's teaching assistance if time allowed -->
 		</tbody>
 	</table>
 </div>

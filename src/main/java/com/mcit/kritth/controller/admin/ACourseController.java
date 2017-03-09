@@ -18,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mcit.kritth.bo.template.CourseBO;
+import com.mcit.kritth.bo.template.CourseMarkBO;
 import com.mcit.kritth.bo.template.CourseWorkBO;
 import com.mcit.kritth.bo.template.DepartmentBO;
 import com.mcit.kritth.bo.template.EmployeeBO;
 import com.mcit.kritth.bo.template.StudentBO;
 import com.mcit.kritth.model.data.Course;
+import com.mcit.kritth.model.data.CourseMark;
 import com.mcit.kritth.model.data.CourseWork;
 import com.mcit.kritth.model.data.Department;
 import com.mcit.kritth.model.data.Employee;
@@ -42,6 +44,8 @@ public class ACourseController
 	private StudentBO sservice;
 	@Autowired
 	private CourseWorkBO cwservice;
+	@Autowired
+	private CourseMarkBO cmservice;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder)
@@ -146,6 +150,9 @@ public class ACourseController
 				break;
 			case "delete":
 				url = "forward:/course/delete";
+				break;
+			case "notify":
+				url = "forward:/course/notify";
 				break;
 			case "view":
 			default:
@@ -287,6 +294,12 @@ public class ACourseController
 			Course course = cservice.getById(id);
 			for (Student s : course.getStudents())
 			{
+				for (CourseMark cm : s.getMarks())
+				{
+					try { cmservice.delete(cm); }
+					catch (Exception e) { }
+				}
+				s.setMarks(null);
 				s.getEnrolled_courses().remove(course);
 				sservice.update(s);
 			}

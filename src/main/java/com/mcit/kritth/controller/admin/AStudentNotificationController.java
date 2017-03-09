@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mcit.kritth.bo.template.CourseBO;
 import com.mcit.kritth.bo.template.UserBO;
@@ -33,8 +34,9 @@ public class AStudentNotificationController {
 	private final String username = "mcit.fproj.test@gmail.com";
 	private final String password = "fprojtest";
 	
-	@RequestMapping(value = "/course/notify/")
-	public ModelAndView notifyStudents(@RequestParam("course_id") String course_id)
+	@RequestMapping(value = "/course/notify")
+	public ModelAndView notifyStudents(@RequestParam("course_id") String course_id
+			, RedirectAttributes redir)
 	{
 		Course course = cservice.getById(course_id);
 		
@@ -51,7 +53,6 @@ public class AStudentNotificationController {
 		String url = "forward:/course/view";
 		
 		ModelAndView model = new ModelAndView(url);
-		
 		return model;
 	}
 	

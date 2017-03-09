@@ -33,7 +33,9 @@
 		<input id="cw_id" type="hidden" name="coursework_id" />
 	</form>
 	<c:if test="${ mode eq 'edit' }">
-		<form id="notify-form" action="course/notify/" method="post">
+		<form id="notify-form" action="admin" method="post">
+			<input type="hidden" name="tab" value="course" />
+			<input type="hidden" name="mode" value="notify" />
 			<input type="hidden" name="course_id" value="${ course.course_code }" />
 		</form>
 	</c:if>

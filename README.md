@@ -1,11 +1,9 @@
 Final project for Web Application development course.
 
 Front-end Technology:
-- JSP + JSTL (JSF)
+- JSP + JSTL
 - HTML5 / CSS3 / Javascript
 - jQuery
-- Bootstrap
-- Apache Tiles
 
 Backend Technologies:
 - Persistence
@@ -17,7 +15,6 @@ Backend Technologies:
 - DI (Dependency Injection)
 	- Spring IoC (Core)
 	- Spring MVC
-	- REST
 - Dependency Management
 	- Maven
 - Server
@@ -25,8 +22,6 @@ Backend Technologies:
 	- Log4J
 - Version Control
 	- Git
-- Deployment Management
-	- Jenkins
 - Eclipse
 - Java
 - JEE
