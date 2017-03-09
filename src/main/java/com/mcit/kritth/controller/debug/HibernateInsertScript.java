@@ -40,9 +40,6 @@ public class HibernateInsertScript
 	@Autowired
 	private  CourseWorkBO cwservice;
 	
-	@Autowired
-	private  CourseMarkBO cmservice;
-	
 	@RequestMapping(value = "/debug/insert", method= {RequestMethod.GET})
 	public ModelAndView debugScript(String[] args)
 	{		

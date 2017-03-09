@@ -9,6 +9,7 @@
 		<input type="hidden" name="studentAction" value="edit" />
 		<button class="bottom-button" onclick="launchForm(event, 'student-admin-modify-form')">Edit</button>
 		<button class="bottom-button" onclick="returnToView(event)">Back</button>
+		<button class="bottom-button" onclick="printTranscript(event, ${student.id})">Print Transcript</button>
 	</form:form>
 	<jsp:include page="studentCourseInsertion.jsp" />
 	<form id="return-to-student-view" action="admin" method="post">
@@ -21,5 +22,10 @@
 	</form>
 	<script>
 		function returnToView(e) { launchForm(e, 'return-to-student-view'); }
+		function printTranscript(e, id)
+		{
+			e.preventDefault();
+			window.open('/SchoolAdmissionSystem/student/print/' + id, '_blank');
+		}
 	</script>
 </div>

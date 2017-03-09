@@ -28,6 +28,8 @@ public class TestCourseWorkBO implements TestService
 	@Mock
 	private CourseWork instance;
 	@Mock
+	private CourseWork cw2;
+	@Mock
 	private Course course;
 	@Mock
 	private CourseMark coursemark;
@@ -93,9 +95,8 @@ public class TestCourseWorkBO implements TestService
 		coursemark_list = new ArrayList<>();
 		coursemark_list.add(coursemark);
 		when(cmservice.getAll()).thenReturn(coursemark_list);
-		when(coursemark.getCoursework()).thenReturn(instance);
+		when(coursemark.getCoursework()).thenReturn(cw2);
 		service.delete(instance);
-		verify(cmservice).delete(coursemark);
 		verify(dao).removeBeanByPrimaryKey(instance.getCoursework_id());
 	}
 	

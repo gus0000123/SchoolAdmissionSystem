@@ -78,7 +78,7 @@ public class AStudentNotificationController {
 				InternetAddress.parse(user.getPerson().getEmail()));
 			message.setSubject("MCIT Update Notification");
 			message.setText("Dear " + user.getPerson().getFullName() + ","
-				+ "\n\nThis is automatic message to inform all students that there is new update to the mark in the course you participate. Please use the this link for more information."
+				+ "\n\nThis is automatic message to inform all students that there is new update to the mark in the course you participate. Please contact your instructor for more information."
 				+ "\n\nRegards,\nMCIT IT Team");
  
 			Transport.send(message);

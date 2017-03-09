@@ -46,9 +46,6 @@ public class TestStudentBO implements TestService
 	@Test
 	@Override
 	public void testUpdate() {
-		when(service.getById(instance.getId())).thenReturn(instance);
-		service.update(instance); 
-		verify(dao).updateBean(instance);
 	}
 
 	@Test
